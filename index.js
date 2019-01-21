@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const mongoose = require('mongoose');
-var clashRoutes = require('./routes/clashRoutes');
+// var clashRoutes = require('./routes/clashRoutes');
 
 const PORT = process.env.PORT || 5000
 
@@ -19,9 +19,9 @@ connection.on("open", function (err) {
 var app = express();
 
 app.use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .get('/cr', (req, res) => res.render('pages/indexcr'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
-  app.use('/c', clashRoutes);
+app .set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
+app.get('/', (req, res) => res.render('pages/index'))
+app .get('/cr', (req, res) => res.render('pages/indexcr'))
+app .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+  // app.use('/c', clashRoutes);
