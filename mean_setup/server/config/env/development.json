@@ -1,7 +1,0 @@
-{
-    "databaseConfig": {
-        "host": "localhost",
-        "database": "mean-trello",
-        "sessionSecret": "developmentSessionSecret"
-    }
-}
