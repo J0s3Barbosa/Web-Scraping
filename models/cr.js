@@ -8,10 +8,10 @@ const Schema = mongoose.Schema;
         type: Number
     },
     Victory: {
-        type: String
+        type: Number
     },
     Defeat: {
-        type: String
+        type: Number
     },
     Played_at: {
         type: Date,
@@ -19,5 +19,5 @@ const Schema = mongoose.Schema;
     }
 });
 module.exports = ClashSchema;
-module.exports = mongoose.model('ClashRoyale', ClashSchema)
+module.exports = mongoose.model('clashroyale', ClashSchema)
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <% include ../partials/header.ejs %>
 </head>
@@ -7,8 +8,38 @@
 <body>
 
   <% include ../partials/nav.ejs %>
+
   <h2>Clash Royale</h2>
+
+  <form action="/c/clash/createmethod" method="post">
+    <div class="form-group">
+
+      <label for="Trophies">Enter Trophies: </label>
+      <input id="Trophies" type="Number" name="Trophies" value="Number of Trophies." class="form-control">
+    </div>
+    <div class="form-group">
+
+      <label for="Victory">Enter Victory: </label>
+      <input id="Victory" type="Number" name="Victory" class="form-control">
+    </div>
+
+    <div class="form-group">
+
+      <label for="Defeat">Enter Defeat: </label>
+      <input id="Defeat" type="Number" name="Defeat" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-default">Insert Data</button>
+
+  </form>
+<h2>Loop</h2>
+
+<ul>
+
+
+</ul>
 
 
 </body>
+
 </html>
