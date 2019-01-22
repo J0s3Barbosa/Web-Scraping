@@ -11,5 +11,7 @@ $ npm install
 # Start the server:
 $ npm start
 
-http://localhost:8080/
+http://localhost:5000/cr
+http://localhost:5000/c/clashs
+
 
