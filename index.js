@@ -4,8 +4,10 @@ const mongoose = require('mongoose');
 var clashRoutes = require('./routes/clashRoutes');
 var bodyParser = require('body-parser')
 
+
 const request_promise = require('request-promise');
 const $ = require('cheerio');
+var webScrapObj = require('./models/webScrapingobj')
 
 
 const PORT = process.env.PORT || 5000
@@ -28,13 +30,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-var webScrapingBody = []
-var webScrapObj = {
-temp: String,
-day: String,
-wavesSize: String,
-wavesSizeDetailed: String
-}
 // express()
 app.use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
