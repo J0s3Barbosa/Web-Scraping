@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 var clashRoutes = require('./routes/clashRoutes');
 var bodyParser = require('body-parser')
 
+const request_promise = require('request-promise');
+const $ = require('cheerio');
+
+
 const PORT = process.env.PORT || 5000
 
 mongoose.Promise = global.Promise;
@@ -24,21 +28,64 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-
+var webScrapingBody = []
+var webScrapObj = {
+temp: String,
+day: String,
+wavesSize: String,
+wavesSizeDetailed: String
+}
 // express()
 app.use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
+
   .get('/cr', (req, res) => {
     var drinks = []
-    
-    res.render('pages/indexcr' , {
+
+    res.render('pages/indexcr', {
       drinks: drinks
-    }
-    )
-  }
-  )
+    })
+  })
+
+  .get('/webscraping', (req, res) => {
+    const urlpraiaitacoatiarasurfguru = 'http://pt.surf-forecast.com/breaks/Itacoatiara/forecasts/latest';
+    const urlItacoatiaraseatemp = 'http://pt.surf-forecast.com/breaks/Itacoatiara/seatemp';
+
+    webScraping(urlpraiaitacoatiarasurfguru,urlItacoatiaraseatemp, 'tbody b','.day-end b', '.swell-icon-val','.swell-symbol-cell');
+
+    res.json(webScrapObj)
+  })
 
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 app.use('/c', clashRoutes);
+
+function webScraping(url,urltemp, toSearchTemp, toSearch, toSearch2, toSearch3) {
+  request_promise(urltemp)
+    .then(function (html) {
+      //success!
+      var webscrapresult = $(toSearchTemp, html).text();
+      webScrapObj.temp = webscrapresult.replace('Brazil\n              \n              Temperaturas da água à superfícieBrazil \n              Anomalias na emperatura dos oceanos', '')
+    })
+
+   request_promise(url)
+    .then(function (html) {
+      //success!
+      var webscrapresult = $(toSearch, html).html();
+      webScrapObj.day =  webscrapresult
+    })
+    request_promise(url)
+    .then(function (html) {
+      //success!
+      var webscrapresult = $(toSearch2, html).html();
+      webScrapObj.wavesSize =  webscrapresult
+    } )
+    request_promise(url)
+    .then(function (html) {
+      //success!
+      var webscrapresult = $(toSearch3, html).text();
+      webScrapObj.wavesSizeDetailed =  webscrapresult
+    } )
+} 
+ 
