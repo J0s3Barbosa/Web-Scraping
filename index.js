@@ -40,12 +40,12 @@ app.use(express.static(path.join(__dirname, 'public')))
   .get('/weatherWebScraping', (req, res) => res.render('pages/weatherWebScraping'))
 
   .get('/cr', (req, res) => {
-try {
+    try {
 
-  res.render('pages/indexcr')
-} catch (error) {
- 
-}
+      res.render('pages/indexcr')
+    } catch (error) {
+      console.log(error)
+    }
 
   })
 
@@ -94,17 +94,17 @@ var obj = [];
 app.get('/clashroyaleapi', (req, res) => {
   try {
     var clashRoyaleUrl = ["https://statsroyale.com/profile/9JUUVGLQQ",
-    "https://statsroyale.com/profile/9UG2R28R2",
-    "https://statsroyale.com/profile/QCYVUL",
-    "https://statsroyale.com/profile/2R900UR",
-    "https://statsroyale.com/profile/UULQLJU",
-    // "https://statsroyale.com/profile/2R900UR/decks?type=ladder",
-    
-  ];
-  var test1 = null
-  clashRoyaleUrl.forEach(element => {
+      "https://statsroyale.com/profile/9UG2R28R2",
+      "https://statsroyale.com/profile/QCYVUL",
+      "https://statsroyale.com/profile/2R900UR",
+      "https://statsroyale.com/profile/UULQLJU",
+      // "https://statsroyale.com/profile/2R900UR/decks?type=ladder",
+
+    ];
+    var test1 = null
+    clashRoyaleUrl.forEach(element => {
       test1 = clashroyaleStatus(element)
-  });
+    });
     res.json(test1);
   } catch (error) {
     console.log(error)
@@ -138,28 +138,28 @@ function clashroyaleStatus(clashRoyaleUrl) {
           userLevel: Number,
           favouriteCardName: String
         }
-          crStatusObj.Player = Player.replace('\n', ''),
+        crStatusObj.Player = Player.replace('\n', ''),
           crStatusObj.Highest_Trophies = Highest_Trophies,
-          crStatusObj.Trophies =Trophies,
+          crStatusObj.Trophies = Trophies,
           crStatusObj.userLevel = userLevel,
-          crStatusObj.favouriteCardName =favouriteCardName
-          // 'Winrate': Winrate,
+          crStatusObj.favouriteCardName = favouriteCardName
+        // 'Winrate': Winrate,
 
-            if(obj.length == 0) {
+        if (obj.length == 0) {
+          obj.push(crStatusObj);
+        }
+        else if (obj.length > 0) {
+          var playerexists = false
+          obj.forEach(element => {
+            if (element.Player === crStatusObj.Player) {
+              playerexists = true
+            }
+          });
+          if (!playerexists) {
             obj.push(crStatusObj);
           }
-          else if (obj.length > 0) {
-            var playerexists = false
-            obj.forEach(element => {
-              if (element.Player === crStatusObj.Player) {
-                playerexists = true
-              }
-            });
-            if (!playerexists) {
-              obj.push(crStatusObj);
-            }
-  
-          }
+
+        }
         // var objfill = {
         //   'Player': Player.replace('\n', ''),
         //   'Highest_Trophies': Highest_Trophies,
@@ -184,7 +184,7 @@ function clashroyaleStatus(clashRoyaleUrl) {
         //     obj.push(objfill);
         //   }
 
-          //  }
+        //  }
 
       })
 
