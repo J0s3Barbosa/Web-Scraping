@@ -7,13 +7,13 @@
   <script>
    
     $(document).ready(function () {
-        $("#div1").load("http://localhost:5000/webscraping", function (responseTxt, statusTxt, xhr) {
+        $("#div1").load("/webscraping", function (responseTxt, statusTxt, xhr) {
           if (statusTxt == "success")
             if (statusTxt == "error")
               alert("Error: " + xhr.status + ": " + xhr.statusText);
         });
       $("#btnLoadData").click(function () {
-        $("#div1").load("http://localhost:5000/webscraping", function (responseTxt, statusTxt, xhr) {
+        $("#div1").load("/webscraping", function (responseTxt, statusTxt, xhr) {
           if (statusTxt == "success")
             if (statusTxt == "error")
               alert("Error: " + xhr.status + ": " + xhr.statusText);
