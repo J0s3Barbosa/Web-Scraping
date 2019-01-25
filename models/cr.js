@@ -5,13 +5,16 @@ const Schema = mongoose.Schema;
   var ClashSchema = new Schema({
 
     Trophies: {
-        type: Number
+        type: Number,
+        required: true
     },
     Victory: {
-        type: Number
+        type: Number,
+        required: true
     },
     Defeat: {
-        type: Number
+        type: Number,
+        required: true
     },
     Played_at: {
         type: Date,

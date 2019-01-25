@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/header.ejs %>
+
+  <script>
+   
+    $(document).ready(function () {
+        $("#div1").load("http://localhost:5000/webscraping", function (responseTxt, statusTxt, xhr) {
+          if (statusTxt == "success")
+            if (statusTxt == "error")
+              alert("Error: " + xhr.status + ": " + xhr.statusText);
+        });
+      $("#btnLoadData").click(function () {
+        $("#div1").load("http://localhost:5000/webscraping", function (responseTxt, statusTxt, xhr) {
+          if (statusTxt == "success")
+            if (statusTxt == "error")
+              alert("Error: " + xhr.status + ": " + xhr.statusText);
+        });
+      });
+ 
+    });
+
+
+  </script>
+
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+
+  <div class="container">
+  
+      <%if(typeof error == "undefined"){%>
+ <% } else { %>
+         <%= error.message %>
+    <%}%>
+ 
+    <div class="well well-lg">
+          <h2>Itacoatiara   </h2>
+          <div id="div1">
+        </div>
+      
+        <button id="btnLoadData" class="btn btn-primary">Load/Refresh Data</button>
+      
+      </div>
+        
+      <!-- end container -->
+  </div>
+
+
+</body>
+
+</html>

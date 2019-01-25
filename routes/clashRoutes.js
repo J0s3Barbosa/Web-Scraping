@@ -31,5 +31,7 @@ router.get('/clash/:id', clashController.clashroyale_detail);
 
 // GET request for list of all ClashRoyales.
 router.get('/clashs', clashController.getClashRoyaleList);
+
+router.get('/clashroyaleapi', clashController.getClashRoyale_Api);
  
 module.exports = router;

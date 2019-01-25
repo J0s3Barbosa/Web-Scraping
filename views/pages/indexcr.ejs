@@ -3,41 +3,84 @@
 
 <head>
   <% include ../partials/header.ejs %>
+
+  <script>
+
+    function validateForm() {
+      var x = document.forms["myForm"]["Trophies"].value;
+      var xVictory = document.forms["myForm"]["Victory"].value;
+      if (x == "" && xVictory == "") {
+        alert("Fields are empty! ");
+        return false;
+      }
+    }
+
+    function loadClashRoyaleBattleData() {
+        $("#divCrBattledata").load("http://localhost:5000/c/clashs", function (responseTxt, statusTxt, xhr) {
+          if (statusTxt == "success")
+            if (statusTxt == "error")
+              alert("Error: " + xhr.status + ": " + xhr.statusText);
+        });
+      }
+      function loadClashRoyaleStatus() {
+        $("#divSatus").load("http://localhost:5000/clashroyaleapi", function (responseTxt, statusTxt, xhr) {
+          if (statusTxt == "success")
+            if (statusTxt == "error")
+              alert("Error: " + xhr.status + ": " + xhr.statusText);
+        });
+      }
+
+    $(document).ready(function () {
+
+      loadClashRoyaleStatus();
+
+      $("#btnLoadCrStatus").click(function () {
+        loadClashRoyaleStatus();
+      });
+  
+      $("#btnCrBattledata").click(function () {
+        loadClashRoyaleBattleData();
+      });
+   
+      document.getElementById("btnLoadCrApiData").addEventListener("click", showMessage);
+
+      function showMessage() {
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        var messagetshow = "Loaded Successfully!"
+
+        document.getElementById("snackbar").innerHTML = messagetshow;
+      }
+
+
+    });
+
+
+  </script>
+
 </head>
 
 <body>
 
   <% include ../partials/nav.ejs %>
+  <div id="demo">
+  </div>
 
-  <h2>Clash Royale</h2>
+  <div class="container">
 
-  <form action="/c/clash/createmethod" method="post">
-    <div class="form-group">
+    <%if(typeof error == "undefined"){%>
+    <% } else { %>
+    <%= error.message %>
+    <%}%>
 
-      <label for="Trophies">Enter Trophies: </label>
-      <input id="Trophies" type="Number" name="Trophies" value="Number of Trophies." class="form-control">
-    </div>
-    <div class="form-group">
+    <% include ../partials/insertCr.ejs %>
 
-      <label for="Victory">Enter Victory: </label>
-      <input id="Victory" type="Number" name="Victory" class="form-control">
-    </div>
+    <% include ../partials/loadclashroyalebattleManagement.ejs %>
+    <% include ../partials/loadclashroyalestatus.ejs %>
 
-    <div class="form-group">
-
-      <label for="Defeat">Enter Defeat: </label>
-      <input id="Defeat" type="Number" name="Defeat" class="form-control">
-    </div>
-
-    <button type="submit" class="btn btn-default">Insert Data</button>
-
-  </form>
-<h2>Loop</h2>
-
-<ul>
-
-
-</ul>
+    <!-- end container -->
+  </div>
 
 
 </body>
