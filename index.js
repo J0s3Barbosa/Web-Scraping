@@ -39,15 +39,9 @@ app.use(express.static(path.join(__dirname, 'public')))
   .get('/', (req, res) => res.render('pages/index'))
   .get('/weatherWebScraping', (req, res) => res.render('pages/weatherWebScraping'))
 
-  .get('/cr', (req, res) => {
-    try {
-
+  .get('/cr', (req, res) => 
       res.render('pages/indexcr')
-    } catch (error) {
-      console.log(error)
-    }
-
-  })
+ )
 
   .get('/webscraping', (req, res) => {
     const urlpraiaitacoatiarasurfguru = 'http://pt.surf-forecast.com/breaks/Itacoatiara/forecasts/latest';
