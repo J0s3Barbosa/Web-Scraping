@@ -1,6 +1,57 @@
+<script>
+  $(document).ready(function () {
+
+    for (var i = 0; i < 2; i++) {
+      loadClashRoyaleBattleData();
+    }
+    function loadClashRoyaleBattleData() {
+      $.get("/c/clashs", function (data, status) {
+        if (status == "success") {
+          var txt;
+          txt += "<table class='table' border='1'>"
+          txt += "<thead>"
+          txt += "<tr>"
+          txt += "<th>_id</th>"
+          txt += "<th>Trophies</th>"
+          txt += "<th>Victory</th>"
+          txt += "<th>Defeat</th>"
+          txt += "<th>Played_at</th>"
+          txt += "</thead>"
+          txt += "</thead>"
+          txt += "<tbody>"
+          for (var i = 0; i < data.length; i++) {
+            txt += "<tr>"
+            txt += "<td><a href='c/clash/" + data[i]._id + "/delete' id='btndel' data-id='" + data[i]._id + "'>" + data[i]._id + "</a></td>";
+            txt += "<td>" + data[i].Trophies + "</td>";
+            txt += "<td>" + data[i].Victory + "</td>";
+            txt += "<td>" + data[i].Defeat + "</td>";
+            txt += "<td>" + data[i].Played_at + "</td>";
+            txt += "</tr>"
+
+          }
+          txt += "</tbody>"
+          txt += "</table>"
+          document.getElementById("divCrBattledata").innerHTML = txt;
+
+        }
+
+        if (status == "error")
+          alert("Error: " + status);
+      });
+
+    }
+
+    $("#btnCrBattledata").click(function () {
+      loadClashRoyaleBattleData();
+    });
+  });
+
+
+</script>
+
 <div class="well well-lg">
-    <h2>Data from 'Battles' </h2>
-    <div id="divCrBattledata">
+  <h2>Data from 'Battles' </h2>
+  <div id="divCrBattledata">
   </div>
 
   <button id="btnCrBattledata" class="btn btn-primary">Load Data</button>

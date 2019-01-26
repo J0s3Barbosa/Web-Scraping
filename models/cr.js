@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
-
+    
   var ClashSchema = new Schema({
 
     Trophies: {
@@ -13,14 +13,13 @@ const Schema = mongoose.Schema;
         required: true
     },
     Defeat: {
-        type: Number,
-        required: true
+        type: Number
     },
     Played_at: {
         type: Date,
         default: Date.now
     }
 });
-module.exports = ClashSchema;
+// module.exports = ClashSchema;
 module.exports = mongoose.model('clashroyale', ClashSchema)
 

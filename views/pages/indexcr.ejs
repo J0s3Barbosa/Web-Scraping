@@ -5,47 +5,10 @@
   <% include ../partials/header.ejs %>
 
   <script>
-
-    function validateForm() {
-      var x = document.forms["myForm"]["Trophies"].value;
-      var xVictory = document.forms["myForm"]["Victory"].value;
-      if (x == "" && xVictory == "") {
-        alert("Fields are empty! ");
-        return false;
-      }
-    }
-
-    function loadClashRoyaleBattleData() {
-        $("#divCrBattledata").load("/c/clashs", function (responseTxt, statusTxt, xhr) {
-          if (statusTxt == "success")
-            if (statusTxt == "error")
-              alert("Error: " + xhr.status + ": " + xhr.statusText);
-        });
-      }
-      // function loadClashRoyaleStatus() {
-      //   $("#divSatus").load("/clashroyaleapi", function (responseTxt, statusTxt, xhr) {
-      //     if (statusTxt == "success")
-      //       if (statusTxt == "error")
-      //         alert("Error: " + xhr.status + ": " + xhr.statusText);
-      //   });
-      // }
-
+ 
     $(document).ready(function () {
-
-      var i;
-      for (i = 0; i < 2; i++) {
-      loadClashRoyaleStatus();
-      }
-      // $("#btnLoadCrStatus").click(function () {
-      //   loadClashRoyaleStatus();
-      // });
-  
-      $("#btnCrBattledata").click(function () {
-        loadClashRoyaleBattleData();
-      });
    
       document.getElementById("btnLoadCrApiData").addEventListener("click", showMessage);
-
       function showMessage() {
         var x = document.getElementById("snackbar");
         x.className = "show";
@@ -70,12 +33,18 @@
   </div>
 
   <div class="container">
-<!-- 
-    <%if(typeof error == "undefined"){%>
-    <% } else { %>
-    <%= error.message %>
-    <%}%> -->
 
+
+    <%if(typeof message == "undefined"){%>
+      <% } else { %>
+      <%= message %>
+      <%}%>
+
+      <%if(typeof error == "undefined"){%>
+        <% } else { %>
+        <%= error.message %>
+        <%}%>
+    
     <% include ../partials/insertCr.ejs %>
 
     <% include ../partials/CrMbattle.ejs %>
