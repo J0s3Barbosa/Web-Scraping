@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node test.js",
-    "start": "node ./index.js"
+    "start": "nodemon ./index.js --exec babel-node -e js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",

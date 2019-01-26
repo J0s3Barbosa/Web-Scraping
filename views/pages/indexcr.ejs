@@ -22,21 +22,23 @@
               alert("Error: " + xhr.status + ": " + xhr.statusText);
         });
       }
-      function loadClashRoyaleStatus() {
-        $("#divSatus").load("/clashroyaleapi", function (responseTxt, statusTxt, xhr) {
-          if (statusTxt == "success")
-            if (statusTxt == "error")
-              alert("Error: " + xhr.status + ": " + xhr.statusText);
-        });
-      }
+      // function loadClashRoyaleStatus() {
+      //   $("#divSatus").load("/clashroyaleapi", function (responseTxt, statusTxt, xhr) {
+      //     if (statusTxt == "success")
+      //       if (statusTxt == "error")
+      //         alert("Error: " + xhr.status + ": " + xhr.statusText);
+      //   });
+      // }
 
     $(document).ready(function () {
 
+      var i;
+      for (i = 0; i < 2; i++) {
       loadClashRoyaleStatus();
-
-      $("#btnLoadCrStatus").click(function () {
-        loadClashRoyaleStatus();
-      });
+      }
+      // $("#btnLoadCrStatus").click(function () {
+      //   loadClashRoyaleStatus();
+      // });
   
       $("#btnCrBattledata").click(function () {
         loadClashRoyaleBattleData();

@@ -1,9 +1,61 @@
+<script>
+  $(document).ready(function () {
+
+    for (var i = 0; i < 2; i++) {
+      loadClashRoyaleStatus();
+    }
+    function loadClashRoyaleStatus() {
+      $.get("/clashroyaleapi", function (data, status) {
+        if (status == "success") {
+          var txt;
+          txt += "<table class='table' border='1'>"
+          txt += "<thead>"
+          txt += "<tr>"
+          txt += "<th>Player</th>"
+          txt += "<th>Highest_Trophies</th>"
+          txt += "<th>Trophies</th>"
+          txt += "<th>userLevel</th>"
+          txt += "<th>favouriteCardName</th>"
+          txt += "</thead>"
+          txt += "</thead>"
+          txt += "<tbody>"
+          for (var i = 0; i < data.length; i++) {
+            txt += "<tr>"
+            txt += "<td>" + data[i].Player + "</td>";
+            txt += "<td>" + data[i].Highest_Trophies + "</td>";
+            txt += "<td>" + data[i].Trophies + "</td>";
+            txt += "<td>" + data[i].userLevel + "</td>";
+            txt += "<td>" + data[i].favouriteCardName + "</td>";
+            txt += "</tr>"
+
+          }
+          txt += "</tbody>"
+          txt += "</table>"
+          document.getElementById("divSatus").innerHTML = txt;
+
+        }
+
+        if (status == "error")
+          alert("Error: " + status);
+      });
+
+    }
+
+
+    $("#btnLoadCrStatus").click(function () {
+      loadClashRoyaleStatus();
+    });
+
+  });
+
+
+</script>
+
 <div class="well well-lg">
-    <h2>Data from Royale Status </h2>
-    <div id="divSatus">
+  <h2>Data from Royale Status </h2>
+  <div id="divSatus">
   </div>
 
   <button id="btnLoadCrStatus" class="btn btn-primary">Load Data</button>
 
 </div>
-  

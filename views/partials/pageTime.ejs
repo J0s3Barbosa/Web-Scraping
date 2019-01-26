@@ -1,0 +1,24 @@
+<div onload="myFunction()">
+
+    <!-- Time: 18:56:57
+    Day: 25
+    Date: Fri Jan 25 2019 18:57:02 GMT-0200 (Horário de Verão de Brasília) -->
+
+    Time: <span id="getHours"> </span>:<span id="getMinutes"> </span>:<span id="getSeconds"> </span></br>
+    Day: <span id="getDate"> </span></br>
+    Date: <span id="dt"> </span></br>
+</div>
+<script>
+    function myFunction() {
+
+        setInterval(function () {
+            var d = new Date();
+            document.getElementById("dt").innerHTML = d;
+            document.getElementById("getHours").innerHTML = d.getHours();
+            document.getElementById("getMinutes").innerHTML = d.getMinutes();
+            document.getElementById("getSeconds").innerHTML = d.getSeconds();
+            document.getElementById("getDate").innerHTML = d.getDate();
+        }, 1000)
+    }
+
+</script>

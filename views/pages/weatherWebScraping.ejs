@@ -3,23 +3,64 @@
 
 <head>
   <% include ../partials/header.ejs %>
-
-  <script>
-   
-    $(document).ready(function () {
-        $("#div1").load("/webscraping", function (responseTxt, statusTxt, xhr) {
-          if (statusTxt == "success")
-            if (statusTxt == "error")
-              alert("Error: " + xhr.status + ": " + xhr.statusText);
-        });
-      $("#btnLoadData").click(function () {
-        $("#div1").load("/webscraping", function (responseTxt, statusTxt, xhr) {
-          if (statusTxt == "success")
-            if (statusTxt == "error")
-              alert("Error: " + xhr.status + ": " + xhr.statusText);
-        });
-      });
  
+  <script>
+
+    $(document).ready(function () {
+
+
+      var i;
+      for (i = 0; i < 2; i++) {
+        Loadwebscraping();
+      }
+
+      function Loadwebscraping() {
+        $.get("/webscraping", function (data, status) {
+          if (status == "success") {
+            document.getElementById('day').innerHTML = data.day;
+            document.getElementById('temp').innerHTML = data.temp;
+            document.getElementById('wavesSize').innerHTML = data.wavesSize;
+            document.getElementById('wavesSizeDetailed').innerHTML = data.wavesSizeDetailed.replace(/[^\d.-]/g, ' - ');
+
+            // var i;
+            // for (i = 0; i < splited.length; i++) {
+              
+            //   document.getElementById("div1").innerHTML += '<table>';
+            //   document.getElementById("div1").innerHTML += '<tbody>';
+            //   document.getElementById("div1").innerHTML += '<tr>';
+            //   document.getElementById("div1").innerHTML += '<td>' +splited[i]+' </td>';
+            //   document.getElementById("div1").innerHTML += ' </tr>';
+            //   document.getElementById("div1").innerHTML += ' </tbody>';
+            //   document.getElementById("div1").innerHTML += ' </table>';
+        
+            // }
+
+
+          }
+
+          if (status == "error")
+            alert("Error: " + status);
+        });
+
+        // $("#div1").load("/webscraping", function (responseTxt, statusTxt, xhr) {
+        //   if (statusTxt == "success") {
+        //     var json = JSON.parse(xhr.responseText);
+        //     document.getElementById('day').innerHTML = json.day;
+        //     document.getElementById('temp').innerHTML = json.temp;
+        //     document.getElementById('wavesSize').innerHTML = json.wavesSize;
+        //     document.getElementById('wavesSizeDetailed').innerHTML = json.wavesSizeDetailed;
+        //   }
+
+        //   if (statusTxt == "error")
+        //     alert("Error: " + xhr.status + ": " + xhr.statusText);
+        // });
+      }
+
+
+      $("#btnLoadData").click(function () {
+        Loadwebscraping();
+      });
+
     });
 
 
@@ -32,22 +73,50 @@
   <% include ../partials/nav.ejs %>
 
   <div class="container">
-  
-      <%if(typeof error == "undefined"){%>
- <% } else { %>
-         <%= error.message %>
+
+    <%if(typeof error == "undefined"){%>
+    <% } else { %>
+    <%= error.message %>
     <%}%>
- 
+
     <div class="well well-lg">
-          <h2>Itacoatiara   </h2>
-          <div id="div1">
-        </div>
-      
-        <button id="btnLoadData" class="btn btn-primary">Load/Refresh Data</button>
-      
-      </div>
-        
-      <!-- end container -->
+      <h2>Itacoatiara </h2>
+
+      <div id="div1"></div>
+      <div id="div2"></div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>day</td>
+            <td><span id="day"></span></td>
+          </tr>
+          <tr>
+            <td>temp</td>
+            <td><span id="temp"></span></td>
+          </tr>
+          <tr>
+            <td>wavesSize</td>
+            <td><span id="wavesSize"></span></td>
+          </tr>
+          <tr>
+            <td>wavesSizeDetailed</td>
+            <td> <span id="wavesSizeDetailed"></span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button id="btnLoadData" class="btn btn-primary">Load/Refresh Data</button>
+
+    </div>
+
+    <!-- end container -->
   </div>
 
 
