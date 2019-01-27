@@ -4,4 +4,5 @@ var webScrapObj = {
     wavesSize: String,
     wavesSizeDetailed: String
     }
+module.exports = webScrapObj;
     

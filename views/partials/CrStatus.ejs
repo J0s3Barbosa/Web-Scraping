@@ -5,10 +5,12 @@
       loadClashRoyaleStatus();
     }
     function loadClashRoyaleStatus() {
-      $.get("/clashroyaleapi", function (data, status) {
+      var url = '/api/v1/clashroyale/clashroyaleapi'
+      $.get(url, function (data, status) {
         if (status == "success") {
           var txt;
-          txt += "<table class='table' border='1'>"
+          txt += "<div class='table-responsive'>"
+          txt += "<table class='table table-hover '>"
           txt += "<thead>"
           txt += "<tr>"
           txt += "<th>Player</th>"
@@ -31,6 +33,7 @@
           }
           txt += "</tbody>"
           txt += "</table>"
+          txt += "</div>"
           document.getElementById("divSatus").innerHTML = txt;
 
         }
@@ -51,11 +54,11 @@
 
 </script>
 
-<div class="well well-lg">
-  <h2>Data from Royale Status </h2>
-  <div id="divSatus">
-  </div>
+<div class="panel panel-default">
+  <div class="panel-body">
+<h2>Data from Royale Status </h2>
+  <div id="divSatus"> </div>
 
   <button id="btnLoadCrStatus" class="btn btn-primary">Load Data</button>
-
+</div>
 </div>

@@ -3,39 +3,29 @@
 
 <head>
   <% include ../partials/header.ejs %>
- 
+
   <script>
 
     $(document).ready(function () {
 
-
-      var i;
-      for (i = 0; i < 2; i++) {
+      for (var i = 0; i < 5; i++) {
         Loadwebscraping();
+      }
+      function GetIdSetData(elementID, data) {
+        document.getElementById(elementID).innerHTML = data;
       }
 
       function Loadwebscraping() {
-        $.get("/webscraping", function (data, status) {
+        $.get("/api/v1/weather/webscraping", function (data, status) {
           if (status == "success") {
+            // GetIdSetData('day', data.day)
+            // GetIdSetData('temp', data.temp)
+            // GetIdSetData('wavesSize', data.wavesSize)
+            // GetIdSetData('wavesSizeDetailed', data.wavesSizeDetailed.replace(/[^\d.-]/g, ' - '))
             document.getElementById('day').innerHTML = data.day;
             document.getElementById('temp').innerHTML = data.temp;
             document.getElementById('wavesSize').innerHTML = data.wavesSize;
             document.getElementById('wavesSizeDetailed').innerHTML = data.wavesSizeDetailed.replace(/[^\d.-]/g, ' - ');
-
-            // var i;
-            // for (i = 0; i < splited.length; i++) {
-              
-            //   document.getElementById("div1").innerHTML += '<table>';
-            //   document.getElementById("div1").innerHTML += '<tbody>';
-            //   document.getElementById("div1").innerHTML += '<tr>';
-            //   document.getElementById("div1").innerHTML += '<td>' +splited[i]+' </td>';
-            //   document.getElementById("div1").innerHTML += ' </tr>';
-            //   document.getElementById("div1").innerHTML += ' </tbody>';
-            //   document.getElementById("div1").innerHTML += ' </table>';
-        
-            // }
-
-
           }
 
           if (status == "error")
