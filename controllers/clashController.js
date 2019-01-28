@@ -133,23 +133,7 @@ exports.clashroyaleapi = function (req, res) {
 
         var test1 = null
         clashRoyaleUrl.forEach(element => {
-
             test1 = clashroyaleStatus(element)
-
-            try {
-                async () => {
-                    var elementToClick = '.profile__refreshNotificationButton'
-                    var path_mouse_click_png = '../public/images/' + element.split("/")[4] + '.png'
-                    await ClickAndGetPrint(element, elementToClick, path_mouse_click_png)
-                    console.log('Image Created for ' + element.split("/")[4])
-
-                }
-
-
-            } catch (error) {
-                console.log('catch Error => ' + error)
-            }
-
         });
         res.json(test1);
     } catch (error) {
@@ -175,7 +159,6 @@ exports.ClashRoyaleClickAndGetPrint = function (req, res) {
 
 function ClickAndGetPrint(url, elementToClick, path_mouse_click_png) {
     try {
-
         async () => {
             const browser = await puppeteer.launch()
             const page = await browser.newPage()

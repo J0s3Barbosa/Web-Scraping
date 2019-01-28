@@ -1,7 +1,6 @@
 <script>
   $(document).ready(function () {
-
-    for (var i = 0; i < 2; i++) {
+    for (let index = 0; index < 3; index++) {
       loadClashRoyaleStatus();
     }
     function loadClashRoyaleStatus() {
@@ -44,21 +43,19 @@
 
     }
 
-
     $("#btnLoadCrStatus").click(function () {
       loadClashRoyaleStatus();
     });
 
   });
 
-
 </script>
 
 <div class="panel panel-default">
   <div class="panel-body">
-<h2>Data from Royale Status </h2>
-  <div id="divSatus"> </div>
+    <h2>Data from Royale Status </h2>
+    <div id="divSatus"> </div>
 
-  <button id="btnLoadCrStatus" class="btn btn-primary">Load Data</button>
-</div>
+    <button id="btnLoadCrStatus" class="btn btn-primary">Load Data</button>
+  </div>
 </div>

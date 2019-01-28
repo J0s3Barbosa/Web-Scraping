@@ -8,7 +8,7 @@
 
     $(document).ready(function () {
 
-      for (var i = 0; i < 5; i++) {
+      for (let index = 0; index < 3; index++) {
         Loadwebscraping();
       }
       function GetIdSetData(elementID, data) {
@@ -16,21 +16,21 @@
       }
 
       function Loadwebscraping() {
-        $.get("/api/v1/weather/webscraping", function (data, status) {
-          if (status == "success") {
-            // GetIdSetData('day', data.day)
-            // GetIdSetData('temp', data.temp)
-            // GetIdSetData('wavesSize', data.wavesSize)
-            // GetIdSetData('wavesSizeDetailed', data.wavesSizeDetailed.replace(/[^\d.-]/g, ' - '))
-            document.getElementById('day').innerHTML = data.day;
-            document.getElementById('temp').innerHTML = data.temp;
-            document.getElementById('wavesSize').innerHTML = data.wavesSize;
-            document.getElementById('wavesSizeDetailed').innerHTML = data.wavesSizeDetailed.replace(/[^\d.-]/g, ' - ');
-          }
+          $.get("/api/v1/weather/webscraping", function (data, status) {
+            if (status == "success") {
+              GetIdSetData('day', data.day)
+              GetIdSetData('temp', data.temp)
+              GetIdSetData('wavesSize', data.wavesSize)
+              GetIdSetData('wavesSizeDetailed', data.wavesSizeDetailed.replace(/[^\d.-]/g, ' - '))
+              // document.getElementById('day').innerHTML = data.day;
+              // document.getElementById('temp').innerHTML = data.temp;
+              // document.getElementById('wavesSize').innerHTML = data.wavesSize;
+              // document.getElementById('wavesSizeDetailed').innerHTML = data.wavesSizeDetailed.replace(/[^\d.-]/g, ' - ');
+            }
 
-          if (status == "error")
-            alert("Error: " + status);
-        });
+            if (status == "error")
+              alert("Error: " + status);
+          });
 
         // $("#div1").load("/webscraping", function (responseTxt, statusTxt, xhr) {
         //   if (statusTxt == "success") {
