@@ -35,6 +35,6 @@ router.get('/cr', clashController.cr);
 
 router.get('/clashroyaleapi', clashController.clashroyaleapi);
 
-router.get('/clicktest', clashController.ClashRoyaleClickAndGetPrint);
+router.get('/ClashRoyaleClickAndGetPrint', clashController.ClashRoyaleClickAndGetPrint);
 
 module.exports = router;

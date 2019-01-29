@@ -1,13 +1,12 @@
 <script>
   $(document).ready(function () {
-    for (let index = 0; index < 3; index++) {
-      loadClashRoyaleStatus();
-    }
+    loadClashRoyaleStatus();
+  
     function loadClashRoyaleStatus() {
       var url = '/api/v1/clashroyale/clashroyaleapi'
       $.get(url, function (data, status) {
         if (status == "success") {
-          var txt;
+          var txt = '';
           txt += "<div class='table-responsive'>"
           txt += "<table class='table table-hover '>"
           txt += "<thead>"
@@ -17,6 +16,7 @@
           txt += "<th>Trophies</th>"
           txt += "<th>userLevel</th>"
           txt += "<th>favouriteCardName</th>"
+          txt += "<th>statsroyaleprofile</th>"
           txt += "</thead>"
           txt += "</thead>"
           txt += "<tbody>"
@@ -27,6 +27,7 @@
             txt += "<td>" + data[i].Trophies + "</td>";
             txt += "<td>" + data[i].userLevel + "</td>";
             txt += "<td>" + data[i].favouriteCardName + "</td>";
+            txt += "<td><a href='" + data[i].statsroyaleprofile + "'target='_blank' id='' data-id='" + data[i].statsroyaleprofile.split('/')[4] + "'>" + data[i].statsroyaleprofile.split('/')[4] + "</a></td>";
             txt += "</tr>"
 
           }
