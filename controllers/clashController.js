@@ -95,7 +95,7 @@ exports.clashroyale_delete_post = function (req, res) {
 
 // Display ClashRoyale update form on GET.
 exports.clashroyale_update_get = function (req, res) {
-    ClashRoyale.findOneAndUpdate(req.params._id, req.body, { new: true }, function (err, clashroyale) {
+    ClashRoyale.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (err, clashroyale) {
         if (err)
             res.send(err);
         res.json(clashroyale);
@@ -104,12 +104,9 @@ exports.clashroyale_update_get = function (req, res) {
 
 // Handle ClashRoyale update on POST.
 exports.clashroyale_update_post = function (req, res) {
-
-    ClashRoyale.findOneAndUpdate(req.params._id, req.body, { new: true }, function (err, clashroyale) {
-        if (err) {
-
-            res.send(err);
-        }
+    ClashRoyale.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (err, clashroyale) {
+        if (err) res.send(err);
+           
         res.json(clashroyale);
     });
 

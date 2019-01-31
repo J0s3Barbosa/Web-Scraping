@@ -14,7 +14,7 @@ npm install
 npm start 
 
 http://localhost:5000/api/v1/clashroyale/cr
-http://localhost:5000/api/v1/weather/wspage
+http://localhost:5000/api/v1/weather/wspage 
 http://localhost:5000/api/v1/default/
 http://localhost:5000/api/v1/youtube/
 

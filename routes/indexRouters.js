@@ -4,10 +4,12 @@ var youtubeController = require('../controllers/youtubeController');
 var ws = require('../modulos/ws');
 var request = require('request');
 var cheerio = require('cheerio');
-
+var sendEmail = require('../modulos/sendEmail');
+ 
+  
+router.get('/sendEmail', sendEmail.SendEmailDefault);
 router.get('/youtubeClickAndGetPrint', youtubeController.youtubeClickAndGetPrint);
 router.get('/ws', ws);
-
 router.get('/webScrapingTest', (req, res) => {
     getData()
         .then(function (body) {
@@ -15,9 +17,7 @@ router.get('/webScrapingTest', (req, res) => {
             res.send(body)
         })
 
-}
-)
-
+})
 function getData() {
     return new Promise(function (resolve, reject) {
         request('https://news.ycombinator.com', function (err, response, body) {
