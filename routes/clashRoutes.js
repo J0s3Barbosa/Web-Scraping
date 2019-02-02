@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const verifyToken = require('../modulos/check-auth');
 
 var clashController = require('../controllers/clashController');
 
@@ -18,7 +19,8 @@ router.post('/clash/createmethod', clashController.clashroyale_createMethod_post
 router.get('/clash/:id/delete', clashController.clashroyale_delete_get);
 
 // POST request to delete ClashRoyale.
-router.delete('/clash/:id', clashController.clashroyale_delete_post);
+// router.delete('/clash/:id',   verifyToken, clashController.clashroyale_delete_post);
+router.delete('/clash/:id',  clashController.clashroyale_delete_post);
 
 // GET request to update ClashRoyale.
 router.get('/clash/update/:id', clashController.clashroyale_update_get);
@@ -30,7 +32,8 @@ router.put('/clash/:id', clashController.clashroyale_update_post);
 router.get('/clash/:id', clashController.clashroyale_detail);
 
 // GET request for list of all ClashRoyales.
-router.get('/clashs', clashController.getClashRoyaleList);
+router.get('/clashs',clashController.getClashRoyaleList );
+
 router.get('/cr', clashController.cr);
 
 router.get('/clashroyaleapi', clashController.clashroyaleapi);
@@ -38,3 +41,4 @@ router.get('/clashroyaleapi', clashController.clashroyaleapi);
 router.get('/ClashRoyaleClickAndGetPrint', clashController.ClashRoyaleClickAndGetPrint);
 
 module.exports = router;
+

@@ -24,7 +24,7 @@
             txt += "<tr>"
             txt += "<td>" + data[i].Player + "</td>";
             txt += "<td>" + data[i].Highest_Trophies + "</td>";
-            txt += "<td>" + data[i].Trophies + "</td>";
+            txt += "<td><lable>" + data[i].Trophies + "</lable></td>";
             txt += "<td>" + data[i].userLevel + "</td>";
             txt += "<td>" + data[i].favouriteCardName + "</td>";
             txt += "<td><a href='" + data[i].statsroyaleprofile + "'target='_blank' id='' data-id='" + data[i].statsroyaleprofile.split('/')[4] + "'>" + data[i].statsroyaleprofile.split('/')[4] + "</a></td>";
@@ -52,8 +52,9 @@
 
 </script>
 
-<div class="panel panel-default">
-  <div class="panel-body">
+
+<div class="panel panel-default ">
+  <div class="panel-body ">
     <h2>Data from Royale Status </h2>
     <div id="divSatus"> </div>
 

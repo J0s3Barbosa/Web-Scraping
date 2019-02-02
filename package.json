@@ -18,14 +18,14 @@
     "express-session": "^1.15.6",
     "express-validator": "^5.3.1",
     "json-parser": "^1.1.5",
+    "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.4.5",
+    "nodemailer": "^5.1.1",
     "puppeteer": "^1.11.0",
     "req-flash": "0.0.3",
     "request": "^2.81.0",
     "request-promise": "^4.2.2",
-    "tape": "^4.7.0",
-    "nodemailer": "^5.1.1"
-
+    "tape": "^4.7.0"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",

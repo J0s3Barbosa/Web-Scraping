@@ -3,10 +3,12 @@ const request_promise = require('request-promise')
 var request = require('request');
 var cheerio = require('cheerio');
 const puppeteer = require('puppeteer');
+const jwt = require('jsonwebtoken');
 
 var obj = [];
 // Display list of all clashroyale.
 exports.getClashRoyaleList = function (req, res) {
+
     ClashRoyale.find({}, (err, clashroyale) => {
         if (err) {
             res.send(err);
@@ -14,7 +16,6 @@ exports.getClashRoyaleList = function (req, res) {
 
         res.json(clashroyale);
     });
-
 };
 
 
@@ -60,8 +61,9 @@ exports.clashroyale_createMethod_post = function (req, res) {
             }
             )
         }
-        var link = '/api/v1/clashRoyale/cr'
-        res.redirect(link);
+        // var link = '/api/v1/clashRoyale/cr'
+        // res.redirect(link);
+        res.json(clashroyale);
 
     });
 
@@ -75,9 +77,9 @@ exports.clashroyale_delete_get = function (req, res) {
         if (err) {
             res.send(err);
         }
-        var link = '/api/v1/clashRoyale/cr'
-        res.redirect(link);
-
+        // var link = '/api/v1/clashRoyale/cr'
+        // res.redirect(link);
+        res.send({ status: 200, DataDeleted: clashroyale })
     });
 
     // res.send('NOT IMPLEMENTED: ClashRoyale delete GET');
@@ -90,6 +92,18 @@ exports.clashroyale_delete_post = function (req, res) {
             res.send(err);
         res.json(clashroyale);
     });
+
+    // jwt.verify(req.token, 'secretkey', (err, authData) => {
+    //     if (err) {
+    //         res.sendStatus(403);
+    //     } else {
+    //         ClashRoyale.findByIdAndRemove(req.params.id, function (err, clashroyale) {
+    //             if (err)
+    //                 res.send(err);
+    //             res.json(clashroyale);
+    //         });
+    //     }
+    // })
 
 };
 
@@ -106,7 +120,7 @@ exports.clashroyale_update_get = function (req, res) {
 exports.clashroyale_update_post = function (req, res) {
     ClashRoyale.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (err, clashroyale) {
         if (err) res.send(err);
-           
+
         res.json(clashroyale);
     });
 
@@ -134,14 +148,14 @@ exports.clashroyaleapi = async function (req, res) {
         // var elementToClick = '.profile__refreshNotificationButton'
         // // cr_status_page_update(url,elementToClick, path_mouse_click_png)
         // ClickAndGetPrint(cr_url, elementToClick)
-        
+
         var listcr = []
         await Promise.all(clashRoyaleUrl.map(async (cr_url) => {
-        let result = await clashroyaleStatus(cr_url);
+            let result = await clashroyaleStatus(cr_url);
             listcr.push(result)
-    }));
-      
-          
+        }));
+
+
         res.send(listcr);
 
     } catch (error) {
@@ -165,20 +179,20 @@ exports.ClashRoyaleClickAndGetPrint = function (req, res) {
 
 async function ClickAndGetPrint(url, elementToClick, path_mouse_click_png) {
     try {
-            const browser = await puppeteer.launch()
-            const page = await browser.newPage()
+        const browser = await puppeteer.launch()
+        const page = await browser.newPage()
 
-            // go to a page setup for mouse event tracking
-            await page.goto(url)
-            console.log('goto Done!'+ url)
+        // go to a page setup for mouse event tracking
+        await page.goto(url)
+        console.log('goto Done!' + url)
 
-            // click an area
-            // await page.mouse.click(132, 103, { button: 'left' })
-            await page.click(elementToClick, { button: 'left' })
-            console.log('click Done!')
+        // click an area
+        // await page.mouse.click(132, 103, { button: 'left' })
+        await page.click(elementToClick, { button: 'left' })
+        console.log('click Done!')
 
-            await browser.close()
-            console.log('browser.close Done!')
+        await browser.close()
+        console.log('browser.close Done!')
     } catch (error) {
         console.log('catch Error => ' + error)
     }
@@ -263,14 +277,14 @@ function clashroyaleStatus(clashRoyaleUrl) {
                 Trophies: Number,
                 userLevel: Number,
                 favouriteCardName: String,
-                statsroyaleprofile : String
+                statsroyaleprofile: String
             }
             Cr_Player_status.Player = Player.replace('\n', ''),
                 Cr_Player_status.Highest_Trophies = Highest_Trophies,
                 Cr_Player_status.Trophies = Trophies,
                 Cr_Player_status.userLevel = userLevel,
                 Cr_Player_status.favouriteCardName = favouriteCardName
-                Cr_Player_status.statsroyaleprofile = clashRoyaleUrl
+            Cr_Player_status.statsroyaleprofile = clashRoyaleUrl
 
             // let channels = [];
             // channels.push(Cr_Player_status);
@@ -280,7 +294,7 @@ function clashroyaleStatus(clashRoyaleUrl) {
     });
 }
 
- function cr_status_page_update(url, elementToClick,path_mouse_click_png) {
+function cr_status_page_update(url, elementToClick, path_mouse_click_png) {
     try {
         async () => {
             const browser = await puppeteer.launch()
@@ -316,3 +330,5 @@ function clashroyaleStatus(clashRoyaleUrl) {
 //       console.log('User successfully deleted!');
 //     });
 //   });
+
+

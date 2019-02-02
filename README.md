@@ -2,6 +2,7 @@
 
 https://medium.freecodecamp.org/the-ultimate-guide-to-web-scraping-with-node-js-daa2027dcd3
 https://codeforgeek.com/2014/09/manage-session-using-node-js-express-4/
+https://github.com/bradtraversy/node_passport_login
 
 Puppeteer examples
 https://github.com/checkly/puppeteer-examples
