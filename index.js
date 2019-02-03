@@ -7,9 +7,11 @@ var indexRouters = require('./routes/indexRouters');
 var db = require('./modulos/db');
 var session = require('express-session');
 var flash = require('connect-flash');
+const jwt = require('jsonwebtoken');
 const ensureAuthenticated = require('./config/auth');
 var users = require('./routes/users');
 const passport = require('passport');
+const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
 
 const PORT = process.env.PORT || 5000
