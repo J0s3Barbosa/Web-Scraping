@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <% include ../partials/header.ejs %>
+<title><%- title  =  'Clash Royale' %></title>
 
   <script>
 
@@ -53,16 +49,8 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-</head>
-
-<body>
-
-  <% include ../partials/nav.ejs %>
   <div id="successMessage" style="display:none;">
     It worked
-  </div>
-
-  <div id="demo">
   </div>
 
   <div class="container">
@@ -93,12 +81,10 @@
     </div>
 
     <div id="myTextArea" class="draggable ">
-      <% include ../partials/CrMbattle.ejs %>
-    </div>
-    <div id="myTextArea" class="draggable ">
       <% include ../partials/CrMbattle_edit.ejs %>
     </div>
-    <% include ../partials/CrStatus.ejs %>
+      <% include ../partials/CrMbattle.ejs %>
+      <% include ../partials/CrStatus.ejs %>
 
 
     <!-- <% include ../partials/insertCr.ejs %>
@@ -108,7 +94,3 @@
     <!-- end container -->
   </div>
 
-
-</body>
-
-</html>

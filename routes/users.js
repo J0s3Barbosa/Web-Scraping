@@ -1,63 +1,28 @@
-var express = require('express');
-var router = express.Router();
-var youtubeController = require('../controllers/youtubeController');
-var ws = require('../modulos/ws');
-var request = require('request');
-var cheerio = require('cheerio');
-var sendEmail = require('../modulos/sendEmail');
- 
+const express = require('express');
+const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 // Load User model
 const User = require('../models/User');
-
-  
-router.get('/sendEmail', sendEmail.SendEmailDefault);
-router.get('/youtubeClickAndGetPrint', youtubeController.youtubeClickAndGetPrint);
-router.get('/ws', ws);
-router.get('/webScrapingTest', (req, res) => {
-    getData()
-        .then(function (body) {
-            console.log('Got the following body:', body)
-            res.send(body)
-        })
-
-})
-function getData() {
-    return new Promise(function (resolve, reject) {
-        request('https://news.ycombinator.com', function (err, response, body) {
-            if (err) reject(err);
-            if (response.statusCode !== 200) {
-                reject('Invalid status code: ' + response.statusCode);
-            }
-            let $ = cheerio.load(body);
-            let channelList = $('span.comhead');
-
-            let channels = [];
-
-            for (let i = 0; i < channelList.length; i++) {
-                let t = channelList.get(i);
-                let channel = $(t).text();
-                let artistNode = $(t).next();
-                let artist = $(artistNode).text();
-                let title = $(artistNode).next().text();
-                //console.log(channel +'-'+ artist +'-'+ title);
-                channels.push({ channel: channel, artist: artist, title: title });
-            }
-
-            resolve(channels);
-
-        });
-    });
-}
-
-
+const jwt = require('jsonwebtoken');
 
 // Login Page
 router.get('/login', (req, res) => res.render('pages/login'));
 
 // Register Page
 router.get('/register', (req, res) => res.render('pages/register'));
+
+
+router.post('/finduser/:email', (req, res) => {
+  
+  User.findOne({ email: req.body.email }).then(user => {
+    jwt.sign({ user }, 'secretkey', { expiresIn: '30s' }, (err, token) => {
+      res.json({
+        token
+      });
+    });
+  })
+})
 
 // Register
 router.post('/register', (req, res) => {
@@ -109,6 +74,11 @@ router.post('/register', (req, res) => {
             newUser
               .save()
               .then(user => {
+                // jwt.sign({ user }, 'secretkey', { expiresIn: '30s' }, (err, token) => {
+                //   res.json({
+                //     token
+                //   });
+                // });
                 req.flash(
                   'success_msg',
                   'You are now registered and can log in'
@@ -138,7 +108,5 @@ router.get('/logout', (req, res) => {
   req.flash('success_msg', 'You are logged out');
   res.redirect('/users/login');
 });
-
-
 
 module.exports = router;

@@ -97,7 +97,7 @@
   }
 
   function updateCheck(event, e) {
-
+  var tok = window.localStorage.getItem('token');
     var data_id = e.value;
     $("#myFormEdit2").attr("action", "/api/v1/clashRoyale/clash/" + data_id);
     var cr_obj_updated = new Object();
@@ -106,6 +106,7 @@
     cr_obj_updated.Victory = document.getElementById("Victory_" + data_id).value;
     cr_obj_updated.Defeat = document.getElementById("Defeat_" + data_id).value;
     $.ajax({
+      headers: {'Authorization': tok},
       type: 'PUT',
       url: '/api/v1/clashRoyale/clash/' + data_id,
       data: cr_obj_updated,
@@ -129,11 +130,13 @@
     event.preventDefault();
   }
 
-  function deleteCheck(event, e) {
 
+  function deleteCheck(event, e) {
+    var tok = window.localStorage.getItem('token');
     var data_id = e.value;
     $("#myFormEdit2").attr("action", "/api/v1/clashRoyale/clash/" + data_id);
     $.ajax({
+      headers: {'Authorization': tok},
       type: 'DELETE',
       url: '/api/v1/clashRoyale/clash/' + data_id,
       success: function () {

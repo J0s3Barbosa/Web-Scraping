@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <% include ../partials/header.ejs %>
+<title><%- title  =  'Weather Forecast' %></title>
 
   <script>
     $(document).ready(function () {
@@ -98,20 +94,9 @@
 
   </script>
 
-</head>
-
-<body>
-
-  <% include ../partials/nav.ejs %>
   <div id="demo"> </div>
 
   <div class="container">
-
-    <!-- <% include ../partials/table.ejs %> -->
-    <%if(typeof error == "undefined"){%>
-    <% } else { %>
-    <%= error.message %>
-    <%}%>
 
     <div class="well well-lg">
       <h2>Itacoatiara </h2>
@@ -162,8 +147,3 @@
 
     <!-- end container -->
   </div>
-
-
-</body>
-
-</html>

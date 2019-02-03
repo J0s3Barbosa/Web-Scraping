@@ -14,6 +14,9 @@ npm install
 # Start the server:
 npm start 
 
+# Start the server dev:
+npm run dev 
+
 http://localhost:5000/api/v1/clashroyale/cr
 http://localhost:5000/api/v1/weather/wspage 
 http://localhost:5000/api/v1/default/

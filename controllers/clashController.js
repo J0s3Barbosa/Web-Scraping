@@ -53,19 +53,42 @@ exports.clashroyale_createMethod_post = function (req, res) {
 
     let newClash = new ClashRoyale(req.body);
 
-    newClash.save((error, clashroyale) => {
-        if (error) {
-            // res.send(error);
-            res.render('pages/indexcr', {
-                error: error
-            }
-            )
-        }
-        // var link = '/api/v1/clashRoyale/cr'
-        // res.redirect(link);
-        res.json(clashroyale);
+    // newClash.save((error, clashroyale) => {
+    //     if (error) {
+    //         // res.send(error);
+    //         res.render('pages/indexcr', {
+    //             error: error
+    //         }
+    //         )
+    //     }
+    //     // var link = '/api/v1/clashRoyale/cr'
+    //     // res.redirect(link);
+    //     res.json(clashroyale);
 
-    });
+    // });
+
+
+    jwt.verify(req.token, 'secretkey', (err, authData) => {
+        if (err) {
+            res.sendStatus(403);
+        } else {
+
+            newClash.save((error, clashroyale) => {
+                if (error) {
+                    // res.send(error);
+                    res.render('pages/indexcr', {
+                        error: error
+                    }
+                    )
+                }
+                // var link = '/api/v1/clashRoyale/cr'
+                // res.redirect(link);
+                res.json(clashroyale);
+
+            });
+        }
+    })
+
 
 };
 
@@ -87,23 +110,18 @@ exports.clashroyale_delete_get = function (req, res) {
 
 // Handle ClashRoyale delete on POST.
 exports.clashroyale_delete_post = function (req, res) {
-    ClashRoyale.findByIdAndRemove(req.params.id, function (err, clashroyale) {
-        if (err)
-            res.send(err);
-        res.json(clashroyale);
-    });
 
-    // jwt.verify(req.token, 'secretkey', (err, authData) => {
-    //     if (err) {
-    //         res.sendStatus(403);
-    //     } else {
-    //         ClashRoyale.findByIdAndRemove(req.params.id, function (err, clashroyale) {
-    //             if (err)
-    //                 res.send(err);
-    //             res.json(clashroyale);
-    //         });
-    //     }
-    // })
+    jwt.verify(req.token, 'secretkey', (err, authData) => {
+        if (err) {
+            res.sendStatus(403);
+        } else {
+            ClashRoyale.findByIdAndRemove(req.params.id, function (err, clashroyale) {
+                if (err)
+                    res.send(err);
+                res.json(clashroyale);
+            });
+        }
+    })
 
 };
 
@@ -118,16 +136,27 @@ exports.clashroyale_update_get = function (req, res) {
 
 // Handle ClashRoyale update on POST.
 exports.clashroyale_update_post = function (req, res) {
-    ClashRoyale.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (err, clashroyale) {
-        if (err) res.send(err);
+    jwt.verify(req.token, 'secretkey', (err, authData) => {
+        if (err) {
+            res.sendStatus(403);
+        } else {
+            ClashRoyale.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (err, clashroyale) {
+                if (err) res.send(err);
+        
+                res.json(clashroyale);
+            });
+        }
+    })
 
-        res.json(clashroyale);
-    });
+  
 
 };
 exports.cr = function (req, res) {
     try {
-        res.render('pages/indexcr')
+        res.render('pages/indexcr', {
+            user: req.user
+        })
+
     } catch (error) {
         console.log(error)
     }

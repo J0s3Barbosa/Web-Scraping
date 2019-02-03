@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <% include ../partials/header.ejs %>
+<title><%- title  =  'Home' %></title>
+
       <style>
           .bg-1 { 
             background-color: #1abc9c;
@@ -16,17 +14,10 @@
             color: #555555;
           }
           .container-fluid {
-            padding-top: 70px;
+            padding-top: 40px;
             padding-bottom: 70px;
           }
           </style>
-  <title>Home</title>
-
-</head>
-
-<body>
-
-  <% include ../partials/nav.ejs %>
 
   <% if (typeof SuccessMsg != 'undefined') { %>
     <div class="alert alert-success"><%= SuccessMsg %></div>
@@ -78,8 +69,5 @@
       </div>
     </div>
   </div>
-
-</body>
-</html>
 
   
