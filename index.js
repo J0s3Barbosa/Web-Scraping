@@ -8,7 +8,7 @@ var db = require('./modulos/db');
 var session = require('express-session');
 var flash = require('connect-flash');
 const ensureAuthenticated = require('./config/auth');
-var users = require('./routes/users');
+// var users = require('./routes/users');
 const passport = require('passport');
 const expressLayouts = require('express-ejs-layouts');
 
@@ -82,7 +82,7 @@ app.use(express.static(path.join(__dirname, 'public')))
     })
   )
 
-  .use('/users', users)
+  // .use('/users', users)
   .use(API_PATH + '/clashRoyale', clashRoutes)
   .use(API_PATH + '/weather', weatherRoutes)
   .use(API_PATH + '/youtube', indexRouters)
