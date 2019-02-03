@@ -4,7 +4,8 @@
 
         <% if(user != ''){ %>
   
-        <li> <span style="color: white" class="glyphicon glyphicon-user"> <%= user.name %></span></li>
+        <!-- <li> <span style="color: white" class="glyphicon glyphicon-user"> <%= user.name %></span></li> -->
+        <li> <a href="/dashboard" class="glyphicon glyphicon-log-user"><%= user.name %></a></li>
         <li> <a href="/users/logout" class="glyphicon glyphicon-log-out">Logout</a></li>
         <% } %>
         <% if(user == ''){ %>
