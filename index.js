@@ -11,6 +11,7 @@ const ensureAuthenticated = require('./config/auth');
 var users = require('./routes/users');
 const passport = require('passport');
 const expressLayouts = require('express-ejs-layouts');
+const User = require('../models/User');
 
 const PORT = process.env.PORT || 5000
 const API_PATH = '/api/v1'
