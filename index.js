@@ -91,21 +91,21 @@ app.use(express.static(path.join(__dirname, 'public')))
 
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-// // handle 404 error
-// app.use(function (req, res, next) {
-//   let err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// })
-// // handle errors
-// app.use(function (err, req, res, next) {
-//   console.log('---------err----------');
-//   console.log(err);
-//   console.log('--------end err-----------');
+// handle 404 error
+app.use(function (req, res, next) {
+  let err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+})
+// handle errors
+app.use(function (err, req, res, next) {
+  console.log('---------err----------');
+  console.log(err);
+  console.log('--------end err-----------');
 
-//   if (err.status === 404)
-//     res.status(404).json({ message: "Not found" });
-//   else
-//     res.status(500).json({ message: "Something looks wrong :( !!!" });
-// })
+  if (err.status === 404)
+    res.status(404).json({ message: "Not found" });
+  else
+    res.status(500).json({ message: "Something looks wrong :( !!!" });
+})
 
