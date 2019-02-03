@@ -8,7 +8,7 @@ var db = require('./modulos/db');
 var session = require('express-session');
 var flash = require('connect-flash');
 const ensureAuthenticated = require('./config/auth');
-var users = require('./routes/users');
+// var users = require('./routes/users');
 const passport = require('passport');
 const expressLayouts = require('express-ejs-layouts');
 
