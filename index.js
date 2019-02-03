@@ -4,7 +4,7 @@ var bodyParser = require('body-parser')
 var clashRoutes = require('./routes/clashRoutes');
 var weatherRoutes = require('./routes/weatherRoutes');
 var indexRouters = require('./routes/indexRouters');
-// var db = require('./modulos/db');
+var db = require('./modulos/db');
 var sendEmail = require('./modulos/sendEmail');
 var session = require('express-session');
 var flash = require('connect-flash');
@@ -22,16 +22,16 @@ const API_PATH = '/api/v1'
 require('./config/passport')(passport);
 
 // DB Config
-const db = require('./config/keys').mongoURI;
+// const db = require('./config/keys').mongoURI;
 
-// Connect to MongoDB
-mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true }
-  )
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err));
+// // Connect to MongoDB
+// mongoose
+//   .connect(
+//     db,
+//     { useNewUrlParser: true }
+//   )
+//   .then(() => console.log('MongoDB Connected'))
+//   .catch(err => console.log(err));
 
 var app = express();
 // bodyparser setup
