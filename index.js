@@ -5,7 +5,6 @@ var clashRoutes = require('./routes/clashRoutes');
 var weatherRoutes = require('./routes/weatherRoutes');
 var indexRouters = require('./routes/indexRouters');
 var db = require('./modulos/db');
-var sendEmail = require('./modulos/sendEmail');
 var session = require('express-session');
 var flash = require('connect-flash');
 const jwt = require('jsonwebtoken');
