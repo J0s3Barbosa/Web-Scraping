@@ -8,7 +8,8 @@
   "main": "index.js",
   "scripts": {
     "test": "node test.js",
-    "start": "node ./index.js"
+    "start": "node ./index.js",
+    "dev": "nodemon ./index.js --exec babel-node -e js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
