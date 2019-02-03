@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5000
 const API_PATH = '/api/v1'
 
 // Passport Config
-require('./config/passport')(passport);
+// require('./config/passport')(passport);
 
 // DB Config
 // const db = require('./config/keys').mongoURI;
@@ -48,8 +48,8 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use(flash());
 
@@ -73,16 +73,16 @@ app.use(express.static(path.join(__dirname, 'public')))
   .get('/', (req, res) => res.render('pages/index'))
 
   // Welcome Page
-  .get('/welcome', (req, res) => res.render('pages/welcome'))
+  // .get('/welcome', (req, res) => res.render('pages/welcome'))
 
-  // Dashboard
-  .get('/dashboard', ensureAuthenticated, (req, res) =>
-    res.render('pages/dashboard', {
-      user: req.user
-    })
-  )
+  // // Dashboard
+  // .get('/dashboard', ensureAuthenticated, (req, res) =>
+  //   res.render('pages/dashboard', {
+  //     user: req.user
+  //   })
+  // )
 
-  .use('/users', users)
+  // .use('/users', users)
   .use(API_PATH + '/clashRoyale', clashRoutes)
   .use(API_PATH + '/weather', weatherRoutes)
   .use(API_PATH + '/youtube', indexRouters)
