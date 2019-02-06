@@ -14,6 +14,7 @@ var flash = require('connect-flash');
 var session = require('express-session');
 const morgan = require("morgan");  
 const cookieParser = require("cookie-parser");  
+const User = require("./models/User");  
 
 const PORT = process.env.PORT || 5000
 const API_PATH = '/api/v1'
