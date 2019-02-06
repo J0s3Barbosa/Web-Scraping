@@ -6,14 +6,11 @@ var weatherRoutes = require('./routes/weatherRoutes');
 var indexRouters = require('./routes/indexRouters');
 // var db = require('./modulos/db');
 const ensureAuthenticated = require('./config/auth');
-// var users = require('./routes/users');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
-const passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
 const morgan = require("morgan");  
-const cookieParser = require("cookie-parser");  
 
 const PORT = process.env.PORT || 5000
 const API_PATH = '/api/v1'
@@ -47,15 +44,12 @@ app.use(function (req, res, next) {
 });
 
 // For Sessions  
-app.use(cookieParser());  
 app.use(session({
   secret: 'secretkey',
   saveUninitialized: true,
   resave: true
 
 }));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(flash());
 
 
@@ -98,8 +92,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
-  require("./config/passport")(passport);  
-  require("./routes/users")(app, passport);  
 // handle 404 error
 app.use(function (req, res, next) {
   let err = new Error('Not Found');

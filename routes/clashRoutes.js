@@ -1,14 +1,13 @@
 var express = require('express');
 var router = express.Router();
 const verifyToken = require('../modulos/check-auth');
-const ensureAuthenticated = require('../config/auth');
 
 var clashController = require('../controllers/clashController');
 
 /// clashroyale ROUTES ///
 
 // GET request for list of all ClashRoyales.
-router.get('/cr', ensureAuthenticated, clashController.cr);
+router.get('/cr', clashController.cr);
 router.get('/clashs',clashController.getClashRoyaleList );
 router.get('/clash/:id', clashController.clashroyale_detail);
 router.post('/clash/createmethod', verifyToken, clashController.clashroyale_createMethod_post);
