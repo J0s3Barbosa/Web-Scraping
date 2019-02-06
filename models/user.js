@@ -1,23 +1,21 @@
-const mongoose = require('mongoose');
-var passportlocalmongoose=require("passport-local-mongoose");
-
-const UserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  date: {
-    type: Date,
-    default: Date.now
-  }
-});
-UserSchema.plugin(passportlocalmongoose);
-module.exports = mongoose.model('User', UserSchema);
+const mongoose = require("mongoose");  
+// const bcrypt = require("bcrypt");  
+const bcrypt = require('bcryptjs');
+  
+const userSchema = mongoose.Schema({  
+    local: {  
+        username: String,  
+        password: String  
+    }  
+});  
+  
+userSchema.methods.generateHash = function(password){  
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(9));  
+};  
+  
+userSchema.methods.validPassword = function(password){  
+    return bcrypt.compareSync(password, this.local.password);  
+}  
+  
+var User = mongoose.model("userdetails", userSchema);  
+module.exports = User;  
