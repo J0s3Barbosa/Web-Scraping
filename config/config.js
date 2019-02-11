@@ -1,6 +1,6 @@
 
 var secretkey = 'secretkey'
 module.exports = {
-    secretkey: secretkey
-};[]
+    JWT_KEY: secretkey
+};
   

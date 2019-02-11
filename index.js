@@ -12,6 +12,8 @@ var flash = require('connect-flash');
 var session = require('express-session');
 const morgan = require("morgan");  
 
+var router_user = require('./routes/user');
+
 const PORT = process.env.PORT || 5000
 const API_PATH = '/api/v1'
 
@@ -28,6 +30,7 @@ mongoose
   )
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
+  mongoose.Promise = global.Promise;
 
 var app = express();
 // bodyparser setup
@@ -36,10 +39,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(morgan('dev'));  
 
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
   next();
 });
 
@@ -72,24 +81,11 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use(expressLayouts)
   .get('/', (req, res) => res.render('pages/index'))
 
-  // Welcome Page
-  // .get('/welcome', (req, res) => res.render('pages/welcome'))
-
-  // // Dashboard
-  // .get('/dashboard', ensureAuthenticated, (req, res) =>
-  //   res.render('pages/dashboard', {
-  //     user: req.user
-  //   })
-  // )
-
-  // .use('/users', users)
   .use(API_PATH + '/clashRoyale', clashRoutes)
   .use(API_PATH + '/weather', weatherRoutes)
   .use(API_PATH + '/youtube', indexRouters)
   .use(API_PATH + '/default', indexRouters)
-
-
-
+  .use('/user', router_user)
 
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 // handle 404 error
@@ -106,9 +102,6 @@ app.use(function (err, req, res, next) {
   res.render('pages/error', {
     error: err
   })
-  // if (err.status === 404)
-  //   res.status(404).json({ message: "Not found" });
-  // else
-  //   res.status(500).json({ message: "Something looks wrong :( !!!" });
+  
 })
 
