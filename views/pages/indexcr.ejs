@@ -55,27 +55,6 @@
 
   <div class="container">
 
-    <%if(typeof message == "undefined"){%>
-    <% } else { %>
-    <%= message %>
-    <%}%>
-
-    <%if(typeof error == "undefined"){%>
-    <% } else { %>
-    <%= error.message %>
-    <%}%>
-    <!-- <div id="draggable" class="ui-widget-content ui-widget-content">
-      <div>
-        <% include ../partials/insertCr.ejs %>
-      </div>
-      <div>
-        <% include ../partials/CrMbattle.ejs %>
-      </div>
-      <% include ../partials/CrStatus.ejs %>
-
-    </div> -->
-
-
     <div id="myTextArea" class="draggable ">
       <% include ../partials/insertCr.ejs %>
     </div>

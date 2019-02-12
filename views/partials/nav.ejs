@@ -67,13 +67,16 @@
 
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <% include ../partials/partial_login.ejs %>
-    </ul>
+  <!-- <% include ../partials/partial_login.ejs %> -->
+  <li><a href="#" id='modallogin'><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+  </ul>
 
 
 
   </div>
 </nav>
+<% include ../partials/login.ejs %>
 
 <script>
   function openNav() {

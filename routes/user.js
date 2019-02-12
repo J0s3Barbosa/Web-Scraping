@@ -75,9 +75,10 @@ router.post("/login", (req, res, next) => {
             // process.env.JWT_KEY,
             config.JWT_KEY,
             {
-              expiresIn: "1h"
+              expiresIn: config.JWT_TIME_EXPIRES
             }
           );
+          console.log(token)
           return res.status(200).json({
             message: "Auth successful",
             token: token
@@ -186,11 +187,6 @@ router.post("/systemlogin", (req, res, next) => {
           req.flash('user', user[0].email);
 
           return res.redirect('/');
-
-          // return res.status(200).json({
-          //   message: "Auth successful",
-          //   token: token
-          // });
         }
         req.flash('error_msg', "Auth failed");
         res.status(401).redirect('/login');
@@ -213,5 +209,6 @@ router.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
+router.get('/signup', (req, res) => res.render('pages/register'))
 
 module.exports = router;

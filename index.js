@@ -5,7 +5,6 @@ var clashRoutes = require('./routes/clashRoutes');
 var weatherRoutes = require('./routes/weatherRoutes');
 var indexRouters = require('./routes/indexRouters');
 // var db = require('./modulos/db');
-const ensureAuthenticated = require('./config/auth');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 var flash = require('connect-flash');
@@ -68,7 +67,6 @@ app.use(function (req, res, next) {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.user = req.flash('user');
-  res.locals.usertoken = req.flash('usertoken');
   next();
 });
 
@@ -81,25 +79,14 @@ app.use(express.static(path.join(__dirname, 'public')))
   .set('view engine', 'ejs')
   .use(expressLayouts)
   .get('/', (req, res) => res.render('pages/index'))
-  .get('/login', (req, res) => res.render('pages/login'))
 
   .use(API_PATH + '/clashRoyale', clashRoutes)
   .use(API_PATH + '/weather', weatherRoutes)
   .use(API_PATH + '/youtube', indexRouters)
   .use(API_PATH + '/default', indexRouters)
   .use('/user', router_user)
-
+  
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
-
-// Dashboard
-app.get('/dashboard', ensureAuthenticated, (req, res) =>
-  res.render('pages/dashboard', {
-    user: req.user
-  })
-);
-
-app.get('/signup', (req, res) => res.render('pages/register'));
-
 
 
 // handle 404 error

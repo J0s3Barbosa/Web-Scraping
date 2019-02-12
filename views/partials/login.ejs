@@ -1,29 +1,101 @@
-<div class="container">  
-    <div class="row">  
-        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">  
-            <div class="jumbotron">  
-                <form action="/login" method="POST" role="form">  
-                    <legend>Login</legend>  
-                    <div class="form-group">  
-                        <label for="email">Email</label>  
-                        <input type="text" class="form-control" name="email" placeholder="Enter name">  
-                    </div>  
-                    <div class="form-group">  
-                        <label for="pass">Password</label>  
-                        <input type="password" class="form-control" name="password" placeholder="Enter name">  
-                    </div>  
-                    <button type="submit" class="btn btn-primary">Submit</button>  
-                    <a href="/"><button type="button" class="btn btn-primary">Back</button></a>  
-                    <% if( message.length > 0 ){ %>  
-                        <br />  
-                        <br />  
-                        <div class="alert alert-info">  
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>  
-                            <strong><%= message %></strong>  
-                        </div>                  
-                    <% } %>  
-                </form>  
-            </div>  
-        </div>  
-    </div>  
-</div>  
+
+
+    <!-- Trigger the modal with a button -->
+  <!-- <button type="button" class=" glyphicon glyphicon-log-in" data-toggle="modal" data-target="#myModal">Login</button> -->
+  
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Login</h4>
+          </div>
+          <div class="modal-body">
+             
+            <form id='formlogin' class="form-horizontal" action="/user/login" method="POST">
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="email">Email</label>
+                  <div class="col-sm-10">
+                    <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-control"
+                    placeholder="Enter Email"
+                  />
+                </div>
+      
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2"  for="password">Password</label>
+                  <div class="col-sm-10"> 
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-control"
+                    placeholder="Enter Password"
+                  />
+                </div>
+      
+                </div>
+                <div class="form-group"> 
+                  <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                  </div>
+                </div>
+              </form>
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+  <script>
+  $('#modallogin').click(function (event) {
+
+    $('#myModal').modal('show');
+
+  })
+  $('#formlogin').submit(function (event) {
+    var formData = {
+      'email': $('input[name=email]').val(),
+      'password': $('input[name=password]').val()
+    };
+    // process the form
+    $.ajax({
+      type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+      url: '/user/login', // the url where we want to POST
+      data: formData, // our data object
+      dataType: 'json', // what type of data do we expect back from the server
+      encode: true
+    })
+      .done(function (data) {
+        var msg = 'Login successfully ' +  data.token
+        var msg_type = 'success'
+        ShowMessage(msg, msg_type)
+        $("#myForm")[0].reset();
+        $('#myModal').modal('hide');
+          localStorage.setItem("token", 'Bearer '+  data.token);
+      }).fail(
+         function (jqXHR, textStatus, errorThrown) {
+        alert(errorThrown);
+        var msg = jqXHR.responseText
+        var msg_type = 'error'
+        ShowMessage(msg, msg_type)
+      }
+      );
+
+    event.preventDefault();
+  });
+
+  
+  </script>

@@ -6,6 +6,18 @@ const puppeteer = require('puppeteer');
 const jwt = require('jsonwebtoken');
 
 var obj = [];
+
+exports.cr = function (req, res) {
+    try {
+        res.render('pages/indexcr')
+        // res.render('pages/indexcr', {
+        //     user: req.user
+        // })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 // Display list of all clashroyale.
 exports.getClashRoyaleList = function (req, res) {
 
@@ -22,28 +34,8 @@ exports.getClashRoyaleList = function (req, res) {
 // Display detail page for a specific ClashRoyale.
 exports.clashroyale_detail = function (req, res) {
     ClashRoyale.findById(req.params.id, function (err, clashroyale) {
-        if (err)
-            res.send(err);
-        res.json(clashroyale);
-    });
-
-};
-
-// Display ClashRoyale create form on GET.
-exports.clashroyale_create_get = function (req, res) {
-    res.send('NOT IMPLEMENTED: ClashRoyale create GET');
-};
-
-exports.clashroyale_create_post = function (req, res) {
-
-    let newClash = new ClashRoyale(req.body);
-    if (req.body == 'undefined') {
-        return false
-    }
-    newClash.save((err, clashroyale) => {
-        if (err) {
-            res.send(err);
-        }
+        if (err) res.send(err);
+           
         res.json(clashroyale);
     });
 
@@ -53,119 +45,50 @@ exports.clashroyale_createMethod_post = function (req, res) {
 
     let newClash = new ClashRoyale(req.body);
 
-    // newClash.save((error, clashroyale) => {
-    //     if (error) {
-    //         // res.send(error);
-    //         res.render('pages/indexcr', {
-    //             error: error
-    //         }
-    //         )
-    //     }
-    //     // var link = '/api/v1/clashRoyale/cr'
-    //     // res.redirect(link);
-    //     res.json(clashroyale);
-
-    // });
-
-
-    jwt.verify(req.token, 'secretkey', (err, authData) => {
-        if (err) {
-            res.sendStatus(403);
-        } else {
-
-            newClash.save((error, clashroyale) => {
-                if (error) {
-                    // res.send(error);
-                req.flash('error_msg', error);
-                res.render('pages/indexcr', {
-                        error: error
-                    }
-                    )
-                }
-                // var link = '/api/v1/clashRoyale/cr'
-                // res.redirect(link);
-                req.flash('success_msg', 'Data Inserted!');
-                res.json(clashroyale);
-
-            });
+    newClash.save((error, clashroyale) => {
+        if (error) {
+            req.flash('error_msg', error);
+            res.render('pages/indexcr', {
+                error: error
+            }
+            )
         }
-    })
-
-
-};
-
-
-// Display ClashRoyale delete form on GET.
-exports.clashroyale_delete_get = function (req, res) {
-
-    ClashRoyale.findByIdAndRemove(req.params.id, function (err, clashroyale) {
-        if (err) {
-            res.send(err);
-        }
-        // var link = '/api/v1/clashRoyale/cr'
-        // res.redirect(link);
-        res.send({ status: 200, DataDeleted: clashroyale })
-    });
-
-    // res.send('NOT IMPLEMENTED: ClashRoyale delete GET');
-};
-
-// Handle ClashRoyale delete on POST.
-exports.clashroyale_delete_post = function (req, res) {
-
-    jwt.verify(req.token, 'secretkey', (err, authData) => {
-        if (err) {
-                req.flash('error_msg', err);
-                res.sendStatus(403);
-        } else {
-            ClashRoyale.findByIdAndRemove(req.params.id, function (err, clashroyale) {
-                if (err)res.send(err);
-        req.flash('success_msg', 'Data Deleted!');
+        req.flash('success_msg', 'Data Inserted!');
         res.json(clashroyale);
-            });
-        }
-    })
 
-};
-
-// Display ClashRoyale update form on GET.
-exports.clashroyale_update_get = function (req, res) {
-    ClashRoyale.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (err, clashroyale) {
-        if (err)
-            res.send(err);
-        res.json(clashroyale);
     });
 };
-
 // Handle ClashRoyale update on POST.
 exports.clashroyale_update_post = function (req, res) {
-    jwt.verify(req.token, 'secretkey', (err, authData) => {
-        if (err) {
-                req.flash('error_msg', err);
-                res.sendStatus(403);
-        } else {
-            ClashRoyale.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (err, clashroyale) {
-                if (err) res.send(err);
-        
-                req.flash('success_msg', 'Data Updated!');
-                res.json(clashroyale);
-            });
-        }
-    })
+    ClashRoyale.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (err, clashroyale) {
+        if (err) res.send(err);
 
-  
+        req.flash('success_msg', 'Data Updated!');
+        res.json(clashroyale);
+    });
 
 };
-exports.cr = function (req, res) {
-    try {
-        res.render('pages/indexcr')
-        // res.render('pages/indexcr', {
-        //     user: req.user
-        // })
-    } catch (error) {
-        console.log(error)
-    }
-}
+// Handle ClashRoyale delete on POST.
+exports.clashroyale_delete_post = function (req, res) {
+    ClashRoyale.findByIdAndRemove(req.params.id, function (err, clashroyale) {
+        if (err) res.send(err);
+        req.flash('success_msg', 'Data Deleted!');
+        res.json(clashroyale);
+    });
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 exports.clashroyaleapi = async function (req, res) {
     try {
@@ -353,16 +276,4 @@ function cr_status_page_update(url, elementToClick, path_mouse_click_png) {
         console.log('catch Error => ' + error)
     }
 }
-// // get the user starlord55
-// User.find({ username: 'starlord55' }, function(err, user) {
-//     if (err) throw err;
-
-//     // delete him
-//     user.remove(function(err) {
-//       if (err) throw err;
-
-//       console.log('User successfully deleted!');
-//     });
-//   });
-
 

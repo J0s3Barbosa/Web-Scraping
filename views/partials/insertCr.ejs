@@ -50,6 +50,8 @@
       'Defeat': $('input[name=Defeat]').val()
     };
     var tok = window.localStorage.getItem('token');
+    console.log('window.localStorage.getItem(token- '+ tok)
+    
     // process the form
     $.ajax({
       headers: {'Authorization': tok},
