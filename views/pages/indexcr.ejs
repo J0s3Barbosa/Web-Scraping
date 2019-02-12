@@ -1,7 +1,7 @@
 <title><%- title  =  'Clash Royale' %></title>
 
   <script>
-
+ 
     var positions = JSON.parse(localStorage.positions || "{}");
     var size = JSON.parse(localStorage.size || "{}");
     $(function () {
@@ -50,7 +50,6 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
   <div id="successMessage" style="display:none;">
-    It worked
   </div>
 
   <div class="container">
@@ -64,11 +63,6 @@
     </div>
       <% include ../partials/CrMbattle.ejs %>
       <% include ../partials/CrStatus.ejs %>
-
-
-    <!-- <% include ../partials/insertCr.ejs %>
-    <% include ../partials/CrMbattle.ejs %>
-    <% include ../partials/CrStatus.ejs %> -->
 
     <!-- end container -->
   </div>

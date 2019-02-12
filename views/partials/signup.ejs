@@ -1,33 +1,105 @@
       
-    <div class="container">  
-        <div class="row">  
-            <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">  
-                <div class="jumbotron">  
-                    <form action="/signup" method="POST" role="form">  
-                        <legend>Signup</legend>  
-                        <div class="form-group">  
-                            <label for="email">Email</label>  
-                            <input type="text" class="form-control" name="email" placeholder="Enter name">  
-                        </div>  
-                        <div class="form-group">  
-                            <label for="pass">Password</label>  
-                            <input type="password" class="form-control" name="password" placeholder="Enter name">  
-                        </div>  
-                        <button type="submit" class="btn btn-primary">Submit</button>  
-                        <a href="/"><button type="button" class="btn btn-primary">Back</button></a>  
-                        <% if( message.length > 0 ){ %>  
-                            <br />  
-                            <br />  
-                            <div class="alert alert-info">  
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>  
-                                <strong><%= message %></strong>  
-                                <br> Please click on x button to close that bar  
-                            </div>                  
-                            <% } %>  
-                    </form>  
-                </div>  
-            </div>  
-        </div>  
-    </div>  
-      
 
+    <!-- Trigger the modal with a button -->
+  <!-- <button type="button" class=" glyphicon glyphicon-log-in" data-toggle="modal" data-target="#myModal">Login</button> -->
+  
+    <!-- Modal -->
+    <div class="modal fade" id="myModalSignup" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Signup</h4>
+                </div>
+                <div class="modal-body">
+                        <form id="registerForm" action="/user/register" method="POST">
+       
+                            <div class="form-group">
+                              <label for="email">Email</label>
+                              <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="form-control"
+                                placeholder="Enter Email"
+                                value="<%= typeof email != 'undefined' ? email : '' %>"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="password">Password</label>
+                              <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                class="form-control"
+                                placeholder="Create Password"
+                                value="<%= typeof password != 'undefined' ? password : '' %>"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="password2">Confirm Password</label>
+                              <input
+                                type="password"
+                                id="password2"
+                                name="password2"
+                                class="form-control"
+                                placeholder="Confirm Password"
+                                value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+                              />
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">
+                              Register
+                            </button>
+                          </form>
+                
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  
+                </div>
+              
+              </div>
+              
+            </div>
+          </div>
+          
+        <script>
+        $('#btnaignup').click(function (event) {
+      
+          $('#myModalSignup').modal('show');
+      
+        })
+        $('#registerForm').submit(function (event) {
+          var formData = {
+            'email': $('input[name=email]').val(),
+            'password': $('input[name=password]').val()
+          };
+          // process the form
+          $.ajax({
+            type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url: '/user/signup', // the url where we want to POST
+            data: formData, // our data object
+            dataType: 'json', // what type of data do we expect back from the server
+            encode: true
+          })
+            .done(function (data) {
+              var msg = 'Signedup successfully ' 
+              var msg_type = 'success'
+              ShowMessage(msg, msg_type)
+              $("#registerForm")[0].reset();
+              $('#myModalSignup').modal('hide');
+            }).fail(
+               function (jqXHR, textStatus, errorThrown) {
+              var msg = jqXHR.responseText
+              var msg_type = 'error'
+              ShowMessage(msg, msg_type)
+            }
+            );
+      
+          event.preventDefault();
+        });
+      
+        
+        </script>

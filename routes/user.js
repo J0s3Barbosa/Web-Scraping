@@ -35,10 +35,6 @@ router.post("/signup", (req, res, next) => {
                   message: "User created"
                 });
               })
-              .then(result => {
-                console.log('redirecting');
-                res.redirect('/')
-              })
               .catch(err => {
                 console.log(err);
                 res.status(500).json({

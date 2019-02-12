@@ -3,7 +3,7 @@ const request_promise = require('request-promise')
 var request = require('request');
 var cheerio = require('cheerio');
 const puppeteer = require('puppeteer');
-const jwt = require('jsonwebtoken');
+const moment = require('moment');
 
 var obj = [];
 
@@ -35,7 +35,7 @@ exports.getClashRoyaleList = function (req, res) {
 exports.clashroyale_detail = function (req, res) {
     ClashRoyale.findById(req.params.id, function (err, clashroyale) {
         if (err) res.send(err);
-           
+
         res.json(clashroyale);
     });
 
@@ -44,7 +44,7 @@ exports.clashroyale_detail = function (req, res) {
 exports.clashroyale_createMethod_post = function (req, res) {
 
     let newClash = new ClashRoyale(req.body);
-
+ 
     newClash.save((error, clashroyale) => {
         if (error) {
             req.flash('error_msg', error);
