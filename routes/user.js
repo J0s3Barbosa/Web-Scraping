@@ -35,6 +35,10 @@ router.post("/signup", (req, res, next) => {
                   message: "User created"
                 });
               })
+              .then(result => {
+                console.log('redirecting');
+                res.redirect('/')
+              })
               .catch(err => {
                 console.log(err);
                 res.status(500).json({
@@ -71,7 +75,7 @@ router.post("/login", (req, res, next) => {
             // process.env.JWT_KEY,
             config.JWT_KEY,
             {
-                expiresIn: "1h"
+              expiresIn: "1h"
             }
           );
           return res.status(200).json({
@@ -109,5 +113,105 @@ router.delete("/:userId", (req, res, next) => {
       });
     });
 });
+
+
+// Systems login register
+router.post("/register", (req, res, next) => {
+  User.find({ email: req.body.email })
+    .exec()
+    .then(user => {
+      if (user.length >= 1) {
+        req.flash('error_msg', 'Mail exists');
+        return res.status(409).redirect('/signup');
+      } else {
+        bcrypt.hash(req.body.password, 10, (err, hash) => {
+          if (err) {
+            return res.status(500).json({
+              error: err
+            });
+          } else {
+            const user = new User({
+              _id: new mongoose.Types.ObjectId(),
+              email: req.body.email,
+              password: hash
+            });
+            user
+              .save()
+              .then(result => {
+                console.log(result);
+                console.log('redirecting');
+                req.flash('success_msg', 'Signed successfully!');
+                res.status(201).redirect('/');
+              })
+              .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                  error: err
+                });
+              });
+          }
+        });
+      }
+    });
+});
+
+
+router.post("/systemlogin", (req, res, next) => {
+  User.find({ email: req.body.email })
+    .exec()
+    .then(user => {
+      if (user.length < 1) {
+        req.flash('error_msg', 'Auth failed');
+        return res.status(401).redirect('/login');
+      }
+      bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+        if (err) {
+          req.flash('error_msg', 'Auth failed');
+          return res.status(401).redirect('/login');
+        }
+        if (result) {
+          const token = jwt.sign(
+            {
+              email: user[0].email,
+              userId: user[0]._id
+            },
+            // process.env.JWT_KEY,
+            config.JWT_KEY,
+            {
+              expiresIn: "1h"
+            }
+          );
+          req.flash('success_msg', 'Auth successful! token= ' + token);
+          req.flash('usertoken', 'Bearer ' + token);
+          req.flash('user', user[0].email);
+
+          return res.redirect('/');
+
+          // return res.status(200).json({
+          //   message: "Auth successful",
+          //   token: token
+          // });
+        }
+        req.flash('error_msg', "Auth failed");
+        res.status(401).redirect('/login');
+
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      req.flash('error_msg', err);
+      res.status(500).redirect('/login');
+
+    });
+});
+
+
+// Logout
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.flash('success_msg', 'You are logged out');
+  res.redirect('/login');
+});
+
 
 module.exports = router;

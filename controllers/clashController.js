@@ -76,13 +76,15 @@ exports.clashroyale_createMethod_post = function (req, res) {
             newClash.save((error, clashroyale) => {
                 if (error) {
                     // res.send(error);
-                    res.render('pages/indexcr', {
+                req.flash('error_msg', error);
+                res.render('pages/indexcr', {
                         error: error
                     }
                     )
                 }
                 // var link = '/api/v1/clashRoyale/cr'
                 // res.redirect(link);
+                req.flash('success_msg', 'Data Inserted!');
                 res.json(clashroyale);
 
             });
@@ -113,12 +115,13 @@ exports.clashroyale_delete_post = function (req, res) {
 
     jwt.verify(req.token, 'secretkey', (err, authData) => {
         if (err) {
-            res.sendStatus(403);
+                req.flash('error_msg', err);
+                res.sendStatus(403);
         } else {
             ClashRoyale.findByIdAndRemove(req.params.id, function (err, clashroyale) {
-                if (err)
-                    res.send(err);
-                res.json(clashroyale);
+                if (err)res.send(err);
+        req.flash('success_msg', 'Data Deleted!');
+        res.json(clashroyale);
             });
         }
     })
@@ -138,11 +141,13 @@ exports.clashroyale_update_get = function (req, res) {
 exports.clashroyale_update_post = function (req, res) {
     jwt.verify(req.token, 'secretkey', (err, authData) => {
         if (err) {
-            res.sendStatus(403);
+                req.flash('error_msg', err);
+                res.sendStatus(403);
         } else {
             ClashRoyale.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (err, clashroyale) {
                 if (err) res.send(err);
         
+                req.flash('success_msg', 'Data Updated!');
                 res.json(clashroyale);
             });
         }
@@ -153,10 +158,10 @@ exports.clashroyale_update_post = function (req, res) {
 };
 exports.cr = function (req, res) {
     try {
-        res.render('pages/indexcr', {
-            user: req.user
-        })
-
+        res.render('pages/indexcr')
+        // res.render('pages/indexcr', {
+        //     user: req.user
+        // })
     } catch (error) {
         console.log(error)
     }
