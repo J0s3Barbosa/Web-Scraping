@@ -29,7 +29,7 @@
 
 
 <script>
-
+  
   function validateForm() {
     var x = document.forms["myForm"]["Trophies"].value;
     var xVictory = document.forms["myForm"]["Victory"].value;
@@ -50,7 +50,8 @@
       'Defeat': $('input[name=Defeat]').val()
     };
     var tok = window.localStorage.getItem('token');
-
+    console.log('window.localStorage.getItem(token- '+ tok)
+    
     // process the form
     $.ajax({
       headers: {'Authorization': tok},
@@ -75,7 +76,6 @@
         // here we will handle errors and validation messages
       }).fail(
          function (jqXHR, textStatus, errorThrown) {
-        alert(errorThrown);
         var msg = jqXHR.responseText
         var msg_type = 'error'
         ShowMessage(msg, msg_type)

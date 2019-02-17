@@ -24,11 +24,12 @@
             txt += "<tr>"
             var id2pass = "btnupdate_" + data[i]._id
             var msgDelete = 'Delete this data?'
+            var date = data[i].Played_at
 
             txt += "<td> <input type='number' class='form-control' id='Trophies_" + data[i]._id + "' value='" + data[i].Trophies + "'> </td>";
             txt += "<td> <input type='number' class='form-control' id='Victory_" + data[i]._id + "' value='" + data[i].Victory + "'> </td>";
             txt += "<td> <input type='number' class='form-control' id='Defeat_" + data[i]._id + "' value='" + data[i].Defeat + "'> </td>";
-            txt += "<td>" + data[i].Played_at + "</td>";
+            txt += "<td>" + date + "</td>";
             txt += "<td><button id='btnupdate_" + data[i]._id + "' type='submit' onclick='updateCheck(event, this);'  value='" + data[i]._id + "' data-id='" + data[i]._id + "' class='btn btn-primary '  '>Save</button></td>";
             txt += "<td><button id='btnDelete_" + data[i]._id + "' type='submit' onclick='deleteConfirmation(event, this);'  value='" + data[i]._id + "' data-id='" + data[i]._id + "' class='btn btn-danger'  '>Delete</button></td>";
             txt += "</tr>"
@@ -44,7 +45,9 @@
 
 
         if (status == "error")
-          alert("Error: " + status);
+        var msg = status
+        var msg_type = 'error'
+        ShowMessage(msg, msg_type)
       });
 
     }
@@ -65,6 +68,8 @@
 
   function ShowMessage(msg, msg_type) {
     var element = $('#successMessage');
+   
+    $(window).scrollTop(0);
     element.show();
     element.text(msg)
     if (msg_type == 'success') {
@@ -92,8 +97,8 @@
     setTimeout(function () {
       element.fadeOut('slow', function () {
       });
-
     }, 3000);
+
   }
 
   function updateCheck(event, e) {
@@ -120,7 +125,7 @@
         $("#btnEditCrBattledata").click()
       },
       error: function (request, status, error) {
-         alert(request.responseText);
+        //  alert(request.responseText);
         var msg = request.responseText
         var msg_type = 'error'
         ShowMessage(msg, msg_type)
@@ -147,7 +152,6 @@
         $("#btnEditCrBattledata").click()
       },
       error: function (request, status, error) {
-        alert(request.responseText);
         var msg = request.responseText
         var msg_type = 'error'
         ShowMessage(msg, msg_type)

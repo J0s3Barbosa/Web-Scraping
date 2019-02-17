@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
-    
+
   var ClashSchema = new Schema({
 
     Trophies: {
@@ -17,7 +17,7 @@ const Schema = mongoose.Schema;
     },
     Played_at: {
         type: Date,
-        default: Date.now
+      default: Date.now
     }
 });
 // module.exports = ClashSchema;
