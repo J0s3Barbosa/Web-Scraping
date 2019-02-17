@@ -1,0 +1,73 @@
+<title><%- title  =  'Home' %></title>
+
+      <style>
+          .bg-1 { 
+            background-color: #1abc9c;
+            color: #ffffff;
+          }
+          .bg-2 { 
+            background-color: #474e5d;
+            color: #ffffff;
+          }
+          .bg-3 { 
+            background-color: #ffffff;
+            color: #555555;
+          }
+          .container-fluid {
+            padding-top: 40px;
+            padding-bottom: 70px;
+          }
+          </style>
+
+  <% if (typeof SuccessMsg != 'undefined') { %>
+    <div class="alert alert-success"><%= SuccessMsg %></div>
+    <% } else if(typeof ErrorMsg != 'undefined' ) { %>
+    <div class="alert alert-danger"><%= ErrorMsg %></div>
+    <% } %>
+
+  <div class="container-fluid bg-1 text-center">
+    <h3>Who Am I?</h3>
+    <img src="../public/lang-logo.png" class="img-circle" alt="img" width="350" height="350">
+    <h3>I'm an Web Developer (MCP) C#/NodeJs/Python</h3>
+  </div>
+  
+  <div class="container-fluid bg-2 text-center">
+      <h3 class="">
+          José Barbosa    <a href="https://www.linkedin.com/in/jos%C3%A9-barbosa-0a158a73/" target='_blank' class="fa fa-linkedin "></a>
+        </h3>
+     
+        </a>
+    <h4>Web Developer (MCP) C#/NodeJs/Python</h4>
+    <div id="ember82" class="pv-top-card-section__summary pv-top-card-section__summary--with-content mt4 ember-view">    <p id="ember84" class="pv-top-card-section__summary-text text-align-left mt4 ember-view">  # 6+ years experience with IT, providing IT/systems analysis and support.<br># 3+ years of hands-on .NET C# development experience with ASP.NET MVC 4 and Asp.Net Web forms.<br># Knowledge in ASP.NET Web API, restful API, OOP, Entity Framework, .Net Core, unit-test,TDD , Arduíno, Node.js, NHibernate .<br># Back-end - C#, Python, Node.js<br># Front-end - HTML5, CSS, JAVASCRIPT, Ajax, JSON, Bootstrap, jQuery<br># Hosting - IIS, Azure, heroku, CircleCi<br># Databases - SQL Server, mysql, sqlite, mongodb, cloud database<br># Versioning - GIT/bitbucket and TFS. <br># Knowledge in software development life-cycle and implementation methodologies<br># Microsoft® Specialist: Programming in HTML5 with JavaScript and CSS3<br># http://www.mycertprofile.com/Profile/2261708202 
+
+      <!----><span class="lt-line-clamp__ellipsis lt-line-clamp__ellipsis--dummy">...</span></p>
+      
+      
+      <div id="ember85" class="pv-top-card-section__summary-treasury mt4 pv-treasury-list-preview ember-view"><!----><!----></div>
+      
+      </div>
+
+  </div>
+  
+  <div class="container-fluid bg-3 text-center">    
+    <h3>About this app</h3><br>
+    <div class="row">
+      <div class="col-sm-4">
+        <p>Home</p>
+        <p>Main page with information about the app</p>
+        <img src="birds1.jpg" alt="Image" width="350" height="300">
+      </div>
+      <div class="col-sm-4"> 
+        <p>Clash Royale</p>
+        <p>- Modulo to manage the daily action in the game</p>
+        <img src="birds2.jpg" alt="Image" width="350" height="300">
+      </div>
+      <div class="col-sm-4"> 
+        <p>Weather</p>
+        <p>Shows the main information from weather sites that you need to know</p>
+        <img src="birds3.jpg" alt="Image" width="350" height="300">
+      </div>
+    </div>
+  </div>
+
+  

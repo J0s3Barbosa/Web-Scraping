@@ -1,0 +1,38 @@
+<script>
+  $(document).ready(function () {
+
+    function generatetoken() {
+      var param = 'appchto@gmail.com'
+      var url = '/users/finduser/:' + param
+      $.post(url, function (data, status) {
+        if (status == "success") {
+          var txt = ''
+          txt += "<span>" + data.token + "</span>";
+          localStorage.setItem("token", 'Bearer '+  data.token);
+
+          document.getElementById("divToken").innerHTML = txt;
+        }
+
+        if (status == "error")
+          alert("Error: " + status);
+      });
+
+    }
+
+    $("#btntoken").click(function () {
+      generatetoken();
+    });
+
+  });
+
+</script>
+
+
+<div class="panel panel-default ">
+  <div class="panel-body ">
+    <h2>Generate Token </h2>
+    <div id="divToken"> </div>
+
+    <button id="btntoken" class="btn btn-primary">Generate Token</button>
+  </div>
+</div>

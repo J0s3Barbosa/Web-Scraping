@@ -1,0 +1,9 @@
+<% if( user != ''){ %>
+<li> <a href="/dashboard" class="glyphicon glyphicon-log-user">
+        <%= user %></a></li>
+<li> <a href="/logout" class="glyphicon glyphicon-log-out">Logout</a></li>
+<% } %>
+<% if(user == ''){ %>
+<li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+<% } %>

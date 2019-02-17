@@ -1,0 +1,69 @@
+<title><%- title  =  'Clash Royale' %></title>
+
+  <script>
+ 
+    var positions = JSON.parse(localStorage.positions || "{}");
+    var size = JSON.parse(localStorage.size || "{}");
+    $(function () {
+      var d = $("[id=myTextArea]").attr("id", function (i) {
+        return "draggable_" + i
+      })
+      $.each(positions, function (id, pos) {
+        $("#" + id).css(pos)
+      })
+      $.each(size, function (id, siz) {
+        $("#" + id).css(siz)
+      })
+
+      d.draggable({
+        containment: "#container",
+        scroll: false,
+        stop: function (event, ui) {
+          positions[this.id] = ui.position
+          localStorage.positions = JSON.stringify(positions)
+        }
+      });
+      d.resizable({
+        stop: function (event, ui) {
+          size[this.id] = ui.size
+          localStorage.size = JSON.stringify(size)
+        }
+      });
+    });
+
+
+    $(document).ready(function () {
+  
+
+    });
+    function resetlayout  () {
+    var btnRestore = $("[id=resetlayout]")
+      btnRestore.click(function () {
+        localStorage.positions = ''
+        localStorage.size = ''
+        window,location.reload()
+      })
+    }
+  </script>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <div id="successMessage" style="display:none;">
+  </div>
+
+  <div class="container">
+
+    <div id="myTextArea" class="draggable ">
+      <% include ../partials/insertCr.ejs %>
+    </div>
+
+    <div id="myTextArea" class="draggable ">
+      <% include ../partials/CrMbattle_edit.ejs %>
+    </div>
+      <% include ../partials/CrMbattle.ejs %>
+      <% include ../partials/CrStatus.ejs %>
+
+    <!-- end container -->
+  </div>
+

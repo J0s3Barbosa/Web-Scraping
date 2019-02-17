@@ -1,0 +1,63 @@
+<script>
+  $(document).ready(function () {
+    loadClashRoyaleStatus();
+  
+    function loadClashRoyaleStatus() {
+      var url = '/api/v1/clashroyale/clashroyaleapi'
+      $.get(url, function (data, status) {
+        if (status == "success") {
+          var txt = '';
+          txt += "<div class='table-responsive'>"
+          txt += "<table class='table table-hover '>"
+          txt += "<thead>"
+          txt += "<tr>"
+          txt += "<th>Player</th>"
+          txt += "<th>Highest_Trophies</th>"
+          txt += "<th>Trophies</th>"
+          txt += "<th>userLevel</th>"
+          txt += "<th>favouriteCardName</th>"
+          txt += "<th>statsroyaleprofile</th>"
+          txt += "</thead>"
+          txt += "</thead>"
+          txt += "<tbody>"
+          for (var i = 0; i < data.length; i++) {
+            txt += "<tr>"
+            txt += "<td>" + data[i].Player + "</td>";
+            txt += "<td>" + data[i].Highest_Trophies + "</td>";
+            txt += "<td><lable>" + data[i].Trophies + "</lable></td>";
+            txt += "<td>" + data[i].userLevel + "</td>";
+            txt += "<td>" + data[i].favouriteCardName + "</td>";
+            txt += "<td><a href='" + data[i].statsroyaleprofile + "'target='_blank' id='' data-id='" + data[i].statsroyaleprofile.split('/')[4] + "'>" + data[i].statsroyaleprofile.split('/')[4] + "</a></td>";
+            txt += "</tr>"
+
+          }
+          txt += "</tbody>"
+          txt += "</table>"
+          txt += "</div>"
+          document.getElementById("divSatus").innerHTML = txt;
+
+        }
+
+        if (status == "error")
+          alert("Error: " + status);
+      });
+
+    }
+
+    $("#btnLoadCrStatus").click(function () {
+      loadClashRoyaleStatus();
+    });
+
+  });
+
+</script>
+
+
+<div class="panel panel-default ">
+  <div class="panel-body ">
+    <h2>Data from Royale Status </h2>
+    <div id="divSatus"> </div>
+
+    <button id="btnLoadCrStatus" class="btn btn-primary">Load Data</button>
+  </div>
+</div>
