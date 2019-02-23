@@ -11,9 +11,8 @@ const mongoose = require('mongoose');
 const morgan = require("morgan");
 
 var router_user = require('./routes/user');
-const { fork } = require('child_process');
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5001
 const API_PATH = '/api/v1'
 
 // Passport Config
@@ -107,4 +106,3 @@ app.use(function (err, req, res, next) {
 
 })
 
-  fork('./app.js');
