@@ -12,11 +12,10 @@ const morgan = require("morgan");
 
 var router_user = require('./routes/user');
 
-const PORT = process.env.PORT || 5001
-const API_PATH = '/api/v1'
+const http = require('http')
+const port = parseInt(process.argv[2] || '3000')
 
-// Passport Config
-// require('./config/passport')(passport);
+const API_PATH = '/api/v1'
 
 // DB Config
 const db = require('./config/keys').mongoURI;
@@ -86,8 +85,6 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use(API_PATH + '/default', indexRouters)
   .use('/user', router_user)
   
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
-
 
 // handle 404 error
 app.use(function (req, res, next) {
@@ -105,4 +102,9 @@ app.use(function (err, req, res, next) {
   })
 
 })
+
+const server = http.createServer(app)
+server.listen(port)
+console.log(`advice service running on port ${port}`)
+
 
