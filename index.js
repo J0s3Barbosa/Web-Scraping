@@ -77,8 +77,9 @@ app.use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .use(expressLayouts)
-  .get('/', (req, res) => res.render('pages/index'))
-
+  .get('/', (req, res) => res.render('pages/index', {
+    user : req.user
+  }))
   .use(API_PATH + '/clashRoyale', clashRoutes)
   .use(API_PATH + '/weather', weatherRoutes)
   .use(API_PATH + '/youtube', indexRouters)

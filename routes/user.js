@@ -75,6 +75,8 @@ router.post("/login", (req, res, next) => {
             }
           );
           console.log(token)
+          console.log(user[0].email)
+          req.flash('user', user[0].email);
           return res.status(200).json({
             message: "Auth successful",
             token: token
@@ -94,7 +96,6 @@ router.post("/login", (req, res, next) => {
 });
 
 
-
 router.delete("/:userId", (req, res, next) => {
   User.remove({ _id: req.params.userId })
     .exec()
@@ -110,7 +111,6 @@ router.delete("/:userId", (req, res, next) => {
       });
     });
 });
-
 
 // Systems login register
 router.post("/register", (req, res, next) => {
@@ -151,7 +151,6 @@ router.post("/register", (req, res, next) => {
       }
     });
 });
-
 
 router.post("/systemlogin", (req, res, next) => {
   User.find({ email: req.body.email })
@@ -197,7 +196,6 @@ router.post("/systemlogin", (req, res, next) => {
     });
 });
 
-
 // Logout
 router.get('/logout', (req, res) => {
   req.logout();
@@ -205,6 +203,5 @@ router.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
-router.get('/signup', (req, res) => res.render('pages/register'))
 
 module.exports = router;

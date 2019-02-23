@@ -3,13 +3,14 @@ const request_promise = require("request-promise");
 var request = require("request");
 var cheerio = require("cheerio");
 const puppeteer = require("puppeteer");
-var url = require("url");
 
 var obj = [];
 
 exports.cr = function(req, res) {
   try {
-    res.render("pages/indexcr");
+    res.render("pages/indexcr", {
+      user : req.user
+    });
   } catch (error) {
     console.log(error);
   }

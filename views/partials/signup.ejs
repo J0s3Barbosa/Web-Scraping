@@ -1,8 +1,4 @@
-      
 
-    <!-- Trigger the modal with a button -->
-  <!-- <button type="button" class=" glyphicon glyphicon-log-in" data-toggle="modal" data-target="#myModal">Login</button> -->
-  
     <!-- Modal -->
     <div class="modal fade" id="myModalSignup" role="dialog">
             <div class="modal-dialog">
@@ -17,22 +13,22 @@
                         <form id="registerForm" action="/user/register" method="POST">
        
                             <div class="form-group">
-                              <label for="email">Email</label>
+                              <label for="Register_email">Email</label>
                               <input
                                 type="email"
-                                id="email"
-                                name="email"
+                                id="Register_email"
+                                name="Register_email"
                                 class="form-control"
                                 placeholder="Enter Email"
                                 value="<%= typeof email != 'undefined' ? email : '' %>"
                               />
                             </div>
                             <div class="form-group">
-                              <label for="password">Password</label>
+                              <label for="Register_password">Password</label>
                               <input
                                 type="password"
-                                id="password"
-                                name="password"
+                                id="Register_password"
+                                name="Register_password"
                                 class="form-control"
                                 placeholder="Create Password"
                                 value="<%= typeof password != 'undefined' ? password : '' %>"
@@ -75,8 +71,8 @@
 
          
           var formData = {
-            'email': $('input[name=email]').val(),
-            'password': $('input[name=password]').val()
+            'email': $('input[name=Register_email]').val(),
+            'password': $('input[name=Register_password]').val()
           };
           if(formData.email <= 0){
             var msg = "Fill the form"
