@@ -14,6 +14,7 @@ var router_user = require('./routes/user');
 
 const http = require('http')
 const port = parseInt(process.argv[2] || '3000')
+var cluster = require('cluster');
 
 const API_PATH = '/api/v1'
 
@@ -84,6 +85,7 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use(API_PATH + '/youtube', indexRouters)
   .use(API_PATH + '/default', indexRouters)
   .use('/user', router_user)
+  // .listen(portexpress)
   
 
 // handle 404 error
@@ -103,8 +105,32 @@ app.use(function (err, req, res, next) {
 
 })
 
-const server = http.createServer(app)
-server.listen(port)
-console.log(`advice service running on port ${port}`)
 
 
+if (cluster.isMaster) {
+
+  const server = http.createServer(app)
+  server.listen(port)
+  console.log(`advice service running on port ${port}`)
+
+      // Count the machine's CPUs
+      var cpuCount = require('os').cpus().length;
+  console.log(`cpuCount  ${cpuCount}`)
+
+      // Create a worker for each CPU
+      for (var i = 0; i < cpuCount; i += 1) {
+          cluster.fork();
+      }
+
+
+ 
+  
+// Code to run if we're in a worker process
+} else {
+
+ const server = http.createServer(app)
+  server.listen(port)
+  console.log(`advice service running on port ${port}`)
+  
+
+}
