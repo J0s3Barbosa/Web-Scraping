@@ -4,13 +4,8 @@ var bodyParser = require('body-parser')
 var clashRoutes = require('./routes/clashRoutes');
 var weatherRoutes = require('./routes/weatherRoutes');
 var indexRouters = require('./routes/indexRouters');
-
-var db = require('./modulos/db');
 var session = require('express-session');
 var flash = require('connect-flash');
-const ensureAuthenticated = require('./config/auth');
-var users = require('./routes/users');
-const passport = require('passport');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const morgan = require("morgan");
