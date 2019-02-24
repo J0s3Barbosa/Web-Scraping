@@ -5,6 +5,8 @@ const passport = require('passport');
 // Load User model
 const User = require('../models/user');
 const { ensureAuthenticated } = require('../config/auth');
+const jwt = require("jsonwebtoken");
+const config = require("../config/config");
 
 // Login Page
 router.get('/login', (req, res) => res.render('pages/login', {
@@ -87,7 +89,48 @@ router.post('/login', (req, res, next) => {
     failureRedirect: '/users/login',
     failureFlash: true
   })(req, res, next);
+
+  
 });
+
+router.post("/tokenlogin/:email", (req, res, next) => {
+  console.log(req.params.email)
+  User.find({ email: req.params.email })
+    .exec()
+    .then(user => {
+      if (user.length < 1) {
+        return res.status(401).json({
+          message: "Auth failed"
+        });
+      }
+      if (user) {
+        const token = jwt.sign(
+          {
+            email: user[0].email,
+            userId: user[0]._id
+          },
+          config.JWT_KEY,
+          {
+            expiresIn: config.JWT_TIME_EXPIRES
+          }
+        );
+        console.log(token)
+        console.log(user[0].email)
+        req.flash('user', user[0].email);
+        return res.status(200).json({
+          message: "Auth successful",
+          token: token
+        });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+});
+
 
 // Logout
 router.get('/logout', (req, res) => {

@@ -19,6 +19,9 @@ const UserSchema = new mongoose.Schema({
   manager: {
     type: Boolean 
   },
+  token: {
+    type: Boolean 
+  },
   date_created: {
     type: Date,
     default: Date.now
