@@ -1,9 +1,11 @@
 <script>
+  
   $(document).ready(function () {
-
+  
     function generatetoken() {
-      var param = 'appchto@gmail.com'
-      var url = '/users/finduser/:' + param
+
+      var email = 'chto@outlook.com'
+      var url = '/user/'+ email
       $.post(url, function (data, status) {
         if (status == "success") {
           var txt = ''
@@ -31,6 +33,7 @@
 <div class="panel panel-default ">
   <div class="panel-body ">
     <h2>Generate Token </h2>
+
     <div id="divToken"> </div>
 
     <button id="btntoken" class="btn btn-primary">Generate Token</button>

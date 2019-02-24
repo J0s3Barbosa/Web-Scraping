@@ -1,9 +1,14 @@
-<% if( user != ''){ %>
 
-<li> <a href="/user/logout" class="glyphicon glyphicon-log-out">Logout</a></li>
-<% } %>
-<% if(user == ''){ %>
-    <li><a href="javascript:void(0)" id='modallogin'><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-    <li><a href="javascript:void(0)" id='btnaignup'><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-  <% } %>
+  <% if(typeof user != 'undefined' ){ %>
+    <li>  <a class=" " style="color:white">Welcome <%= user.name %></a></li> 
+        <li>   <a href="/users/logout" >Logout</a></li> 
 
+        <% } %>
+    <% if(typeof user == 'undefined' || typeof user == '' || typeof user == null ){ %>
+   
+        <li>    <a href="/users/login" ><span class="glyphicon glyphicon-log-in"></span> Login</a></li> 
+
+        <% } %>
+
+  <!-- <li><a href="javascript:void(0)" id='modallogin'><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+  <li><a href="javascript:void(0)" id='btnaignup'><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->

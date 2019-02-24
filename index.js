@@ -9,6 +9,7 @@ var flash = require('connect-flash');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const morgan = require("morgan");
+const passport = require('passport');
 
 var router_user = require('./routes/user');
 const { fork } = require('child_process');
@@ -16,8 +17,7 @@ const { fork } = require('child_process');
 const PORT = process.env.PORT || 5000
 const API_PATH = '/api/v1'
 
-// Passport Config
-// require('./config/passport')(passport);
+require('./config/passport')(passport);
 
 // DB Config
 const db = require('./config/keys').mongoURI;
@@ -58,6 +58,10 @@ app.use(session({
   resave: true
 
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(flash());
 
 
@@ -86,7 +90,8 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use(API_PATH + '/youtube', indexRouters)
   .use(API_PATH + '/default', indexRouters)
   .use('/user', router_user)
-  
+  .use('/users', require('./routes/users.js'))
+
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 
