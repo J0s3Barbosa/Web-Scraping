@@ -1,7 +1,16 @@
 <script>
   $(document).ready(function () {
+
     loadClashRoyaleBattleData();
-    function loadClashRoyaleBattleData() {
+    
+    $("#btnCrBattledata").click(function () {
+      loadClashRoyaleBattleData();
+    });
+
+
+  });
+
+  function loadClashRoyaleBattleData() {
       $.get("/api/v1/clashRoyale/clashs", function (data, status) {
         if (status == "success") {
           var txt = '';
@@ -42,13 +51,6 @@
 
     }
 
-    $("#btnCrBattledata").click(function () {
-      loadClashRoyaleBattleData();
-    });
-
-
-
-  });
 
 </script>
 

@@ -1,38 +1,37 @@
-<script>
-  $(document).ready(function () {
-
-    function generatetoken() {
-      var param = 'appchto@gmail.com'
-      var url = '/users/finduser/:' + param
-      $.post(url, function (data, status) {
-        if (status == "success") {
-          var txt = ''
-          txt += "<span>" + data.token + "</span>";
-          localStorage.setItem("token", 'Bearer '+  data.token);
-
-          document.getElementById("divToken").innerHTML = txt;
-        }
-
-        if (status == "error")
-          alert("Error: " + status);
-      });
-
-    }
-
-    $("#btntoken").click(function () {
-      generatetoken();
-    });
-
-  });
-
-</script>
-
-
-<div class="panel panel-default ">
+<div class="panel panel-default " style="word-wrap: break-word">
   <div class="panel-body ">
-    <h2>Generate Token </h2>
-    <div id="divToken"> </div>
+    <h2>Generate Token</h2>
+
+    <div id="divToken" class="" ></div>
 
     <button id="btntoken" class="btn btn-primary">Generate Token</button>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $("#btntoken").click(function() {
+      generatetoken();
+    });
+  });
+  function generatetoken() {
+    var url = "/users/tokenlogin/";
+    $.post(url, function(data, status) {
+      if (status == "success") {
+        var txt = "";
+        txt += "<p>Name: " + data.user.name + "</p>";
+        txt += "<p>email: " + data.user.email + "</p>";
+        txt += "<p>Token : " + data.token + "</p>";
+        // txt += "<p>Token : " + data.user.token_expiration_time + "</p>";
+
+        localStorage.setItem("token", "Bearer " + data.token);
+
+        document.getElementById("divToken").innerHTML = txt;
+      }
+
+      if (status == "error") {
+        alert("Error: " + status);
+      }
+    });
+  }
+</script>

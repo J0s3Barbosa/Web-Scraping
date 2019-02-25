@@ -1,14 +1,45 @@
 const mongoose = require('mongoose');
+var passportlocalmongoose = require("passport-local-mongoose");
 
-const userSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
-    email: { 
-        type: String, 
-        required: true, 
-        unique: true, 
-        match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-    },
-    password: { type: String, required: true }
+const UserSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String, 
+    required: true, 
+    unique: true, 
+    match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+},
+  password: {
+    type: String,
+    required: true
+  },
+  manager: {
+    type: Boolean 
+  },
+  token: {
+    type: String 
+  },
+  token_expiration_time: {
+    type: String 
+  },
+  permission: {
+    type: Boolean 
+  },
+  date_created: {
+    type: Date,
+    default: Date.now
+  },
+  last_access: {
+    type: Date
+  }
+
 });
 
-module.exports = mongoose.model('User', userSchema);
+UserSchema.plugin(passportlocalmongoose);
+
+const User = mongoose.model('user', UserSchema);
+
+module.exports = User;

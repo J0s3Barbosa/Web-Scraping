@@ -1,7 +1,6 @@
 const express = require('express')
 const path = require('path')
 var bodyParser = require('body-parser')
-var clashRoutes = require('./routes/clashRoutes');
 var weatherRoutes = require('./routes/weatherRoutes');
 var indexRouters = require('./routes/indexRouters');
 var session = require('express-session');
@@ -11,10 +10,6 @@ const mongoose = require('mongoose');
 const morgan = require("morgan");
 const passport = require('passport');
 
-var router_user = require('./routes/user');
-const { fork } = require('child_process');
-
-const PORT = process.env.PORT || 5000
 const API_PATH = '/api/v1'
 
 require('./config/passport')(passport);
@@ -85,15 +80,9 @@ app.use(express.static(path.join(__dirname, 'public')))
   .get('/', (req, res) => res.render('pages/index', {
     user : req.user
   }))
-  .use(API_PATH + '/clashRoyale', clashRoutes)
   .use(API_PATH + '/weather', weatherRoutes)
   .use(API_PATH + '/youtube', indexRouters)
   .use(API_PATH + '/default', indexRouters)
-  .use('/user', router_user)
-  .use('/users', require('./routes/users.js'))
-
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
-
 
 // handle 404 error
 app.use(function (req, res, next) {
@@ -103,10 +92,41 @@ app.use(function (req, res, next) {
 })
 // handle errors
 app.use(function (err, req, res, next) {
+  console.log('---------err----------');
+  console.log(err);
+  console.log('--------end err-----------');
   res.render('pages/error', {
     error: err
   })
 
 })
 
-  fork('./apis.js');
+ 
+const port = parseInt( "5001");
+const server = require("http").createServer(app);
+server.listen(port);
+console.log(`advice service running on port ${port}`);
+
+
+// if (cluster.isMaster) {
+
+//   const server = http.createServer(app);
+//   server.listen(port);
+//   console.log(`advice service running on port ${port}`);
+
+//   // Count the machine's CPUs
+//   var cpuCount = require("os").cpus().length;
+//   console.log(`cpuCount  ${cpuCount}`);
+
+//   // Create a worker for each CPU
+//   for (var i = 0; i < cpuCount; i += 1) {
+//     cluster.fork();
+//   }
+
+//   // Code to run if we're in a worker process
+// } else {
+
+//   const server = http.createServer(app);
+//   server.listen(port2);
+//   console.log(`advice service running on port ${port2}`);
+// }
