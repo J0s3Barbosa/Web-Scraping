@@ -1,23 +1,5 @@
 <title><%- title  =  'Home' %></title>
 
-      <style>
-          .bg-1 { 
-            background-color: #1abc9c;
-            color: #ffffff;
-          }
-          .bg-2 { 
-            background-color: #474e5d;
-            color: #ffffff;
-          }
-          .bg-3 { 
-            background-color: #ffffff;
-            color: #555555;
-          }
-          .container-fluid {
-            padding-top: 40px;
-            padding-bottom: 70px;
-          }
-          </style>
 
   <% if (typeof SuccessMsg != 'undefined') { %>
     <div class="alert alert-success"><%= SuccessMsg %></div>
@@ -25,12 +7,6 @@
     <div class="alert alert-danger"><%= ErrorMsg %></div>
     <% } %>
 
-  <div class="container-fluid bg-1 text-center">
-    <h3>Who Am I?</h3>
-    <img src="../public/lang-logo.png" class="img-circle" alt="img" width="350" height="350">
-    <h3>I'm an Web Developer (MCP) C#/NodeJs/Python</h3>
-  </div>
-  
   <div class="container-fluid bg-2 text-center">
       <h3 class="">
           José Barbosa    <a href="https://www.linkedin.com/in/jos%C3%A9-barbosa-0a158a73/" target='_blank' class="fa fa-linkedin "></a>
@@ -71,3 +47,22 @@
   </div>
 
   
+
+  <style>
+      .bg-1 { 
+        background-color: #1abc9c;
+        color: #ffffff;
+      }
+      .bg-2 { 
+        background-color: #474e5d;
+        color: #ffffff;
+      }
+      .bg-3 { 
+        background-color: #ffffff;
+        color: #555555;
+      }
+      .container-fluid {
+        padding-top: 40px;
+        padding-bottom: 70px;
+      }
+      </style>

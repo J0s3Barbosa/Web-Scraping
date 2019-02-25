@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { ensureAuthenticated } = require('../config/auth');
 
 const User = require("../models/user");
 const config = require("../config/config");
@@ -75,6 +76,55 @@ router.post("/login", (req, res, next) => {
             }
           );
           console.log(token)
+          console.log(user[0].email)
+          req.flash('user', user[0].email);
+          return res.status(200).json({
+            message: "Auth successful",
+            token: token
+          });
+        }
+        res.status(401).json({
+          message: "Auth failed"
+        });
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+});
+router.post("/:email", (req, res, next) => {
+  console.log(req.params.email)
+  User.find({ email: req.params.email })
+     .exec()
+    .then(user => {
+      if (user.length < 1) {
+        return res.status(401).json({
+          message: "Auth failed"
+        });
+      }
+      bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+        if (err) {
+          return res.status(401).json({
+            message: "Auth failed"
+          });
+        }
+        if (result) {
+          const token = jwt.sign(
+            {
+              email: user[0].email,
+              userId: user[0]._id
+            },
+            // process.env.JWT_KEY,
+            config.JWT_KEY,
+            {
+              expiresIn: config.JWT_TIME_EXPIRES
+            }
+          );
+          console.log(token)
+          console.log(user[0].email)
           return res.status(200).json({
             message: "Auth successful",
             token: token
@@ -93,6 +143,16 @@ router.post("/login", (req, res, next) => {
     });
 });
 
+router.get('/listAllUsers',  ensureAuthenticated, (req, res) => {
+  User.find({}, (err, users) => {
+    if (err) {
+      res.send(err);
+    }
+
+    res.json(users);
+  });
+
+});
 
 
 router.delete("/:userId", (req, res, next) => {
@@ -110,7 +170,6 @@ router.delete("/:userId", (req, res, next) => {
       });
     });
 });
-
 
 // Systems login register
 router.post("/register", (req, res, next) => {
@@ -151,7 +210,6 @@ router.post("/register", (req, res, next) => {
       }
     });
 });
-
 
 router.post("/systemlogin", (req, res, next) => {
   User.find({ email: req.body.email })
@@ -197,14 +255,17 @@ router.post("/systemlogin", (req, res, next) => {
     });
 });
 
-
 // Logout
+// router.get('/logout', (req, res) => {
+//   req.logout();
+//   req.flash('success_msg', 'You are logged out');
+//   res.redirect('/login');
+// });
+
 router.get('/logout', (req, res) => {
-  req.logout();
-  req.flash('success_msg', 'You are logged out');
-  res.redirect('/login');
+  req.flash('user', '');
+  res.redirect('/');
 });
 
-router.get('/signup', (req, res) => res.render('pages/register'))
 
 module.exports = router;
