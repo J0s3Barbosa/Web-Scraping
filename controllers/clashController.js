@@ -9,10 +9,59 @@ var obj = [];
 exports.cr = function(req, res) {
   try {
     res.render("pages/indexcr", {
-      user : req.user
+      user: req.user
     });
   } catch (error) {
     console.log(error);
+  }
+};
+
+// Display data for user.
+exports.getClashRoyaleListOwner = function(req, res) {
+  // var orderby = req.param("orderby");
+  try {
+    var mysort = "";
+    var sort_query = "";
+
+    switch (sort_query) {
+      case "Trophies":
+        mysort = { Trophies: -1 };
+        break;
+
+      case "Victory":
+        mysort = { Victory: -1 };
+        break;
+
+      case "Defeat":
+        mysort = { Defeat: -1 };
+        break;
+
+      default:
+        mysort = { Played_at: -1 };
+        break;
+    }
+    var myfind = "";
+    if (req.user == undefined || req.user == null) {
+      myfind = { Owner: "Owner" };
+    } else if (req.user != undefined || req.user != null) {
+      if (req.user.permission) {
+        myfind = {};
+      } else {
+        myfind = { Owner: req.user.email };
+      }
+    }
+
+    ClashRoyale.find(myfind, (err, clashroyale) => {
+      if (err) {
+        res.send(err);
+      }
+
+      res.json(clashroyale);
+    }).sort(mysort);
+  } catch (error) {
+    console.log(error);
+    req.flash("error_msg", error);
+    res.json(error);
   }
 };
 
@@ -51,40 +100,6 @@ exports.getClashRoyaleList = function(req, res) {
   }).sort(mysort);
 };
 
-// Display list of all clashroyale.
-exports.getClashRoyaleList_sortByTrophies = function(req, res) {
-  // var orderby = req.param("orderby");
-
-  var mysort = "";
-  var sort_query = "Trophies";
-
-  switch (sort_query) {
-    case "Trophies":
-      mysort = { Trophies: -1 };
-      break;
-
-    case "Victory":
-      mysort = { Victory: -1 };
-      break;
-
-    case "Defeat":
-      mysort = { Defeat: -1 };
-      break;
-
-    default:
-      mysort = { Played_at: -1 };
-      break;
-  }
-  var myfind = {};
-
-  ClashRoyale.find(myfind, (err, clashroyale) => {
-    if (err) {
-      res.send(err);
-    }
-
-    res.json(clashroyale);
-  }).sort(mysort);
-};
 
 // Display detail page for a specific ClashRoyale.
 exports.clashroyale_detail = function(req, res) {
@@ -95,10 +110,26 @@ exports.clashroyale_detail = function(req, res) {
   });
 };
 
+// Display detail page for a specific ClashRoyale.
+exports.clashroyale_detail_name = function(req, res) {
+
+  var myfind = "";
+  if (req.user == undefined || req.user == null) {
+    myfind = { Name: "no Name" };
+  } else if (req.user != undefined || req.user != null) {
+      myfind = { Name: req.user.Name };
+  }
+
+  ClashRoyale.findOne(myfind, function(err, clashroyale) {
+    if (err) res.send(err);
+
+    res.json(clashroyale);
+  });
+};
+
 exports.clashroyale_OrderBy = function(req, res) {
   var mysort = "";
   var orderby = req.params.orderby;
-  console.log(orderby);
 
   switch (orderby) {
     case "Trophies":
@@ -117,41 +148,47 @@ exports.clashroyale_OrderBy = function(req, res) {
       mysort = { Played_at: -1 };
       break;
   }
-  console.log(mysort);
-
-  ClashRoyale.find({}, function(err, clashroyale) {
+  var myfind = "";
+  if (req.user == undefined || req.user == null) {
+    myfind = { Owner: "Owner" };
+  } else if (req.user != undefined || req.user != null) {
+    if (req.user.permission) {
+      myfind = {};
+    } else {
+      myfind = { Owner: req.user.email };
+    }
+  }
+  ClashRoyale.find(myfind, function(err, clashroyale) {
     if (err) res.send(err);
 
     res.json(clashroyale);
   }).sort(mysort);
-  //   .sort({ Trophies: -1 });
 };
 
-exports.clashroyale_sortByTrophies = function(req, res) {
-  ClashRoyale.find({}, function(err, clashroyale) {
-    if (err) res.send(err);
-    clashroyale.sort(c => (c.Trophies = -1));
-    res.json(clashroyale);
-  });
-};
 
 exports.clashroyale_createMethod_post = function(req, res) {
   try {
     let newClash = new ClashRoyale(req.body);
+    newClash.Owner = req.user.email;
+
     newClash.save((error, clashroyale) => {
       if (error) {
         req.flash("error_msg", error);
         return error;
       }
-      console.log(clashroyale);
-      if (clashroyale != "" || clashroyale != undefined || clashroyale != "undefined" ) {
-        console.log(clashroyale);
+      if (
+        clashroyale != "" ||
+        clashroyale != undefined ||
+        clashroyale != "undefined"
+      ) {
         req.flash("success_msg", "Data Inserted!");
         res.json(clashroyale);
       }
     });
   } catch (error) {
     console.log(error);
+    req.flash("error_msg", error);
+    res.json(error);
   }
 };
 // Handle ClashRoyale update on POST.
@@ -170,15 +207,23 @@ exports.clashroyale_update_post = function(req, res) {
     );
   } catch (error) {
     console.log(error);
+    req.flash("error_msg", error);
+    res.json(error);
   }
 };
 // Handle ClashRoyale delete on POST.
 exports.clashroyale_delete_post = function(req, res) {
-  ClashRoyale.findByIdAndRemove(req.params.id, function(err, clashroyale) {
-    if (err) res.send(err);
-    req.flash("success_msg", "Data Deleted!");
-    res.json(clashroyale);
-  });
+  try {
+    ClashRoyale.findByIdAndRemove(req.params.id, function(err, clashroyale) {
+      if (err) res.send(err);
+      req.flash("success_msg", "Data Deleted!");
+      res.json(clashroyale);
+    });
+  } catch (error) {
+    console.log(error);
+    req.flash("error_msg", error);
+    res.json(error);
+  }
 };
 
 exports.clashroyaleapi = async function(req, res) {

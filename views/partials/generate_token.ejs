@@ -1,8 +1,8 @@
-<div class="panel panel-default ">
+<div class="panel panel-default " style="word-wrap: break-word">
   <div class="panel-body ">
     <h2>Generate Token</h2>
 
-    <div id="divToken"></div>
+    <div id="divToken" class="" ></div>
 
     <button id="btntoken" class="btn btn-primary">Generate Token</button>
   </div>
@@ -15,12 +15,15 @@
     });
   });
   function generatetoken() {
-    var email = "chto@outlook.com";
-    var url = "/users/tokenlogin/"+email;
+    var url = "/users/tokenlogin/";
     $.post(url, function(data, status) {
       if (status == "success") {
         var txt = "";
-        txt += "<span>" + data.token + "</span>";
+        txt += "<p>Name: " + data.user.name + "</p>";
+        txt += "<p>email: " + data.user.email + "</p>";
+        txt += "<p>Token : " + data.token + "</p>";
+        // txt += "<p>Token : " + data.user.token_expiration_time + "</p>";
+
         localStorage.setItem("token", "Bearer " + data.token);
 
         document.getElementById("divToken").innerHTML = txt;

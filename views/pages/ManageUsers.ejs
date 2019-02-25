@@ -1,8 +1,16 @@
 <script>
   var API_DEFAULT_PATH = "/users/";
+
   $(document).ready(function() {
+
     LoadDataForEditingDelete();
-    function LoadDataForEditingDelete() {
+    
+    $("#btnLoadRefreshData").click(function() {
+      LoadDataForEditingDelete();
+    });
+  });
+  
+  function LoadDataForEditingDelete() {
       $.get("/users/listAllUsers", function(data, status) {
         if (status == "success") {
           var txt = "";
@@ -14,6 +22,8 @@
           txt += "<tr>";
           txt += "<th>Name</th>";
           txt += "<th>Email</th>";
+          txt += "<th>permission</th>";
+          txt += "<th>token</th>";
           txt += "<th>Password</th>";
           txt += "<th>date_created</th>";
           txt += "<th>Actions</th>";
@@ -38,6 +48,21 @@
               "' value='" +
               data[i].email +
               "'> </td>";
+
+              txt +=
+              "<td> <input type='text' class='form-control' id='permission" +
+              data[i]._id +
+              "' value='" +
+              data[i].permission +
+              "'> </td>";
+
+              txt +=
+              "<td> <input type='text' class='form-control' id='token" +
+              data[i]._id +
+              "' value='" +
+              data[i].token +
+              "'> </td>";
+
             txt +=
               "<td> <input type='text' class='form-control' id='password" +
               data[i]._id +
@@ -77,10 +102,6 @@
         }
       });
     }
-    $("#btnLoadRefreshData").click(function() {
-      LoadDataForEditingDelete();
-    });
-  });
 
   function deleteConfirmation(event, e) {
     if (confirm("Data Will be delete!")) {
@@ -127,6 +148,7 @@
     cr_obj_updated._id = data_id;
     cr_obj_updated.name = document.getElementById("name" + data_id).value;
     cr_obj_updated.email = document.getElementById("email" + data_id).value;
+    cr_obj_updated.permission = document.getElementById("permission" + data_id).value;
     cr_obj_updated.password = document.getElementById(
       "password" + data_id
     ).value;

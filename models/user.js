@@ -20,6 +20,12 @@ const UserSchema = new mongoose.Schema({
     type: Boolean 
   },
   token: {
+    type: String 
+  },
+  token_expiration_time: {
+    type: String 
+  },
+  permission: {
     type: Boolean 
   },
   date_created: {
@@ -31,6 +37,7 @@ const UserSchema = new mongoose.Schema({
   }
 
 });
+
 UserSchema.plugin(passportlocalmongoose);
 
 const User = mongoose.model('user', UserSchema);

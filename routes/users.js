@@ -5,6 +5,7 @@ const passport = require('passport');
 // Load User model
 const User = require('../models/user');
 const { ensureAuthenticated } = require('../config/auth');
+const { ensureAuthenticatedAdmin } = require('../config/auth');
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 
@@ -72,7 +73,7 @@ router.post('/register', (req, res) => {
                   'success_msg',
                   'You are now registered and can log in'
                 );
-                res.redirect('users/login');
+                res.redirect('login');
               })
               .catch(err => console.log(err));
           });
@@ -93,9 +94,14 @@ router.post('/login', (req, res, next) => {
   
 });
 
-router.post("/tokenlogin/:email", (req, res, next) => {
-  console.log(req.params.email)
-  User.find({ email: req.params.email })
+router.post("/tokenlogin/", (req, res, next) => {
+  if (req.user < 1) {
+      return res.status(401).json({
+        message: "Auth failed"
+      });
+  }
+
+  User.find({ email: req.user.email })
     .exec()
     .then(user => {
       if (user.length < 1) {
@@ -116,10 +122,23 @@ router.post("/tokenlogin/:email", (req, res, next) => {
         );
         console.log(token)
         console.log(user[0].email)
-        req.flash('user', user[0].email);
+
+          req.user.token = token
+
+        User.findOneAndUpdate({email: req.user.email}, req.user )
+        .then((user) => 
+        {
+          user.token = token;
+        }
+        )
+        .catch(err => {
+          console.log(err);
+        });
+
         return res.status(200).json({
           message: "Auth successful",
-          token: token
+          token: token,
+          user : req.user
         });
       }
     })
@@ -139,7 +158,7 @@ router.get('/logout', (req, res) => {
   res.redirect('/users/login');
 });
 
-router.get('/ManageUsers',  ensureAuthenticated, (req, res) => res.render('pages/ManageUsers', {
+router.get('/ManageUsers',  ensureAuthenticatedAdmin , (req, res) => res.render('pages/ManageUsers', {
   user: req.user
 })
 );

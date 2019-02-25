@@ -22,6 +22,9 @@ var ClashSchema = new Schema({
   Defeat: {
     type: Number
   },
+  Owner: {
+    type: String
+  },
   Total_Trophies: {
     type: Number
 
