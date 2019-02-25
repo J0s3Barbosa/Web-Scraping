@@ -1,7 +1,5 @@
 # Web-Scraping
 
-# Para execucao do projeto:
-
 # Install dependencies:
 npm install 
 
@@ -11,7 +9,7 @@ npm start
 # Start the server dev:
 npm run dev 
 
-# About the projeto:
+# About the project:
 
 ```sh
 This project has a clash royale module where the client can insert delete and update content to manage the day to day game.
@@ -49,11 +47,9 @@ Links
 http://localhost:5000/
 http://localhost:5002/
 
-check the app on heroku
-https://webscrapingnode.herokuapp.com/
-
-
 
 ```
+check the app on heroku
+https://webscrapingnode.herokuapp.com/
 
 
