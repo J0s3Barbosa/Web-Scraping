@@ -52,4 +52,6 @@ http://localhost:5002/
 check the app on heroku
 https://webscrapingnode.herokuapp.com/
 
+APIs
 
+http://localhost:5000/api/v1/weather/Itacoatiara48forecast
