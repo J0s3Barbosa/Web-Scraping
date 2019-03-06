@@ -234,13 +234,7 @@ exports.clashroyaleapi = async function(req, res) {
       "https://statsroyale.com/profile/QCYVUL",
       "https://statsroyale.com/profile/2R900UR",
       "https://statsroyale.com/profile/UULQLJU"
-      // "https://statsroyale.com/profile/2R900UR/decks?type=ladder",
     ];
-    // var url = 'https://statsroyale.com/profile/9UG2R28R2'
-    // var path_mouse_click_png = '9JUUVGLQQ_status.png'
-    // var elementToClick = '.profile__refreshNotificationButton'
-    // // cr_status_page_update(url,elementToClick, path_mouse_click_png)
-    // ClickAndGetPrint(cr_url, elementToClick)
 
     var listcr = [];
     await Promise.all(
