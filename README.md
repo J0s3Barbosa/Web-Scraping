@@ -1,15 +1,15 @@
-# Web-Scraping
+### Web-Scraping
 
-# Install dependencies:
+### Install dependencies:
 npm install 
 
-# Start the server:
+### Start the server:
 npm start 
 
-# Start the server dev:
+### Start the server dev:
 npm run dev 
 
-# About the project:
+### About the project:
 
 ```sh
 This project has a clash royale module where the client can insert delete and update content to manage the day to day game.
@@ -35,12 +35,12 @@ http://localhost:5002/
 check the app on heroku
 https://webscrapingnode.herokuapp.com/
 
-APIs
+### APIs
 
 http://localhost:5000/api/v1/weather/Itacoatiara48forecast
 
 ```sh
- 1 - WebScraping - Node js (javascript) 
+### WebScraping - Node js (javascript) 
  
 Link Prod: https://webscrapingnode.herokuapp.com/ 
 Repository : https://github.com/appchto/Web-Scraping 
@@ -49,17 +49,18 @@ Software hosted on Heroku.
 ```
 This system has modules:
 ```sh
-Home
- Info about the developer
- Has descriptions about the system
+### Home
+
+Info about the developer
+Has descriptions about the system
 ```
 ```sh
 
-Clash Royale
+### Clash Royale
 
- When you click at the menu, you will see 2 links on the left menu.
+When you click at the menu, you will see 2 links on the left menu.
  
-Clash Royale
+#### Clash Royale
 
 Allows you to insert your number of trophies, victories, defeat to keep a log for analysis and computer number of trophies gained or lost.
 Access to manage the day to day gaming.
@@ -68,12 +69,12 @@ Has an api that brings data directly from clash royale servers.
 Data from you profile and other players
 Data like name, level favorite cards, and link to access and update you clash royale profile.
 
-Reset Layout
+#### Reset Layout
 
 The panels to insert and update clash royale data can be adjusted in the page, so you can use this Link to reset the layout to defeat state.
 ```
 ```sh
-API to provide data for 3th parties.
+### API to provide data for 3th parties.
 
 https://webscrapingnode.herokuapp.com/api/v1/clashroyale/clashroyaleapi
 
@@ -103,7 +104,7 @@ With this api,  the user can get his data to any software and wish.
 "Total_Trophies": 10},
 ```
 ```sh
-Weather
+#### Weather
 
 This module brings data from weather sites using web scraping.
 The data is transforme in a API that could be used for any software by the link/endpoint https://webscrapingnode.herokuapp.com/api/v1/weather/Itacoatiara48forecast
@@ -111,53 +112,50 @@ The data is transforme in a API that could be used for any software by the link/
 It brings a Itacoatiara’s 48 hours forecast  of Sea and Weather temperature,  Time and wave’s size.
 If wave’s size is greater than 1,2, it will be highlighted in red “1,2” , so you can spot rightway the better day to go surfing.
 API to provide data for 3th parties.
+
 https://webscrapingnode.herokuapp.com/api/v1/weather/Itacoatiara48forecast
 https://webscrapingnode.herokuapp.com/api/v1/weather/WebScraping
 ```
 
 ```sh
 
-APIs
+#### APIs
 
 Apis are use in port 5002 default link http://localhost:5002/
 
 End-points
+ 
+* Weather
 
-Weather
+* Webscraping
 
-Webscraping
+ * http://localhost:5002/api/v1/weather/WebScraping 
+ * Return an Object with 4 properties
+ * {"temp": "Today's Itacoatiara sea temperature is 28.6 °C.",
+    "day": "S&#xE1;bado",
+    "wavesSize": "0.5",
+    "wavesSizeDetailed": "0.5SE0.5SE0.5SE0.5SE0.6SE0.5SE0.1S0.1S0.1S0.1S0.1S0.1S0.6SW0.6SW0.5SW0.6SSW1.1SSW1.3SSW"}
 
-http://localhost:5002/api/v1/weather/WebScraping 
-Return an Object with 4 properties
-{"temp": "Today's Itacoatiara sea temperature is 28.6 °C.",
-"day": "S&#xE1;bado",
-"wavesSize": "0.5",
-"wavesSizeDetailed": "0.5SE0.5SE0.5SE0.5SE0.6SE0.5SE0.1S0.1S0.1S0.1S0.1S0.1S0.6SW0.6SW0.5SW0.6SSW1.1SSW1.3SSW"}
+* Itacoatiara48forecast
 
-Itacoatiara48forecast
+ * http://localhost:5002/api/v1/weather/Itacoatiara48forecast  
+ *  Return an array with 4 objects
+ * "days": ["Sábado 09","Domingo 10","Segunda-feira 11"],
+   newtimes": [{"day": "Sábado 09","time": "6AM","wavesize": "0.5SE","weather": "céu limpo"},]
+   uniqueweather": ["céu limpo","parcialmente nublado","Risco Trovoada"],
+   wavesTimes": [{"day": "","time": "0AM","wavesize": "0.5SE","weather": "céu limpo"},]
 
-http://localhost:5002/api/v1/weather/Itacoatiara48forecast  
-Return an array with 4 objects
-"days": ["Sábado 09","Domingo 10","Segunda-feira 11"],
-newtimes": [{"day": "Sábado 09","time": "6AM","wavesize": "0.5SE","weather": "céu limpo"},]
-uniqueweather": ["céu limpo","parcialmente nublado","Risco Trovoada"],
-wavesTimes": [{"day": "","time": "0AM","wavesize": "0.5SE","weather": "céu limpo"},]
+* Itacoatiaraseatemp
 
-Itacoatiaraseatemp
+  * http://localhost:5002/api/v1/weather/Itacoatiaraseatemp  
+  * Return an array with 1 objects
+  * [{"temp": "Today's Itacoatiara sea temperature is 28.6 °C."}]
 
-http://localhost:5002/api/v1/weather/Itacoatiaraseatemp  
-Return an array with 1 objects
-[{"temp": "Today's Itacoatiara sea temperature is 28.6 °C."}]
+* Youtube
 
-Youtube
+* Default
+  * sendEmail
 
-youtubeClickAndGetPrint
-
-Default
-
-sendEmail
-ws
-webScrapingTest
 ```
 
 
