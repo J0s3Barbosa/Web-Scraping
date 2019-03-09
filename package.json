@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 10000 ",
+    "test": "mocha --timeout 10000",
     "start": "node ./index.js",
     "dev": "nodemon ./index.js --exec babel-node -e js",
     "testwatch": "jest --watch"
