@@ -1,21 +1,29 @@
+const jwt = require('jsonwebtoken');
+const config = require("../config/config");
 
-module.exports = function verifyToken(req, res, next) {
-    // Get auth header value
-    const bearerHeader = req.headers['authorization'];
-    // Check if bearer is undefined
-    if (typeof bearerHeader !== 'undefined') {
-      // Split at the space
-      const bearer = bearerHeader.split(' ');
-      // Get token from array
-      const bearerToken = bearer[1];
-      // Set the token
-      req.token = bearerToken;
-      // Next middleware
-      next();
-    } else {
-      // Forbidden
-      res.sendStatus(403);
-    }
-  
-  }
+module.exports = (req, res, next) => {
 
+        if (req.isAuthenticated()) {
+            try {
+                const token = req.headers.authorization.split(" ")[1];
+                const decoded = jwt.verify(token, config.JWT_KEY);
+                req.token = decoded;
+                next();
+            } catch (error) {
+                return res.status(401).json({
+                    message: 'Auth failed'
+                });
+            }
+   
+        }
+    // try {
+    //     const token = req.headers.authorization.split(" ")[1];
+    //     const decoded = jwt.verify(token, config.JWT_KEY);
+    //     req.token = decoded;
+    //     next();
+    // } catch (error) {
+    //     return res.status(401).json({
+    //         message: 'Auth failed'
+    //     });
+    // }
+};

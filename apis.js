@@ -1,28 +1,16 @@
 const express = require('express')
 const path = require('path')
 var bodyParser = require('body-parser')
-var session = require('express-session');
-var flash = require('connect-flash');
-var users = require('./routes/users');
-const passport = require('passport');
-const mongoose = require('mongoose');
-const expressLayouts = require('express-ejs-layouts');
-const mongoose = require('mongoose');
-const morgan = require("morgan");
-const passport = require('passport');
 
-
-var clashRoutes = require('./routes/clashRoutes');
 var weatherRoutes = require('./routes/weatherRoutes');
 var indexRouters = require('./routes/indexRouters');
-var users = require('./routes/users.js')
 
-const { fork } = require('child_process');
+var session = require('express-session');
+var flash = require('connect-flash');
+const mongoose = require('mongoose');
+const morgan = require("morgan");
 
-const PORT = process.env.PORT || 5000
 const API_PATH = '/api/v1'
-
-require('./config/passport')(passport);
 
 // DB Config
 const db = require('./config/keys').mongoURI;
@@ -64,9 +52,6 @@ app.use(session({
 
 }));
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use(flash());
 
 
@@ -83,22 +68,9 @@ app.use(function (req, res, next) {
 // express()
 app.use(express.static(path.join(__dirname, 'public')))
 
-  // EJS
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .use(expressLayouts)
-  .get('/', (req, res) => res.render('pages/index', {
-    user : req.user
-  }))
-  
-  .use(API_PATH + '/clashRoyale', clashRoutes)
   .use(API_PATH + '/weather', weatherRoutes)
   .use(API_PATH + '/youtube', indexRouters)
   .use(API_PATH + '/default', indexRouters)
-  .use('/users', users )
-
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
-
 
 // handle 404 error
 app.use(function (req, res, next) {
@@ -106,12 +78,8 @@ app.use(function (req, res, next) {
   err.status = 404;
   next(err);
 })
-// handle errors
-app.use(function (err, req, res, next) {
-  res.render('pages/error', {
-    error: err
-  })
-
-})
-
-  fork('./apis.js');
+ 
+const port = parseInt( "5002");
+const server = require("http").createServer(app);
+server.listen(port);
+console.log(`advice service running on port ${port}`);

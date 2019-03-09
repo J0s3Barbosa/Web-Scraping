@@ -29,7 +29,8 @@
               txt += "<tbody>"
               element.wavesTimes.forEach(elementtimewave => {
                 txt += "<tr>"
-                txt += "<td>" + elementtimewave.time + "</td>";
+                  txt += "<td>" + elementtimewave.time + "</td>";
+
                 var regexAM = /[^\d.-]/g;
                 var weveNumberOnly = elementtimewave.wavesize.replace(regexAM, '')
                 if (weveNumberOnly > 1.2) {
@@ -41,6 +42,7 @@
                 txt += "</tr>"
 
               });
+
               txt += "</tbody>"
               txt += "</table>"
               txt += "</div>"

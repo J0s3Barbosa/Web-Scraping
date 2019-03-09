@@ -6,5 +6,10 @@
 <a href="/users/logout" class="btn btn-secondary">Logout</a>
 
 
+<% if(user.permission == true){ %>
+<p class="lead mb-3">Welcome To Admin Seccion </p>
+<a href="/users/ManageUsers" class="btn btn-secondary">Manage Users</a>
+
+ <% } %>
 
 <% include ../partials/generate_token.ejs %>
