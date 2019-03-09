@@ -1,8 +1,10 @@
 const express = require('express')
 const path = require('path')
 var bodyParser = require('body-parser')
+
 var weatherRoutes = require('./routes/weatherRoutes');
 var indexRouters = require('./routes/indexRouters');
+
 var session = require('express-session');
 var flash = require('connect-flash');
 const mongoose = require('mongoose');
