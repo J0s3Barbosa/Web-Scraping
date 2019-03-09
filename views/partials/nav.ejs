@@ -1,3 +1,56 @@
+<nav class="navbar navbar-default navbar-static-top navbar-inverse">
+  <div class="container">
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+        >&times;</a
+      >
+      <a href="/api/v1/clashroyale/cr"><span class=""></span> Clash Royale</a>
+      <a href="javascript:void(0)" id="resetlayout" onclick="resetlayout()"
+        ><span class=""></span> Reset layout</a
+      >
+    </div>
+
+    <ul class="nav navbar-nav">
+      <li class="active">
+        <a href="/"><span class="glyphicon glyphicon-home"></span> Home</a>
+      </li>
+
+      <li>
+        <a href="javascript:void(0)">
+          <span style="cursor:pointer" onclick="openNav()"> Clash Royale</span>
+        </a>
+      </li>
+      <li>
+        <a href="/api/v1/weather/wspage"><span class=""></span> Weather</a>
+      </li>
+
+      <% if(typeof user != 'undefined'){ %> <% if( user.manager){ %>
+      <li>
+        <a class="nav-link" href="/users/ManageUsers">ManageUsers</a>
+      </li>
+
+      <% } %> <% } %>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <% include ../partials/partial_login.ejs %>
+    </ul>
+  </div>
+</nav>
+<% include ../partials/login.ejs %> <% include ../partials/signup.ejs %>
+
+<script>
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+  function myFunction(x) {
+    x.classList.toggle("change");
+  }
+</script>
+
 <style>
   .sidenav {
     height: 100%;
@@ -43,50 +96,3 @@
     }
   }
 </style>
-
-<nav class="navbar navbar-default navbar-static-top navbar-inverse">
-  <div class="container">
-    <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <a href="/api/v1/clashroyale/cr"><span class=""></span> Clash Royale</a>
-      <a href="javascript:void(0)" id='resetlayout' onclick="resetlayout()"><span class=""></span> Reset layout</a>
-    </div>
-
-
-    <ul class="nav navbar-nav">
-      <li class="active">
-        <a href="/"><span class="glyphicon glyphicon-home"></span> Home</a>
-      </li>
-
-
-      <li><a href="javascript:void(0)">
-          <span style="cursor:pointer" onclick="openNav()"> Clash Royale</span>
-        </a></li>
-      <li><a href="/api/v1/weather/wspage"><span class=""></span> Weather</a></li>
-
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-  <% include ../partials/partial_login.ejs %>
-
-  </ul>
-
-
-
-  </div>
-</nav>
-<% include ../partials/login.ejs %>
-<% include ../partials/signup.ejs %>
-
-<script>
-  function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-  }
-
-  function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-  }
-  function myFunction(x) {
-    x.classList.toggle("change");
-  }
-
-</script>

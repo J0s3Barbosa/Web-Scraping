@@ -4,8 +4,8 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 // Load User model
 const User = require('../models/user');
-const { ensureAuthenticated } = require('../config/auth');
-const { ensureAuthenticatedAdmin } = require('../config/auth');
+const {ensureAuthenticated}= require('../config/auth');
+const {ensureAuthenticatedAdmin}= require('../config/authAdmin');
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 
