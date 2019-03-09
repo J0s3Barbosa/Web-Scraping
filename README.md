@@ -19,35 +19,18 @@ For security the use needs to genarate a token key for  CUD (create, upodate and
 Has an API that web scraping content from Royale Status, bring users information like Name, Highest_Trophies,Trophies, userLevel, favouriteCardName, and a link to go to statsroyale profile to check and update profile .
 ```
 
-
-```sh
-Weather
-
-
-```
-
 ```sh
 orchestrator
 Microservices
-
-
 ```
 
 ```sh
 Tracking
-
-
 ```
-
-
 ```sh
 Links
-
-
 http://localhost:5000/
 http://localhost:5002/
-
-
 ```
 check the app on heroku
 https://webscrapingnode.herokuapp.com/
@@ -58,39 +41,44 @@ http://localhost:5000/api/v1/weather/Itacoatiara48forecast
 
 ```sh
  1 - WebScraping - Node js (javascript) 
+ 
 Link Prod: https://webscrapingnode.herokuapp.com/ 
 Repository : https://github.com/appchto/Web-Scraping 
 Skills Used: javascript, mongoDB, Ejs, Express, Jwt, Passport
 Software hosted on Heroku.
 ```
-
 This system has modules:
 ```sh
-
 Home
-Info about the developer
-Has descriptions about the system
+ Info about the developer
+ Has descriptions about the system
 ```
 ```sh
 
 Clash Royale
-When you click at the menu, you will see 2 links on the left menu.
+
+ When you click at the menu, you will see 2 links on the left menu.
+ 
 Clash Royale
+
 Allows you to insert your number of trophies, victories, defeat to keep a log for analysis and computer number of trophies gained or lost.
-Access to manage the day ti day gaming.
+Access to manage the day to day gaming.
 Can insert, read, update and delete the content
 Has an api that brings data directly from clash royale servers.
 Data from you profile and other players
 Data like name, level favorite cards, and link to access and update you clash royale profile.
 
 Reset Layout
+
 The panels to insert and update clash royale data can be adjusted in the page, so you can use this Link to reset the layout to defeat state.
 ```
 ```sh
-
 API to provide data for 3th parties.
+
 https://webscrapingnode.herokuapp.com/api/v1/clashroyale/clashroyaleapi
+
 Result from this API that brings data from clash royale page.
+
 {"Player": "karlmb ",
 "Highest_Trophies": "4040",
 "Trophies": "4019",
@@ -99,9 +87,10 @@ Result from this API that brings data from clash royale page.
 "statsroyaleprofile": "https://statsroyale.com/profile/9UG2R28R2"},
 ```
 ```sh
-
 https://webscrapingnode.herokuapp.com/api/v1/clashroyale/clashs
+
 With this api,  the user can get his data to any software and wish.
+
 {"_id": "5c734ba69225a22938ba0925",
 "Name": "chto@outlook",
 "Started_Trophies": 10,
@@ -113,11 +102,9 @@ With this api,  the user can get his data to any software and wish.
 "__v": 0,
 "Total_Trophies": 10},
 ```
-
-
 ```sh
-
 Weather
+
 This module brings data from weather sites using web scraping.
 The data is transforme in a API that could be used for any software by the link/endpoint https://webscrapingnode.herokuapp.com/api/v1/weather/Itacoatiara48forecast
 
@@ -131,10 +118,15 @@ https://webscrapingnode.herokuapp.com/api/v1/weather/WebScraping
 ```sh
 
 APIs
+
 Apis are use in port 5002 default link http://localhost:5002/
+
 End-points
+
 Weather
+
 Webscraping
+
 http://localhost:5002/api/v1/weather/WebScraping 
 Return an Object with 4 properties
 {"temp": "Today's Itacoatiara sea temperature is 28.6 °C.",
@@ -143,6 +135,7 @@ Return an Object with 4 properties
 "wavesSizeDetailed": "0.5SE0.5SE0.5SE0.5SE0.6SE0.5SE0.1S0.1S0.1S0.1S0.1S0.1S0.6SW0.6SW0.5SW0.6SSW1.1SSW1.3SSW"}
 
 Itacoatiara48forecast
+
 http://localhost:5002/api/v1/weather/Itacoatiara48forecast  
 Return an array with 4 objects
 "days": ["Sábado 09","Domingo 10","Segunda-feira 11"],
@@ -151,14 +144,17 @@ uniqueweather": ["céu limpo","parcialmente nublado","Risco Trovoada"],
 wavesTimes": [{"day": "","time": "0AM","wavesize": "0.5SE","weather": "céu limpo"},]
 
 Itacoatiaraseatemp
+
 http://localhost:5002/api/v1/weather/Itacoatiaraseatemp  
 Return an array with 1 objects
 [{"temp": "Today's Itacoatiara sea temperature is 28.6 °C."}]
 
 Youtube
+
 youtubeClickAndGetPrint
 
 Default
+
 sendEmail
 ws
 webScrapingTest
