@@ -120,9 +120,6 @@ router.post("/tokenlogin/", (req, res, next) => {
             expiresIn: config.JWT_TIME_EXPIRES
           }
         );
-        console.log(token)
-        console.log(user[0].email)
-
           req.user.token = token
 
         User.findOneAndUpdate({email: req.user.email}, req.user )

@@ -3,19 +3,16 @@ const path = require('path')
 var bodyParser = require('body-parser')
 var session = require('express-session');
 var flash = require('connect-flash');
-var users = require('./routes/users');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
-const mongoose = require('mongoose');
 const morgan = require("morgan");
-const passport = require('passport');
 
 
 var clashRoutes = require('./routes/clashRoutes');
 var weatherRoutes = require('./routes/weatherRoutes');
 var indexRouters = require('./routes/indexRouters');
-var users = require('./routes/users.js')
+var users = require('./routes/users');
 
 const { fork } = require('child_process');
 
