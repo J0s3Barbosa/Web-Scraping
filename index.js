@@ -12,6 +12,8 @@ const morgan = require("morgan");
 var clashRoutes = require('./routes/clashRoutes');
 var clashApiRoutes = require('./routes/clashApiRoutes');
 var weatherRoutes = require('./routes/weatherRoutes');
+var weatherApiRoutes = require('./routes/weatherApiRoutes');
+
 var users = require('./routes/users');
 
 const { fork } = require('child_process');
@@ -92,6 +94,7 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use(APP_PATH + '/clashRoyale', clashRoutes)
   .use(API_PATH + '/clashRoyale', clashApiRoutes)
   .use(APP_PATH + '/weather', weatherRoutes)
+  .use(API_PATH + '/weather', weatherApiRoutes)
   .use('/users', users )
 
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
