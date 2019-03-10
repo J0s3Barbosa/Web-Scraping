@@ -10,10 +10,10 @@ const morgan = require("morgan");
 
 
 var clashRoutes = require('./routes/clashRoutes');
-var clashApiRoutes = require('./routes/clashApiRoutes');
 var weatherRoutes = require('./routes/weatherRoutes');
-var weatherApiRoutes = require('./routes/weatherApiRoutes');
 
+var clashApiRoutes = require('./routes/clashApiRoutes');
+var weatherApiRoutes = require('./routes/weatherApiRoutes');
 var users = require('./routes/users');
 
 const { fork } = require('child_process');

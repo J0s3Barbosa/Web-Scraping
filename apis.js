@@ -2,8 +2,9 @@ const express = require('express')
 const path = require('path')
 var bodyParser = require('body-parser')
 
-var weatherRoutes = require('./routes/weatherRoutes');
 var indexRouters = require('./routes/indexRouters');
+var clashApiRoutes = require('./routes/clashApiRoutes');
+var weatherApiRoutes = require('./routes/weatherApiRoutes');
 
 var session = require('express-session');
 var flash = require('connect-flash');
@@ -68,9 +69,9 @@ app.use(function (req, res, next) {
 // express()
 app.use(express.static(path.join(__dirname, 'public')))
 
-  .use(API_PATH + '/weather', weatherRoutes)
-  .use(API_PATH + '/youtube', indexRouters)
   .use(API_PATH + '/default', indexRouters)
+  .use(API_PATH + '/clashRoyale', clashApiRoutes)
+  .use(API_PATH + '/weather', weatherApiRoutes)
 
 // handle 404 error
 app.use(function (req, res, next) {
