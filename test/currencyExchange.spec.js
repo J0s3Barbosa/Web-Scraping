@@ -4,31 +4,15 @@ var chai = require("chai");
 var expect = chai.expect;
 var urlBase = "http://localhost:5000";
 var urlBaseexchangeratesapi = "https://api.exchangeratesapi.io";
+const currencyExchange = require("../models/currencyExchange");
 
 describe("currency exchange tests", function() {
-  //   convert( "GBP",  "HKD", 12.99)
-
-  //   function convert(from, to, value) {
-  //     var convertedValue = 0;
-  //     from = 'USD'
-  //     to = 'BRL'
-
-  //     let convertedValue = moneyAmount * exchange_factor
-
-  //     return convertedValue;
-  //   }
-
-  //   function GetExchangeRate(currency) {
-  //     var currencyRate = 0;
-
-  //     return currencyRate;
-  //   }
 
   it("_body.rates.BRL).not.to.be.null.and.not.to.be.undefined", function(done) {
-    var exchangeBase = "USD";
+    currencyExchange.from = "USD";
     request.get(
       {
-        url: urlBaseexchangeratesapi + "/latest?base=" + exchangeBase
+        url: urlBaseexchangeratesapi + "/latest?base=" + currencyExchange.from
       },
       function(error, response, body) {
         var _body = {};
@@ -45,12 +29,15 @@ describe("currency exchange tests", function() {
     );
   });
 
+
+
   it("should return property value", function(done) {
-    var exchangeBaseFrom = "USD";
-    var exchangeTo = "BRL";
+    currencyExchange.from = "USD";
+    currencyExchange.to = "BRL";
+
     request.get(
       {
-        url: urlBaseexchangeratesapi + "/latest?base=" + exchangeBaseFrom
+        url: urlBaseexchangeratesapi + "/latest?base=" + currencyExchange.from
       },
       function(error, response, body) {
         var _body = {};
@@ -64,40 +51,99 @@ describe("currency exchange tests", function() {
         expect(_body.rates).not.to.be.null.and.not.to.be.undefined;
         var listOfRates = _body.rates;
 
-        var val = GetPropValu(listOfRates, exchangeTo);
-        console.log(val);
+        currencyExchange.result = GetPropValue(listOfRates, currencyExchange.to);
+        expect(currencyExchange.result).not.to.be.null.and.not.to.be.undefined;
 
         done();
       }
     );
   });
 
+  it("result should be a Number", function(done) {
+    var exchangeBaseFrom = "USD";
+    var exchangeTo = "BRL";
+  
+    CurrencyConvert(exchangeBaseFrom, exchangeTo)
+    .then(function(body) {
+    expect(body.result).not.to.be.null.and.not.to.be.undefined;
+    expect(body.result).to.be.instanceOf(Number);
+
+})
+    .catch(function(err) {
+      return err;
+    });
+    done();
+  });
+
+
+
+  it("body.result).not.to.be.null.and.not.to.be.undefined", function(done) {
+    var exchangeBaseFrom = "USD";
+    var exchangeTo = "BRL";
+  
+    CurrencyConvert(exchangeBaseFrom, exchangeTo)
+    .then(function(body) {
+    expect(body.result).not.to.be.null.and.not.to.be.undefined;
+
+})
+    .catch(function(err) {
+      return err;
+    });
+    done();
+  });
+
+  
+  it("body.result).not.to.be.null.and.not.to.be.undefined", function(done) {
+    var exchangeBaseFrom = "USD";
+    var exchangeTo = "BRL";
+  
+    CurrencyConvert(exchangeBaseFrom, exchangeTo)
+    .then(function(body) {
+    expect(body.result).not.to.be.null.and.not.to.be.undefined;
+
+})
+    .catch(function(err) {
+      return err;
+    });
+    done();
+  });
+
+
   function CurrencyConvert(exchangeBaseFrom, exchangeTo) {
-    request.get(
-      {
-        url: urlBaseexchangeratesapi + "/latest?base=" + exchangeBaseFrom
-      },
-      function(error, response, body) {
-        var _body = {};
-        try {
-          _body = JSON.parse(body);
-        } catch (e) {
-          _body = {};
+
+    const url = urlBaseexchangeratesapi + "/latest?base=" + exchangeBaseFrom;
+
+    return new Promise(function(resolve, reject) {
+
+      request(url, function(err, response, body) {
+        if (err) reject(err);
+        if (response.statusCode !== 200) {
+          reject("Invalid status code: " + response.statusCode);
         }
 
-        var listOfRates = _body.rates;
-        return GetPropValu(listOfRates, exchangeTo);
-      }
-    );
+        var _body = {};
+                try {
+                  _body = JSON.parse(body);
+                } catch (e) {
+                  _body = {};
+                }
+        
+                var listOfRates = _body.rates;
+                var result = GetPropValue(listOfRates, exchangeTo);
+  
+        resolve({result});
+      });
+    });
   }
 
-  function GetPropValu(obj, objProp) {
+  function GetPropValue(obj, objProp) {
     for (var i in obj) {
       if (obj.hasOwnProperty(objProp) && i == objProp) {
         return obj[i];
       }
     }
   }
+
 
   function showProps(obj, objName) {
     var result = "";
