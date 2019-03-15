@@ -173,6 +173,11 @@ End-points
 * test
   * npm test .\test\currencyExchange.spec.js
 
+* using querystring
+
+  http://localhost:5000/currencyExchange/Convert/?from=AUD&to=BRL
+
+
 * api with all currencies
   * sample
   * https://free.currencyconverterapi.com/api/v6/currencies?apiKey=sample-api-key
@@ -218,7 +223,8 @@ End-points
 
 ```sh
 * http://localhost:5000/currencyExchange/Convert
-let rawUrl = 'http://localhost:5000/currencyExchange/Convert/?from=USD&to=BRL';
+http://localhost:5000/currencyExchange/Convert/?from=AUD&to=BRL
+
 
 * https://exchangeratesapi.io/
 

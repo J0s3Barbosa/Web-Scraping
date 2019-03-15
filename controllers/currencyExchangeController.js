@@ -1,7 +1,7 @@
 var request = require("request");
 var urlBaseexchangeratesapi = "https://api.exchangeratesapi.io";
 const CurrencyExchange = require("../models/currencyExchange");
-const querystring = require('querystring');  
+const querystring = require("querystring");
 
 exports.GetAll = function(req, res) {
   CurrencyExchange.find({}, (err, currencyExchange) => {
@@ -14,34 +14,42 @@ exports.GetAll = function(req, res) {
   });
 };
 
+exports.Convert =  function(req, res) {
+  CurrencyExchange.from = req.query.from;
+  CurrencyExchange.to = req.query.to;
+  CurrencyExchange.value = 0;
 
-exports.Convert = async function(req, res) {
-   
-        // Access the provided 'page' and 'limt' query parameters
-        let exchangeBaseFrom = req.query.from;
-        let exchangeTo = req.query.to;
-
-  if(exchangeBaseFrom == null || exchangeBaseFrom == undefined || exchangeBaseFrom.length == 0 || exchangeTo == null || exchangeTo == undefined || exchangeTo.length == 0)
-  {
-    res.json({message : 'You need to informe the Currencies /?from=xxx&to=xxx'});
-
+  if (
+    CurrencyExchange.from == null ||
+    CurrencyExchange.from == undefined ||
+    CurrencyExchange.from.length == 0 ||
+    CurrencyExchange.to == null ||
+    CurrencyExchange.to == undefined ||
+    CurrencyExchange.to.length == 0
+  ) {
+    res.json({
+      message: "You need to informe the Currencies /?from=xxx&to=xxx"
+    });
   }
-    CurrencyConvert(exchangeBaseFrom, exchangeTo)
-    .then(function(body) {
-      let numberFormated =  round(body.result)
-    res.json(numberFormated);
 
-})
+  CurrencyConvert(CurrencyExchange.from, CurrencyExchange.to)
+    .then(function(body) {
+      CurrencyExchange.value = round(body.result);
+      console.log(currencyExchange)
+  
+
+      res.json(CurrencyExchange.value);
+    })
     .catch(function(err) {
       return err;
     });
+};
 
-  };
-  function round(num) {
-    if (num == null)
-        return null;
-    return Math.round(num * 100) / 100;
+function round(num) {
+  if (num == null) return null;
+  return Math.round(num * 100) / 100;
 }
+
 function CurrencyConvert(exchangeBaseFrom, exchangeTo) {
   const url = urlBaseexchangeratesapi + "/latest?base=" + exchangeBaseFrom;
 
