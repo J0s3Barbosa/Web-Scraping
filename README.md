@@ -170,12 +170,17 @@ End-points
 
 
 ```sh
+the user should be able to insert a currency and expexted currency exchange, then should see the result
+
 * test
   * npm test .\test\currencyExchange.spec.js
 
 * using querystring
 
   http://localhost:5000/currencyExchange/Convert/?from=AUD&to=BRL
+* http://localhost:5000/currencyExchange/Convert
+* http://localhost:5000/currencyExchange/Convert/?from=AUD&to=BRL
+* http://localhost:5000/currencyExchange/Convert/?from=USD&to=BRL
 
 
 * api with all currencies
@@ -222,9 +227,6 @@ End-points
 ```
 
 ```sh
-* http://localhost:5000/currencyExchange/Convert
-http://localhost:5000/currencyExchange/Convert/?from=AUD&to=BRL
-
 
 * https://exchangeratesapi.io/
 
