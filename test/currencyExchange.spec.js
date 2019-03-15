@@ -146,70 +146,70 @@ describe("currency exchange tests", function() {
     return result;
   }
 
-  //   it("_body.rates.BRL).not.to.be.null.and.not.to.be.undefined", function(done) {
+    it("_body.rates.BRL).not.to.be.null.and.not.to.be.undefined", function(done) {
 
-  //     var exchangeBase = "USD";
-  //     request.get(
-  //         {
-  //           url : urlBaseexchangeratesapi + "/latest?base="+exchangeBase
-  //         },
-  //         function(error, response, body){
+      var exchangeBase = "USD";
+      request.get(
+          {
+            url : urlBaseexchangeratesapi + "/latest?base="+exchangeBase
+          },
+          function(error, response, body){
 
-  //           var _body = {};
-  //           try{
-  //             _body = JSON.parse(body);
-  //           }
-  //           catch(e){
-  //             _body = {};
-  //           }
-  //           expect(response.statusMessage).to.be.equal('OK');
-  //           expect(_body.rates.BRL).not.to.be.null.and.not.to.be.undefined;
+            var _body = {};
+            try{
+              _body = JSON.parse(body);
+            }
+            catch(e){
+              _body = {};
+            }
+            expect(response.statusMessage).to.be.equal('OK');
+            expect(_body.rates.BRL).not.to.be.null.and.not.to.be.undefined;
 
-  //           done();
-  //         }
-  //       );
+            done();
+          }
+        );
 
-  //   });
+    });
 
-  //   it("response.statusMessage).to.be.equal('OK", function(done) {
+    it("response.statusMessage).to.be.equal('OK", function(done) {
 
-  //     var exchangeBase = "USD";
-  //     request.get(
-  //         {
-  //           url : urlBaseexchangeratesapi + "/latest?base="+exchangeBase
-  //         },
-  //         function(error, response, body){
+      var exchangeBase = "USD";
+      request.get(
+          {
+            url : urlBaseexchangeratesapi + "/latest?base="+exchangeBase
+          },
+          function(error, response, body){
 
-  //           expect(response.statusMessage).to.be.equal('OK');
-  //           done();
-  //         }
-  //       );
+            expect(response.statusMessage).to.be.equal('OK');
+            done();
+          }
+        );
 
-  //   });
+    });
 
-  //   it("_body).not.to.be.null.and.not.to.be.undefined", function(done) {
+    it("_body).not.to.be.null.and.not.to.be.undefined", function(done) {
 
-  //     var exchangeBase = "USD";
-  //     request.get(
-  //         {
-  //           url : urlBaseexchangeratesapi + "/latest?base="+exchangeBase
-  //         },
-  //         function(error, response, body){
-  //           var _body = {};
-  //           try{
-  //             _body = JSON.parse(body);
-  //           }
-  //           catch(e){
-  //             _body = {};
-  //           }
-  //           expect(response.statusMessage).to.be.equal('OK');
-  //           expect(_body).not.to.be.null.and.not.to.be.undefined;
+      var exchangeBase = "USD";
+      request.get(
+          {
+            url : urlBaseexchangeratesapi + "/latest?base="+exchangeBase
+          },
+          function(error, response, body){
+            var _body = {};
+            try{
+              _body = JSON.parse(body);
+            }
+            catch(e){
+              _body = {};
+            }
+            expect(response.statusMessage).to.be.equal('OK');
+            expect(_body).not.to.be.null.and.not.to.be.undefined;
 
-  //           done();
-  //         }
-  //       );
+            done();
+          }
+        );
 
-  //   });
+    });
 
   it("value should retorn 1.83", function(done) {
     assert.equal(-1, round(-1));
@@ -312,10 +312,184 @@ describe("currency exchange tests", function() {
     done();
   });
 
+  it("Post test from=BRL&to=", function(done) {
+    var url = urlBase + "/currencyExchange/ConvertSave/?from=BRL&to=";
+    request.post(
+      {
+        url: url
+      },
+      function(error, response, body) {
+
+        var _body = {};
+        try {
+          _body = JSON.parse(body);
+        } catch (e) {
+          _body = {};
+        }
+        var message ="You need to informe the Currencies /?from=xxx&to=xxx"
+        expect(_body.message).to.be.equal(message);
+        
+
+      }
+    );
+    done();
+  });
+
+  it("Post test from=&to=", function(done) {
+    var url = urlBase + "/currencyExchange/ConvertSave/?from=&to=";
+    request.post(
+      {
+        url: url
+      },
+      function(error, response, body) {
+
+        var _body = {};
+        try {
+          _body = JSON.parse(body);
+        } catch (e) {
+          _body = {};
+        }
+        var message ="You need to informe the Currencies /?from=xxx&to=xxx"
+        expect(_body.message).to.be.equal(message);
+        
+
+      }
+    );
+    done();
+  });
+
+  it("Post test from=&to=USD", function(done) {
+    var url = urlBase + "/currencyExchange/ConvertSave/?from=&to=USD";
+    request.post(
+      {
+        url: url
+      },
+      function(error, response, body) {
+
+        var _body = {};
+        try {
+          _body = JSON.parse(body);
+        } catch (e) {
+          _body = {};
+        }
+        var message ="You need to informe the Currencies /?from=xxx&to=xxx"
+        expect(_body.message).to.be.equal(message);
+        
+
+      }
+    );
+    done();
+  });
+
+
   it("Getall test",function(done){
     request.get(
       {
         url : urlBase + "/currencyExchange/getall"
+      },
+      function(error, response, body){
+
+        var _body = {};
+        try{
+          _body = JSON.parse(body);
+        }
+        catch(e){
+          _body = {};
+        }
+        expect(response.statusCode).to.be.equal(200);
+        done(); 
+      }
+    );
+  });
+
+  it("test currencyExchange/Convert/?from=USD&to=BRL",function(done){
+    request.get(
+      {
+        url : urlBase + "/currencyExchange/Convert/?from=USD&to=BRL"
+      },
+      function(error, response, body){
+
+        var _body = {};
+        try{
+          _body = JSON.parse(body);
+        }
+        catch(e){
+          _body = {};
+        }
+        expect(_body).not.to.be.null.and.not.to.be.undefined;
+        done(); 
+      }
+    );
+  });
+
+
+
+  it("test currencyExchange/Convert/?from=USD&to=",function(done){
+    request.get(
+      {
+        url : urlBase + "/currencyExchange/Convert/?from=USD&to="
+      },
+      function(error, response, body){
+
+        var _body = {};
+        try{
+          _body = JSON.parse(body);
+        }
+        catch(e){
+          _body = {};
+        }
+        expect(_body.message).to.be.equal('You need to informe the Currencies /?from=xxx&to=xxx');
+        done(); 
+      }
+    );
+  });
+
+
+
+  it("test currencyExchange/Convert/?from=&to=USD",function(done){
+    request.get(
+      {
+        url : urlBase + "/currencyExchange/Convert/?from=&to=USD"
+      },
+      function(error, response, body){
+
+        var _body = {};
+        try{
+          _body = JSON.parse(body);
+        }
+        catch(e){
+          _body = {};
+        }
+        expect(_body.message).to.be.equal('You need to informe the Currencies /?from=xxx&to=xxx');
+        done(); 
+      }
+    );
+  });
+
+
+  it("test currencyExchange/Convert/?from=&to=",function(done){
+    request.get(
+      {
+        url : urlBase + "/currencyExchange/Convert/?from=&to="
+      },
+      function(error, response, body){
+
+        var _body = {};
+        try{
+          _body = JSON.parse(body);
+        }
+        catch(e){
+          _body = {};
+        }
+        expect(_body.message).to.be.equal('You need to informe the Currencies /?from=xxx&to=xxx');
+        done(); 
+      }
+    );
+  });
+  it("test /currencyExchange statusMessage).to.be.equal('OK",function(done){
+    request.get(
+      {
+        url : urlBase + "/currencyExchange/"
       },
       function(error, response, body){
 
@@ -331,20 +505,44 @@ describe("currency exchange tests", function() {
       }
     );
   });
+  it("test /currencyExchange message).to.be.equal" ,function(done){
+    request.get(
+      {
+        url : urlBase + "/currencyExchange/"
+      },
+      function(error, response, body){
 
+        var _body = {};
+        try{
+          _body = JSON.parse(body);
+        }
+        catch(e){
+          _body = {};
+        }
+        expect(_body.message).to.be.equal("/currencyExchange/Convert/?from=USD&to=BRL");
+        done(); 
+      }
+    );
+  });
+  it("test /currencyExchange message).not.to.be.equal",function(done){
+    request.get(
+      {
+        url : urlBase + "/currencyExchange/"
+      },
+      function(error, response, body){
 
-
-
-
-
-
-
-
-
-
-
-
-
+        var _body = {};
+        try{
+          _body = JSON.parse(body);
+        }
+        catch(e){
+          _body = {};
+        }
+        expect(_body.message).not.to.be.equal("/currencyExchange/Convert/?from=USD&to=BRL1");
+        done(); 
+      }
+    );
+  });
 
 
 

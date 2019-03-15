@@ -6,9 +6,10 @@ const { ensureApiAuthenticated } = require('../config/authApi');
 
 var currencyExchangeController = require('../controllers/currencyExchangeController');
 
-router.get('/GetAll', currencyExchangeController.GetAll );
-router.get('/Convert', currencyExchangeController.Convert );
-router.post('/ConvertSave', currencyExchangeController.ConvertSave );
+router.get('/', currencyExchangeController.default );
+router.get('/getAll', currencyExchangeController.getAll );
+router.get('/convert', currencyExchangeController.convert );
+router.post('/convertSave', currencyExchangeController.convertSave );
 
 module.exports = router;
 

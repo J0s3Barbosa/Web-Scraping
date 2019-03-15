@@ -3,7 +3,13 @@ var urlBaseexchangeratesapi = "https://api.exchangeratesapi.io";
 var CurrencyExchange = require("../models/currencyExchange");
 const querystring = require("querystring");
 
-exports.GetAll = function(req, res) {
+exports.default = function(req, res) {
+  
+    var result = {message: '/currencyExchange/Convert/?from=USD&to=BRL'}
+    res.json(result);
+};
+
+exports.getAll = function(req, res) {
   CurrencyExchange.find({}, (err, currencyExchange) => {
     if (err) {
       res.send(err);
@@ -14,7 +20,7 @@ exports.GetAll = function(req, res) {
   });
 };
 
-function Save(req, res, currencyObj) {
+function save(req, res, currencyObj) {
   try {
     let newCurrencyExchange = new CurrencyExchange(currencyObj);
     newCurrencyExchange.save((error, currencyExchange) => {
@@ -29,7 +35,7 @@ function Save(req, res, currencyObj) {
   }
 }
 
-exports.ConvertSave = function(req, res) {
+exports.convertSave = function(req, res) {
     var currencyObj = {
     from: "",
     to: "",
@@ -51,17 +57,17 @@ exports.ConvertSave = function(req, res) {
       message: "You need to informe the Currencies /?from=xxx&to=xxx"
     });
   }
-  CurrencyConvert(currencyObj.from, currencyObj.to)
+  currencyConvert(currencyObj.from, currencyObj.to)
     .then(function(body) {
       currencyObj.value = round(body.result);
-      Save(req, res, currencyObj);
+      save(req, res, currencyObj);
     })
     .catch(function(err) {
       return err;
     });
 };
 
-exports.Convert = function(req, res) {
+exports.convert = function(req, res) {
   CurrencyExchange.from = req.query.from;
   CurrencyExchange.to = req.query.to;
   CurrencyExchange.value = 0;
@@ -78,7 +84,7 @@ exports.Convert = function(req, res) {
       message: "You need to informe the Currencies /?from=xxx&to=xxx"
     });
   }
-  CurrencyConvert(CurrencyExchange.from, CurrencyExchange.to)
+  currencyConvert(CurrencyExchange.from, CurrencyExchange.to)
     .then(function(body) {
       CurrencyExchange.value = round(body.result);
       res.json(CurrencyExchange.value);
@@ -93,7 +99,7 @@ function round(num) {
   return Math.round(num * 100) / 100;
 }
 
-function CurrencyConvert(exchangeBaseFrom, exchangeTo) {
+function currencyConvert(exchangeBaseFrom, exchangeTo) {
   const url = urlBaseexchangeratesapi + "/latest?base=" + exchangeBaseFrom;
 
   return new Promise(function(resolve, reject) {
@@ -111,14 +117,14 @@ function CurrencyConvert(exchangeBaseFrom, exchangeTo) {
       }
 
       var listOfRates = _body.rates;
-      var result = GetPropValue(listOfRates, exchangeTo);
+      var result = getPropValue(listOfRates, exchangeTo);
 
       resolve({ result });
     });
   });
 }
 
-function GetPropValue(obj, objProp) {
+function getPropValue(obj, objProp) {
   for (var i in obj) {
     if (obj.hasOwnProperty(objProp) && i == objProp) {
       return obj[i];
