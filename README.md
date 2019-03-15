@@ -172,7 +172,7 @@ End-points
 ```sh
 * test
   * npm test .\test\currencyExchange.spec.js
-  
+
 * api with all currencies
   * sample
   * https://free.currencyconverterapi.com/api/v6/currencies?apiKey=sample-api-key
@@ -217,6 +217,9 @@ End-points
 ```
 
 ```sh
+* http://localhost:5000/currencyExchange/Convert
+let rawUrl = 'http://localhost:5000/currencyExchange/Convert/?from=USD&to=BRL';
+
 * https://exchangeratesapi.io/
 
     GET https://api.exchangeratesapi.io/latest HTTP/1.1

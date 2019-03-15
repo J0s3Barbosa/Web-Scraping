@@ -15,6 +15,7 @@ var weatherRoutes = require('./routes/weatherRoutes');
 var clashApiRoutes = require('./routes/clashApiRoutes');
 var weatherApiRoutes = require('./routes/weatherApiRoutes');
 var users = require('./routes/users');
+var currencyExchangeRoutes = require('./routes/currencyExchangeRoutes');
 
 const { fork } = require('child_process');
 
@@ -96,7 +97,8 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use(APP_PATH + '/weather', weatherRoutes)
   .use(API_PATH + '/weather', weatherApiRoutes)
   .use('/users', users )
-
+  .use('/currencyExchange', currencyExchangeRoutes )
+  
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 

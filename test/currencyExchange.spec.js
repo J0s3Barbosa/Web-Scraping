@@ -220,4 +220,21 @@ describe("currency exchange tests", function() {
   //       );
 
   //   });
-});
+
+
+      it("value should retorn 1.83", function(done) {
+
+        assert.equal(-1, round(-1));
+        assert.equal(0, round(0));
+        assert.equal(1.83, round(1.83458));
+        done();
+   });
+   function round(num) {
+    if (num == null)
+        return null;
+    return Math.round(num * 100) / 100;
+}
+
+   });
+
+

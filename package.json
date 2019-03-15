@@ -34,6 +34,7 @@
     "passport-local-mongoose": "^5.0.1",
     "puppeteer": "^1.11.0",
     "query-params-mongo": "^1.1.0",
+    "querystring": "^0.2.0",
     "req-flash": "0.0.3",
     "request": "^2.81.0",
     "request-promise": "^4.2.2"
