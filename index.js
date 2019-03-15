@@ -3,21 +3,25 @@ const path = require('path')
 var bodyParser = require('body-parser')
 var session = require('express-session');
 var flash = require('connect-flash');
-const expressLayouts = require('express-ejs-layouts');
-const mongoose = require('mongoose');
-const morgan = require("morgan");
 const passport = require('passport');
+const mongoose = require('mongoose');
+const expressLayouts = require('express-ejs-layouts');
+const morgan = require("morgan");
 
 
 var clashRoutes = require('./routes/clashRoutes');
 var weatherRoutes = require('./routes/weatherRoutes');
-var indexRouters = require('./routes/indexRouters');
-var users = require('./routes/users.js')
+
+var clashApiRoutes = require('./routes/clashApiRoutes');
+var weatherApiRoutes = require('./routes/weatherApiRoutes');
+var users = require('./routes/users');
+var currencyExchangeRoutes = require('./routes/currencyExchangeRoutes');
 
 const { fork } = require('child_process');
 
 const PORT = process.env.PORT || 5000
 const API_PATH = '/api/v1'
+const APP_PATH = '/app'
 
 require('./config/passport')(passport);
 
@@ -88,12 +92,13 @@ app.use(express.static(path.join(__dirname, 'public')))
     user : req.user
   }))
   
-  .use(API_PATH + '/clashRoyale', clashRoutes)
-  .use(API_PATH + '/weather', weatherRoutes)
-  .use(API_PATH + '/youtube', indexRouters)
-  .use(API_PATH + '/default', indexRouters)
+  .use(APP_PATH + '/clashRoyale', clashRoutes)
+  .use(API_PATH + '/clashRoyale', clashApiRoutes)
+  .use(APP_PATH + '/weather', weatherRoutes)
+  .use(API_PATH + '/weather', weatherApiRoutes)
   .use('/users', users )
-
+  .use('/currencyExchange', currencyExchangeRoutes )
+  
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 

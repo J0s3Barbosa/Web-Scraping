@@ -58,7 +58,7 @@
               "'> </td>";
 
               txt +=
-              "<td> <input type='text' class='form-control' id='permission" +
+              "<td> <input type='text' class='form-control' id='manager" +
               data[i]._id +
               "' value='" +
               data[i].manager +
@@ -152,20 +152,20 @@
     var tok = window.localStorage.getItem("token");
     var data_id = e.value;
     $("#formEdit").attr("action", API_DEFAULT_PATH + data_id);
-    var cr_obj_updated = new Object();
-    cr_obj_updated._id = data_id;
-    cr_obj_updated.name = document.getElementById("name" + data_id).value;
-    cr_obj_updated.email = document.getElementById("email" + data_id).value;
-    cr_obj_updated.permission = document.getElementById("permission" + data_id).value;
-    cr_obj_updated.manager = document.getElementById("manager" + data_id).value;
-    cr_obj_updated.password = document.getElementById(
+    var user_obj_updated = new Object();
+    user_obj_updated._id = data_id;
+    user_obj_updated.name = document.getElementById("name" + data_id).value;
+    user_obj_updated.email = document.getElementById("email" + data_id).value;
+    user_obj_updated.permission = document.getElementById("permission" + data_id).value;
+    user_obj_updated.manager = document.getElementById("manager" + data_id).value;
+    user_obj_updated.password = document.getElementById(
       "password" + data_id
     ).value;
     $.ajax({
       headers: { Authorization: tok },
       type: "PUT",
       url: API_DEFAULT_PATH + data_id,
-      data: cr_obj_updated,
+      data: user_obj_updated,
       success: function(data) {
         $("#btnLoadRefreshData").click()
       },
@@ -203,6 +203,7 @@
     event.preventDefault();
   }
 </script>
+<title><%- title  =  'Manage Users' %></title>
 
 <div class="panel panel-default">
   <div class="panel-body">
