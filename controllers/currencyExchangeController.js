@@ -5,7 +5,49 @@ const querystring = require("querystring");
 
 exports.default = function(req, res) {
   
-    var result = {message: '/currencyExchange/Convert/?from=USD&to=BRL'}
+    var result = { 
+      Message: 'Wellcome to Currency converter!',
+      Link: 'https://webscrapingnode.herokuapp.com/currencyExchange/Convert/?from=USD&to=BRL',
+       Available_Currencies: [
+        {
+          "MXN": 21.8824,
+"AUD": 1.603,
+"HKD": 8.8665,
+"RON": 4.765,
+"HRK": 7.4214,
+"CHF": 1.1351,
+"IDR": 16150.44,
+"CAD": 1.5074,
+"USD": 1.1295,
+"ZAR": 16.382,
+"JPY": 126.09,
+"BRL": 4.333,
+"HUF": 314.43,
+"CZK": 25.668,
+"NOK": 9.7155,
+"INR": 78.473,
+"PLN": 4.3032,
+"ISK": 133.9,
+"PHP": 59.601,
+"SEK": 10.5373,
+"ILS": 4.067,
+"GBP": 0.85228,
+"SGD": 1.5325,
+"CNY": 7.5984,
+"TRY": 6.1842,
+"MYR": 4.618,
+"RUB": 73.925,
+"NZD": 1.6585,
+"KRW": 1283.62,
+"THB": 35.896,
+"BGN": 1.9558,
+"DKK": 7.4624
+
+        }
+        
+      ]
+  
+  }
     res.json(result);
 };
 
