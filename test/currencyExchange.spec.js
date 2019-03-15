@@ -217,7 +217,7 @@ describe("currency exchange tests", function() {
     assert.equal(1.83, round(1.83458));
     done();
   });
-  
+
   function round(num) {
     if (num == null) return null;
     return Math.round(num * 100) / 100;
@@ -244,4 +244,108 @@ describe("currency exchange tests", function() {
     );
     done();
   });
+
+
+  it("Post test from=EUR&to=BRL", function(done) {
+    var url = urlBase + "/currencyExchange/ConvertSave/?from=EUR&to=BRL";
+    request.post(
+      {
+        url: url
+      },
+      function(error, response, body) {
+
+        var _body = {};
+        try {
+          _body = JSON.parse(body);
+        } catch (e) {
+          _body = {};
+        }
+        expect(_body).not.to.be.null.and.not.to.be.undefined;
+        expect(response.statusCode).to.be.equal(201);
+
+      }
+    );
+    done();
+  });
+
+  it("Post test from=BRL&to=USD", function(done) {
+    var url = urlBase + "/currencyExchange/ConvertSave/?from=BRL&to=USD";
+    request.post(
+      {
+        url: url
+      },
+      function(error, response, body) {
+
+        var _body = {};
+        try {
+          _body = JSON.parse(body);
+        } catch (e) {
+          _body = {};
+        }
+        expect(_body).not.to.be.null.and.not.to.be.undefined;
+        expect(response.statusCode).to.be.equal(201);
+
+      }
+    );
+    done();
+  });
+
+  it("Post test from=BRL&to=EUR", function(done) {
+    var url = urlBase + "/currencyExchange/ConvertSave/?from=BRL&to=EUR";
+    request.post(
+      {
+        url: url
+      },
+      function(error, response, body) {
+
+        var _body = {};
+        try {
+          _body = JSON.parse(body);
+        } catch (e) {
+          _body = {};
+        }
+        expect(_body).not.to.be.null.and.not.to.be.undefined;
+        expect(response.statusCode).to.be.equal(201);
+
+      }
+    );
+    done();
+  });
+
+  it("Getall test",function(done){
+    request.get(
+      {
+        url : urlBase + "/currencyExchange/getall"
+      },
+      function(error, response, body){
+
+        var _body = {};
+        try{
+          _body = JSON.parse(body);
+        }
+        catch(e){
+          _body = {};
+        }
+        expect(response.statusMessage).to.be.equal('OK');
+        done(); 
+      }
+    );
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
