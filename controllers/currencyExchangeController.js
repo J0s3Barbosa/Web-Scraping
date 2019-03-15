@@ -1,6 +1,6 @@
 var request = require("request");
 var urlBaseexchangeratesapi = "https://api.exchangeratesapi.io";
-const CurrencyExchange = require("../models/currencyExchange");
+var CurrencyExchange = require("../models/currencyExchange");
 const querystring = require("querystring");
 
 exports.GetAll = function(req, res) {
@@ -14,7 +14,54 @@ exports.GetAll = function(req, res) {
   });
 };
 
-exports.Convert =  function(req, res) {
+function Save(req, res, currencyObj) {
+  try {
+    let newCurrencyExchange = new CurrencyExchange(currencyObj);
+    newCurrencyExchange.save((error, currencyExchange) => {
+      if (error) {
+        return error;
+      }
+      res.status(201).json(currencyExchange);
+    });
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+}
+
+exports.ConvertSave = function(req, res) {
+    var currencyObj = {
+    from: "",
+    to: "",
+    value: ""
+  };
+  currencyObj.from = req.query.from;
+  currencyObj.to = req.query.to;
+  currencyObj.value = req.query.to;
+
+  if (
+    currencyObj.from == null ||
+    currencyObj.from == undefined ||
+    currencyObj.from.length == 0 ||
+    currencyObj.to == null ||
+    currencyObj.to == undefined ||
+    currencyObj.to.length == 0
+  ) {
+    res.json({
+      message: "You need to informe the Currencies /?from=xxx&to=xxx"
+    });
+  }
+  CurrencyConvert(currencyObj.from, currencyObj.to)
+    .then(function(body) {
+      currencyObj.value = round(body.result);
+      Save(req, res, currencyObj);
+    })
+    .catch(function(err) {
+      return err;
+    });
+};
+
+exports.Convert = function(req, res) {
   CurrencyExchange.from = req.query.from;
   CurrencyExchange.to = req.query.to;
   CurrencyExchange.value = 0;
@@ -31,13 +78,9 @@ exports.Convert =  function(req, res) {
       message: "You need to informe the Currencies /?from=xxx&to=xxx"
     });
   }
-
   CurrencyConvert(CurrencyExchange.from, CurrencyExchange.to)
     .then(function(body) {
       CurrencyExchange.value = round(body.result);
-      console.log(currencyExchange)
-  
-
       res.json(CurrencyExchange.value);
     })
     .catch(function(err) {

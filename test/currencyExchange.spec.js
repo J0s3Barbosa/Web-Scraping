@@ -7,7 +7,6 @@ var urlBaseexchangeratesapi = "https://api.exchangeratesapi.io";
 const currencyExchange = require("../models/currencyExchange");
 
 describe("currency exchange tests", function() {
-
   it("_body.rates.BRL).not.to.be.null.and.not.to.be.undefined", function(done) {
     currencyExchange.from = "USD";
     request.get(
@@ -29,8 +28,6 @@ describe("currency exchange tests", function() {
     );
   });
 
-
-
   it("should return property value", function(done) {
     currencyExchange.from = "USD";
     currencyExchange.to = "BRL";
@@ -51,7 +48,10 @@ describe("currency exchange tests", function() {
         expect(_body.rates).not.to.be.null.and.not.to.be.undefined;
         var listOfRates = _body.rates;
 
-        currencyExchange.result = GetPropValue(listOfRates, currencyExchange.to);
+        currencyExchange.result = GetPropValue(
+          listOfRates,
+          currencyExchange.to
+        );
         expect(currencyExchange.result).not.to.be.null.and.not.to.be.undefined;
 
         done();
@@ -62,59 +62,50 @@ describe("currency exchange tests", function() {
   it("result should be a Number", function(done) {
     var exchangeBaseFrom = "USD";
     var exchangeTo = "BRL";
-  
-    CurrencyConvert(exchangeBaseFrom, exchangeTo)
-    .then(function(body) {
-    expect(body.result).not.to.be.null.and.not.to.be.undefined;
-    expect(body.result).to.be.instanceOf(Number);
 
-})
-    .catch(function(err) {
-      return err;
-    });
+    CurrencyConvert(exchangeBaseFrom, exchangeTo)
+      .then(function(body) {
+        expect(body.result).not.to.be.null.and.not.to.be.undefined;
+        expect(body.result).to.be.instanceOf(Number);
+      })
+      .catch(function(err) {
+        return err;
+      });
     done();
   });
-
-
 
   it("body.result).not.to.be.null.and.not.to.be.undefined", function(done) {
     var exchangeBaseFrom = "USD";
     var exchangeTo = "BRL";
-  
-    CurrencyConvert(exchangeBaseFrom, exchangeTo)
-    .then(function(body) {
-    expect(body.result).not.to.be.null.and.not.to.be.undefined;
 
-})
-    .catch(function(err) {
-      return err;
-    });
+    CurrencyConvert(exchangeBaseFrom, exchangeTo)
+      .then(function(body) {
+        expect(body.result).not.to.be.null.and.not.to.be.undefined;
+      })
+      .catch(function(err) {
+        return err;
+      });
     done();
   });
 
-  
   it("body.result).not.to.be.null.and.not.to.be.undefined", function(done) {
     var exchangeBaseFrom = "USD";
     var exchangeTo = "BRL";
-  
-    CurrencyConvert(exchangeBaseFrom, exchangeTo)
-    .then(function(body) {
-    expect(body.result).not.to.be.null.and.not.to.be.undefined;
 
-})
-    .catch(function(err) {
-      return err;
-    });
+    CurrencyConvert(exchangeBaseFrom, exchangeTo)
+      .then(function(body) {
+        expect(body.result).not.to.be.null.and.not.to.be.undefined;
+      })
+      .catch(function(err) {
+        return err;
+      });
     done();
   });
-
 
   function CurrencyConvert(exchangeBaseFrom, exchangeTo) {
-
     const url = urlBaseexchangeratesapi + "/latest?base=" + exchangeBaseFrom;
 
     return new Promise(function(resolve, reject) {
-
       request(url, function(err, response, body) {
         if (err) reject(err);
         if (response.statusCode !== 200) {
@@ -122,16 +113,16 @@ describe("currency exchange tests", function() {
         }
 
         var _body = {};
-                try {
-                  _body = JSON.parse(body);
-                } catch (e) {
-                  _body = {};
-                }
-        
-                var listOfRates = _body.rates;
-                var result = GetPropValue(listOfRates, exchangeTo);
-  
-        resolve({result});
+        try {
+          _body = JSON.parse(body);
+        } catch (e) {
+          _body = {};
+        }
+
+        var listOfRates = _body.rates;
+        var result = GetPropValue(listOfRates, exchangeTo);
+
+        resolve({ result });
       });
     });
   }
@@ -143,7 +134,6 @@ describe("currency exchange tests", function() {
       }
     }
   }
-
 
   function showProps(obj, objName) {
     var result = "";
@@ -221,20 +211,37 @@ describe("currency exchange tests", function() {
 
   //   });
 
-
-      it("value should retorn 1.83", function(done) {
-
-        assert.equal(-1, round(-1));
-        assert.equal(0, round(0));
-        assert.equal(1.83, round(1.83458));
-        done();
-   });
-   function round(num) {
-    if (num == null)
-        return null;
+  it("value should retorn 1.83", function(done) {
+    assert.equal(-1, round(-1));
+    assert.equal(0, round(0));
+    assert.equal(1.83, round(1.83458));
+    done();
+  });
+  
+  function round(num) {
+    if (num == null) return null;
     return Math.round(num * 100) / 100;
-}
+  }
 
-   });
+  it("saving data. status should be 201", function(done) {
+    var url = urlBase + "/currencyExchange/ConvertSave/?from=USD&to=BRL";
+    request.post(
+      {
+        url: url
+      },
+      function(error, response, body) {
 
+        var _body = {};
+        try {
+          _body = JSON.parse(body);
+        } catch (e) {
+          _body = {};
+        }
+        expect(_body).not.to.be.null.and.not.to.be.undefined;
+        expect(response.statusCode).to.be.equal(201);
 
+      }
+    );
+    done();
+  });
+});

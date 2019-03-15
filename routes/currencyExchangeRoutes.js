@@ -8,6 +8,7 @@ var currencyExchangeController = require('../controllers/currencyExchangeControl
 
 router.get('/GetAll', currencyExchangeController.GetAll );
 router.get('/Convert', currencyExchangeController.Convert );
+router.post('/ConvertSave', currencyExchangeController.ConvertSave );
 
 module.exports = router;
 
