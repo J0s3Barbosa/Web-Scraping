@@ -171,7 +171,9 @@ End-points
 
 ```sh
 the user should be able to insert a currency and expexted currency exchange, then should see the result
+* default link list all available currencies
 
+* Link Prod https://webscrapingnode.herokuapp.com/currencyExchange/Convert/?from=USD&to=BRL
 * test
   * npm test .\test\currencyExchange.spec.js
 
