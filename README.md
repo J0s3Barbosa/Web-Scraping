@@ -39,8 +39,8 @@ https://webscrapingnode.herokuapp.com/
 
 http://localhost:5000/api/v1/weather/Itacoatiara48forecast
 
-```sh
 ### WebScraping - Node js (javascript)   ###
+```sh
  
 * Link Prod: https://webscrapingnode.herokuapp.com/ 
 * Repository : https://github.com/appchto/Web-Scraping 
@@ -50,20 +50,14 @@ Software hosted on Heroku.
 ```
 This system has modules:
 
- <details>
-           <summary>Home</summary>
-           <p>Info about the developer</p>
-       <p>Has descriptions about the system</p>
-         </details>
-         
-```sh
 ### Home  ###
+```sh
 Info about the developer
 Has descriptions about the system
 ```
+### Clash Royale  ###
 ```sh
 
-### Clash Royale  ###
 
 When you click at the menu, you will see 2 links on the left menu.
  
@@ -80,8 +74,9 @@ Data like name, level favorite cards, and link to access and update you clash ro
 
 The panels to insert and update clash royale data can be adjusted in the page, so you can use this Link to reset the layout to defeat state.
 ```
-```sh
+
 ### API to provide data for 3th parties.  ###
+```sh
 
 https://webscrapingnode.herokuapp.com/api/v1/clashroyale/clashroyaleapi
 
@@ -110,8 +105,9 @@ With this api,  the user can get his data to any software and wish.
 "__v": 0,
 "Total_Trophies": 10},
 ```
+
+#### Weather 
 ```sh
-#### Weather  ###
 
 This module brings data from weather sites using web scraping.
 The data is transforme in a API that could be used for any software by the link/endpoint https://webscrapingnode.herokuapp.com/api/v1/weather/Itacoatiara48forecast
@@ -124,9 +120,8 @@ https://webscrapingnode.herokuapp.com/api/v1/weather/Itacoatiara48forecast
 https://webscrapingnode.herokuapp.com/api/v1/weather/WebScraping
 ```
 
+#### APIs  
 ```sh
-
-#### APIs  ###
 
 Apis are use in port 5002 default link http://localhost:5002/
 
