@@ -16,6 +16,7 @@ var clashApiRoutes = require('./routes/clashApiRoutes');
 var weatherApiRoutes = require('./routes/weatherApiRoutes');
 var users = require('./routes/users');
 var currencyExchangeRoutes = require('./routes/currencyExchangeRoutes');
+var dhtsensorRoutes = require('./routes/dhtsensorRoutes');
 
 const { fork } = require('child_process');
 
@@ -98,6 +99,7 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use(API_PATH + '/weather', weatherApiRoutes)
   .use('/users', users )
   .use('/currencyExchange', currencyExchangeRoutes )
+  .use(API_PATH +'/dhtsensorhouse', dhtsensorRoutes )
   
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
