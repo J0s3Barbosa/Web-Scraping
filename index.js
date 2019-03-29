@@ -99,7 +99,7 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use(API_PATH + '/weather', weatherApiRoutes)
   .use('/users', users )
   .use('/currencyExchange', currencyExchangeRoutes )
-  .use('/dhtsensorhouse', dhtsensorRoutes )
+  .use(API_PATH +'/dhtsensorhouse', dhtsensorRoutes )
   
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 

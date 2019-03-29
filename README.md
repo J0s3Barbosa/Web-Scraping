@@ -255,19 +255,17 @@ the user should be able to insert a currency and expexted currency exchange, the
       * data = "temperature=" + temp + "&humidity=" + hum;// data sent must be under this form //name1=value1&name2=value2.
 
 
-* API Link Prod https://webscrapingnode.herokuapp.com/dhtsensorhouse
+* API Link Prod https://webscrapingnode.herokuapp.com/api/v1/dhtsensorhouse
 
 * test
   * npm test .\test\dhtsensorhouse.spec.js
 
 * using querystring
 
-  http://localhost:5002/dhtsensorhouse/?temperature=value1&humidity=value2
+  http://localhost:5000/api/v1/dhtsensorhouse/?temperature=value1&humidity=value2
 
 * api default
-  http://localhost:5000/dhtsensorhouse
-
-* local api port 5002
+  http://localhost:5000/api/v1/dhtsensorhouse
 
 
 
