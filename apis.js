@@ -5,7 +5,7 @@ var bodyParser = require('body-parser')
 var indexRouters = require('./routes/indexRouters');
 var clashApiRoutes = require('./routes/clashApiRoutes');
 var weatherApiRoutes = require('./routes/weatherApiRoutes');
-var dhtsensorRoutes = require('./routes/dhtsensorRoutes');
+// var dhtsensorRoutes = require('./routes/dhtsensorRoutes');
 
 var session = require('express-session');
 var flash = require('connect-flash');
@@ -73,7 +73,7 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use(API_PATH + '/default', indexRouters)
   .use(API_PATH + '/clashRoyale', clashApiRoutes)
   .use(API_PATH + '/weather', weatherApiRoutes)
-  .use(API_PATH + '/dhtsensorhouse', dhtsensorRoutes)
+  // .use(API_PATH + '/dhtsensorhouse', dhtsensorRoutes)
 
 // handle 404 error
 app.use(function (req, res, next) {
