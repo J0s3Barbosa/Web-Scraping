@@ -7,7 +7,9 @@ router.get('/wspage', (req, res, next) => {
       sendEmail.SendEmailAccess()
       next()
 }, function (req, res) {
-    res.render('pages/wspage')
+    res.render('pages/wspage', {
+      user: req.user
+    })
   })
 
 module.exports = router;

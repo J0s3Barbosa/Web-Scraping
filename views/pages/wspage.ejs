@@ -1,151 +1,143 @@
-<title><%- title  =  'Weather Forecast' %></title>
+<title><%- title = 'Weather Forecast' %></title>
 
-  <script>
-    $(document).ready(function () {
-      LoadwebscrapingItacoatiaraseatemp()
-      LoadwebscrapingItacoatiara48forecast();
+<script>
+  $(document).ready(function() {
+    LoadwebscrapingItacoatiaraseatemp();
+    LoadwebscrapingItacoatiara48forecast();
 
-      function GetIdSetData(elementID, data) {
-        document.getElementById(elementID).innerHTML = data;
-      }
-
-      function LoadwebscrapingItacoatiara48forecast() {
-        $.get("/api/v1/weather/Itacoatiara48forecast", function (data, status) {
-          if (status == "success") {
-            for (let index = 0; index < data.length; index++) {
-              const element = data[index];
-              GetIdSetData('day', element.days)
-              GetIdSetData('weather', element.uniqueweather)
-
-              var txt = '';
-              txt += "<div class='table-responsive'>"
-              txt += "<table class='table table-hover '>"
-              txt += "<thead>"
-              txt += "<tr>"
-              txt += "<th>Time</th>"
-              txt += "<th>Wave</th>"
-              txt += "</thead>"
-              txt += "</thead>"
-              txt += "<tbody>"
-              element.wavesTimes.forEach(elementtimewave => {
-                txt += "<tr>"
-                  txt += "<td>" + elementtimewave.time + "</td>";
-
-                var regexAM = /[^\d.-]/g;
-                var weveNumberOnly = elementtimewave.wavesize.replace(regexAM, '')
-                if (weveNumberOnly > 1.2) {
-                  txt += "<td style=color:red >" + elementtimewave.wavesize + "</td>";
-                }
-                else {
-                  txt += "<td  >" + elementtimewave.wavesize + "</td>";
-                }
-                txt += "</tr>"
-
-              });
-
-              txt += "</tbody>"
-              txt += "</table>"
-              txt += "</div>"
-              document.getElementById("divTimeWave").innerHTML = txt;
-              var timevar = '', waveVar = '';
-              element.wavesTimes.forEach(elementtimewave => {
-                timevar += elementtimewave.time + ', ';
-                waveVar += elementtimewave.wavesize + ', ';
-
-                document.getElementById('time').innerHTML = timevar;
-                document.getElementById('wavesize').innerHTML = waveVar;
-
-              });
-            }
-
-
-          }
-
-          if (status == "error")
-            alert("Error: " + status);
-        });
-
-      }
-
-
-      $("#btnLoadData").click(function () {
-        LoadwebscrapingItacoatiara48forecast();
-        LoadwebscrapingItacoatiaraseatemp()
-      });
-
-      function LoadwebscrapingItacoatiaraseatemp() {
-        $.get("/api/v1/weather/Itacoatiaraseatemp", function (data, status) {
-          if (status == "success") {
-            for (let index = 0; index < data.length; index++) {
-              const element = data[index];
-              GetIdSetData('temp', element.temp)
-            }
-
-            if (status == "error")
-              alert("Error: " + status);
-
-          }
-        });
-      }
-
-
-    });
-    function opensurfforecast() {
-      window.open("http://pt.surf-forecast.com/breaks/Itacoatiara/forecasts/latest");
+    function GetIdSetData(elementID, data) {
+      document.getElementById(elementID).innerHTML = data;
     }
 
-  </script>
+    function LoadwebscrapingItacoatiara48forecast() {
+      $.get("/api/v1/weather/Itacoatiara48forecast", function(data, status) {
+        if (status == "success") {
+          for (let index = 0; index < data.length; index++) {
+            const element = data[index];
+            GetIdSetData("day", element.days);
+            GetIdSetData("weather", element.uniqueweather);
 
-  <div id="demo"> </div>
+            var txt = "";
+            txt += "<div class='table-responsive'>";
+            txt += "<table class='table table-hover '>";
+            txt += "<thead>";
+            txt += "<tr>";
+            txt += "<th class='text-center' >Time</th>";
+            txt += "<th class='text-center' >Wave's size</th>";
+            txt += "</thead>";
+            txt += "</thead>";
+            txt += "<tbody>";
+            element.wavesTimes.forEach(elementtimewave => {
+              txt += "<tr>";
+              txt += "<td>" + elementtimewave.time + "</td>";
 
-  <div class="container">
+              var regexAM = /[^\d.-]/g;
+              var weveNumberOnly = elementtimewave.wavesize.replace(
+                regexAM,
+                ""
+              );
+              if (weveNumberOnly > 1.2) {
+                txt +=
+                  "<td style=color:red >" + elementtimewave.wavesize + "</td>";
+              } else {
+                txt += "<td  >" + elementtimewave.wavesize + "</td>";
+              }
+              txt += "</tr>";
+            });
 
-    <div class="well well-lg">
-      <h2>Itacoatiara </h2>
-      <h6>Itacoatiara latest forecasts </h6>
-      <button id="btnLoadData" class="btn btn-primary">Load/Refresh Data</button>
+            txt += "</tbody>";
+            txt += "</table>";
+            txt += "</div>";
+            document.getElementById("divTimeWave").innerHTML = txt;
+            var timevar = "",
+              waveVar = "";
+            element.wavesTimes.forEach(elementtimewave => {
+              timevar += elementtimewave.time + ", ";
+              waveVar += elementtimewave.wavesize + ", ";
 
-      <form action="">
-        <a href="#" onclick="opensurfforecast()"> <span class="badge">Go to Site</span></a><br>
-      </form>
+              document.getElementById("time").innerHTML = timevar;
+              document.getElementById("wavesize").innerHTML = waveVar;
+            });
+          }
+        }
 
-      <div id="div2"></div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th></th>
-            <th></th>
+        if (status == "error") alert("Error: " + status);
+      });
+    }
 
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>day</td>
-            <td><span id="day"></span></td>
-          </tr>
-          <tr>
-            <td>temp</td>
-            <td><span id="temp"></span></td>
-          </tr>
-          <tr>
-            <td>Weather</td>
-            <td><span id="weather"></span></td>
-          </tr>
-          <tr>
-            <td>Time</td>
-            <td><span id="time"></span></td>
-          </tr>
-          <tr>
-            <td>wavesSizeDetailed</td>
-            <td> <span id="wavesize"></span></td>
-          </tr>
-        </tbody>
-      </table>
+    $("#btnLoadData").click(function() {
+      LoadwebscrapingItacoatiara48forecast();
+      LoadwebscrapingItacoatiaraseatemp();
+    });
 
-      <div id="divTimeWave"></div>
+    function LoadwebscrapingItacoatiaraseatemp() {
+      $.get("/api/v1/weather/Itacoatiaraseatemp", function(data, status) {
+        if (status == "success") {
+          for (let index = 0; index < data.length; index++) {
+            const element = data[index];
+            GetIdSetData("temp", element.temp);
+          }
 
+          if (status == "error") alert("Error: " + status);
+        }
+      });
+    }
+  });
+  function opensurfforecast() {
+    window.open(
+      "http://pt.surf-forecast.com/breaks/Itacoatiara/forecasts/latest"
+    );
+  }
+</script>
+
+<div class="container">
+  <div class="jumbotron text-center">
+    <h2>Itacoatiara</h2>
+    <h6>Itacoatiara latest forecasts</h6>
+    <button id="btnLoadData" class="btn btn-primary">Load/Refresh Data</button>
+
+    <form action="">
+      <a href="#" onclick="opensurfforecast()">
+        <span class="badge">Go to Site</span></a
+      ><br />
+    </form>
+
+    <p></p>
+
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">Day</div>
+          <div class="panel-body">
+            <span id="day"></span>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-sm-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">Water temp.</div>
+          <div class="panel-body">
+            <span id="temp"></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">Weather</div>
+          <div class="panel-body">
+            <span id="weather"></span>
+          </div>
+        </div>
+      </div>
     </div>
 
-
-    <!-- end container -->
+    <div id="divTimeWave"></div>
   </div>
+
+  <!-- end container -->
+</div>
+
+<style>
+
+</style>
