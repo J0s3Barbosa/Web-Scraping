@@ -24,6 +24,16 @@
         <a href="/app/weather/wspage"><span class=""></span> Weather</a>
       </li>
 
+      <li class="dropdown">
+          <a class=" dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">APIs
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+            <li role="presentation"><a role="menuitem" tabindex="-1" target="_blank" href="/currencyExchange/Convert">Currency Exchange</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" target="_blank" href="/currencyExchange/Convert/?from=USD&to=BRL">USD to BRL</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" target="_blank" href="/api/v1/dhtsensorhouse">Arduino temp sensor</a></li>
+          </ul>
+        </li>
+
       <% if(typeof user != 'undefined'){ %> <% if( user.manager){ %>
       <li>
         <a class="nav-link" href="/users/ManageUsers">ManageUsers</a>
