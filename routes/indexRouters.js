@@ -5,9 +5,10 @@ var ws = require('../modulos/ws');
 var request = require('request');
 var cheerio = require('cheerio');
 var sendEmail = require('../modulos/sendEmail');
+// var delivery_bot = require('../controllers/delivery_bot');
  
 
-  
+router.get('/chatbot', (req, res) => res.render('pages/chatbot'))
 router.get('/sendEmail', sendEmail.SendEmailDefault);
 router.get('/youtubeClickAndGetPrint', youtubeController.youtubeClickAndGetPrint);
 router.get('/ws', ws);

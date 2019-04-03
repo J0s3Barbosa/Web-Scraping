@@ -1,0 +1,194 @@
+<title><%- title = 'chat bot' %></title>
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/botui/build/botui.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/botui/build/botui-theme-default.css"
+/>
+
+<div class="botui-app-container" id="hello-world">
+  <bot-ui></bot-ui>
+</div>
+<script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/botui/build/botui.js"></script>
+<script>
+  var botui = new BotUI("hello-world");
+
+  //   botui.message
+  //     .add({
+  //       content: "Olá, Sou o Bot da Simpax!"
+  //     })
+  //     .then(function() {
+  //       botui.message.add({
+  //         delay: 2000,
+  //         content:
+  //           "Caso Tenha interesse em nossos produtos, por favor me diga seu nome e Email que um profissional especialado ira entrar em contato!"
+  //           ,loading: true, // fake typing
+
+  //         });
+  //     })
+  //     .then(function() {
+
+  //       botui.message.add({
+  //         delay: 4000,
+  //         content: "Você tambem pode ver nosso video institucional, bem abaixo!"
+  //         ,loading: true, // fake typing
+  //       });
+  //     })
+  //     .then(function() {
+  //        botui.message.add({
+  //         delay: 5000,
+  //         type: "embed", // this is 'text' by default
+  //         content: "https://www.youtube.com/embed/k0s3RekDYj0"
+  //         ,loading: true, // fake typing
+  //       })
+  //       .then(function() {
+  //       botui.message.add({
+  //   content: 'Mais videos no nosso Canal no [youtube](https://www.youtube.com/channel/UCGLEq0fMKqR9MJvt85pzXFg)^'
+  //     })
+  // })
+  // })
+
+  botui.message
+    .bot({
+      // show first message
+      delay: 500,
+      content: "Olá, Sou o Bot da Simpax!",
+      loading: true // fake typing
+    })
+    .then(() => {
+      return botui.message.bot({
+        // second one
+        delay: 2000,
+        loading: true,
+        content:
+          "Caso Tenha interesse em nossos produtos, por favor me diga seu nome e Email que um profissional especializado ira entrar em contato!"
+      });
+    })
+    .then(() => {
+      botui.message
+        .bot({
+          delay: 2000,
+          loading: true,
+          content: "Qual o seu nome, por favor?"
+        })
+        .then(function() {
+          return botui.action.text({
+            delay: 400,
+            action: {
+              size: 18,
+              icon: "user-circle-o",
+              sub_type: "text",
+              placeholder: "nome ?"
+            }
+          });
+        })
+        .then(res => {
+          name = res.value; // save new value
+          return botui.message
+            .bot({
+              delay: 300,
+              loading: true,
+              content: "ok, " + name + "! "
+            })
+            .then(() => {
+              botui.message
+                .bot({
+                  delay: 700,
+                  loading: true,
+                  content: "E seu Email?"
+                })
+                .then(function() {
+                  return botui.action.text({
+                    delay: 400,
+                    action: {
+                      size: 18,
+                      icon: "user-circle-o",
+                      sub_type: "email",
+                      placeholder: "email ?"
+                    }
+                  });
+                })
+                .then(res => {
+                  email = res.value; // save new value
+                  return botui.message.bot({
+                    delay: 300,
+                    loading: true,
+                    content:
+                      "ok, Entraremos em contato o mais breve possivel no email " +
+                      email +
+                      "! "
+                  });
+                })
+                .then(() => {
+                  return botui.message.bot({
+                    delay: 3000,
+                    type: "text", // this is 'text' by default
+                    content:
+                      "Enqunto isso, você pode ver nosso video institucional, bem abaixo",
+                    loading: true
+                  });
+                })
+                .then(() => {
+                  return botui.message.bot({
+                    delay: 5000,
+                    type: "embed", // this is 'text' by default
+                    content: "https://www.youtube.com/embed/k0s3RekDYj0",
+                    loading: true // fake typing
+                  });
+                })
+                .then(function() {
+                  return botui.message.add({
+        delay: 2000,
+       loading: true ,
+                    content:
+                      "Obrigado pelo contato e aguarde nosso retorno!\nAcesse nosso Canal do [youtube](https://www.youtube.com/channel/UCGLEq0fMKqR9MJvt85pzXFg)^ para mais conteudo"
+                  });
+                })
+        
+            });
+        });
+    })
+    ;
+  // .then(function() {
+
+  //     botui.action.text({
+  //         action: {
+  //           sub_type: "email",
+  //           placeholder: "Por favor, me informe seu Email"
+  //         }
+  //       }) .then(res => {
+  //       botui.message.add({
+  //         delay: 200,
+  //         content: `Seu Email é ${res.text}!`
+  //       });
+  //     });
+
+  // })
+
+  // .then(function() {
+  //   botui.message.add({
+  //     delay: 7000,
+  //     human: true,
+  //     content:
+  //       "Caso Tenha interesse em nossos produtos, por favor me diga seu nome e Email que um profissional especialazo ira entrar em contato!"
+  //       ,loading: true, // fake typing
+  //   });
+  // });
+
+  // botui.action
+  //     .text({
+  //       action: {
+  //         placeholder: "Por favor, me informe seu Nome"
+  //       }
+  //     })
+  //     .then(function(res) {
+  //       botui.message.add({
+  //         human: true,
+  //         content: "Olá " + res.value
+  //       });
+  //     });
+</script>

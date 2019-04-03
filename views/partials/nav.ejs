@@ -1,51 +1,61 @@
-<nav class="navbar navbar-default navbar-static-top navbar-inverse">
-  <div class="container">
-    <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
-        >&times;</a
-      >
-      <a href="/app/clashroyale/cr"><span class=""></span> Clash Royale</a>
-      <a href="javascript:void(0)" id="resetlayout" onclick="resetlayout()"
-        ><span class=""></span> Reset layout</a
-      >
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+              >&times;</a
+            >
+            <a href="/app/clashroyale/cr"><span class=""></span> Clash Royale</a>
+            <a href="javascript:void(0)" id="resetlayout" onclick="resetlayout()"
+              ><span class=""></span> Reset layout</a
+            >
+          </div>
+
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a href="/" class="glyphicon glyphicon-home navbar-brand"> Home</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li>
+                  <a href="javascript:void(0)">
+                    <span style="cursor:pointer" onclick="openNav()"> Clash Royale</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/app/weather/wspage"><span class=""></span> Weather</a>
+                </li>
+          
+                <li class="dropdown">
+                    <a class=" dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">APIs
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                      <li role="presentation"><a role="menuitem" tabindex="-1" target="_blank" href="/currencyExchange/Convert">Currency Exchange</a></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" target="_blank" href="/currencyExchange/Convert/?from=USD&to=BRL">USD to BRL</a></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" target="_blank" href="/api/v1/dhtsensorhouse">Arduino temp sensor</a></li>
+                    </ul>
+                  </li>
+          
+                <% if(typeof user != 'undefined'){ %> <% if( user.manager){ %>
+                <li>
+                  <a class="nav-link" href="/users/ManageUsers">ManageUsers</a>
+                </li>
+          
+                <% } %> <% } %>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <% include ../partials/partial_login.ejs %>
+              </ul>
+      
+      </div>
     </div>
-
-    <ul class="nav navbar-nav">
-      <li class="active">
-        <a href="/"><span class="glyphicon glyphicon-home"></span> Home</a>
-      </li>
-
-      <li>
-        <a href="javascript:void(0)">
-          <span style="cursor:pointer" onclick="openNav()"> Clash Royale</span>
-        </a>
-      </li>
-      <li>
-        <a href="/app/weather/wspage"><span class=""></span> Weather</a>
-      </li>
-
-      <li class="dropdown">
-          <a class=" dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">APIs
-          <span class="caret"></span></button>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-            <li role="presentation"><a role="menuitem" tabindex="-1" target="_blank" href="/currencyExchange/Convert">Currency Exchange</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" target="_blank" href="/currencyExchange/Convert/?from=USD&to=BRL">USD to BRL</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" target="_blank" href="/api/v1/dhtsensorhouse">Arduino temp sensor</a></li>
-          </ul>
-        </li>
-
-      <% if(typeof user != 'undefined'){ %> <% if( user.manager){ %>
-      <li>
-        <a class="nav-link" href="/users/ManageUsers">ManageUsers</a>
-      </li>
-
-      <% } %> <% } %>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <% include ../partials/partial_login.ejs %>
-    </ul>
-  </div>
-</nav>
+  </nav>
+  
 <% include ../partials/login.ejs %> <% include ../partials/signup.ejs %>
 
 <script>
@@ -106,3 +116,6 @@
     }
   }
 </style>
+
+   
+        

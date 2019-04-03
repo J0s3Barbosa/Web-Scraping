@@ -271,3 +271,25 @@ the user should be able to insert a currency and expexted currency exchange, the
 
 ```
 
+
+
+
+### chatbot  
+```sh
+ * testing chatbot 
+https://docs.botui.org/guide.html
+
+* API Link Prod https://webscrapingnode.herokuapp.com/indexRouters/chatbot
+
+* test
+  * npm test .\test\chatbot.spec.js
+
+* api default
+http://localhost:5000/indexRouters/chatbot
+
+
+
+```
+
+
+
