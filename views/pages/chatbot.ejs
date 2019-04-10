@@ -1,194 +1,232 @@
 <title><%- title = 'chat bot' %></title>
 
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/botui/build/botui.min.css"
-/>
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/botui/build/botui-theme-default.css"
-/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui-theme-default.css" />
 
-<div class="botui-app-container" id="hello-world">
-  <bot-ui></bot-ui>
+
+<div class="container">
+    <button id="btnOpenchat" class="open-button" onclick="openForm()">Chat</button>
+  </div>
+
+  
+
+<div class="chat-popup" id="myForm">
+  <div class="botui-app-container" id="hello-world">
+    <bot-ui></bot-ui>
+  </div>
+  <button type="button"  id="btnClosechat"  class="btn cancel" onclick="closeForm()">Close</button>
 </div>
+
+
 <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/botui/build/botui.js"></script>
 <script>
-  var botui = new BotUI("hello-world");
+    var botui = new BotUI("hello-world");
 
-  //   botui.message
-  //     .add({
-  //       content: "Olá, Sou o Bot da Simpax!"
-  //     })
-  //     .then(function() {
-  //       botui.message.add({
-  //         delay: 2000,
-  //         content:
-  //           "Caso Tenha interesse em nossos produtos, por favor me diga seu nome e Email que um profissional especialado ira entrar em contato!"
-  //           ,loading: true, // fake typing
-
-  //         });
-  //     })
-  //     .then(function() {
-
-  //       botui.message.add({
-  //         delay: 4000,
-  //         content: "Você tambem pode ver nosso video institucional, bem abaixo!"
-  //         ,loading: true, // fake typing
-  //       });
-  //     })
-  //     .then(function() {
-  //        botui.message.add({
-  //         delay: 5000,
-  //         type: "embed", // this is 'text' by default
-  //         content: "https://www.youtube.com/embed/k0s3RekDYj0"
-  //         ,loading: true, // fake typing
-  //       })
-  //       .then(function() {
-  //       botui.message.add({
-  //   content: 'Mais videos no nosso Canal no [youtube](https://www.youtube.com/channel/UCGLEq0fMKqR9MJvt85pzXFg)^'
-  //     })
-  // })
-  // })
-
-  botui.message
-    .bot({
-      // show first message
-      delay: 500,
-      content: "Olá, Sou o Bot da Simpax!",
-      loading: true // fake typing
-    })
-    .then(() => {
-      return botui.message.bot({
-        // second one
-        delay: 2000,
-        loading: true,
-        content:
-          "Caso Tenha interesse em nossos produtos, por favor me diga seu nome e Email que um profissional especializado ira entrar em contato!"
-      });
-    })
-    .then(() => {
-      botui.message
-        .bot({
+  function chatBot() {
+ 
+    botui.message
+      .bot({
+        // show first message
+        delay: 500,
+        content: "Olá, Sou o Bot da Simpax!",
+        loading: true // fake typing
+      })
+      .then(() => {
+        return botui.message.bot({
+          // second one
           delay: 2000,
           loading: true,
-          content: "Qual o seu nome, por favor?"
-        })
-        .then(function() {
-          return botui.action.text({
-            delay: 400,
-            action: {
-              size: 18,
-              icon: "user-circle-o",
-              sub_type: "text",
-              placeholder: "nome ?"
-            }
-          });
-        })
-        .then(res => {
-          name = res.value; // save new value
-          return botui.message
-            .bot({
-              delay: 300,
-              loading: true,
-              content: "ok, " + name + "! "
-            })
-            .then(() => {
-              botui.message
-                .bot({
-                  delay: 700,
-                  loading: true,
-                  content: "E seu Email?"
-                })
-                .then(function() {
-                  return botui.action.text({
-                    delay: 400,
-                    action: {
-                      size: 18,
-                      icon: "user-circle-o",
-                      sub_type: "email",
-                      placeholder: "email ?"
-                    }
-                  });
-                })
-                .then(res => {
-                  email = res.value; // save new value
-                  return botui.message.bot({
-                    delay: 300,
-                    loading: true,
-                    content:
-                      "ok, Entraremos em contato o mais breve possivel no email " +
-                      email +
-                      "! "
-                  });
-                })
-                .then(() => {
-                  return botui.message.bot({
-                    delay: 3000,
-                    type: "text", // this is 'text' by default
-                    content:
-                      "Enqunto isso, você pode ver nosso video institucional, bem abaixo",
-                    loading: true
-                  });
-                })
-                .then(() => {
-                  return botui.message.bot({
-                    delay: 5000,
-                    type: "embed", // this is 'text' by default
-                    content: "https://www.youtube.com/embed/k0s3RekDYj0",
-                    loading: true // fake typing
-                  });
-                })
-                .then(function() {
-                  return botui.message.add({
-        delay: 2000,
-       loading: true ,
-                    content:
-                      "Obrigado pelo contato e aguarde nosso retorno!\nAcesse nosso Canal do [youtube](https://www.youtube.com/channel/UCGLEq0fMKqR9MJvt85pzXFg)^ para mais conteudo"
-                  });
-                })
-        
-            });
+          content:
+            "Caso Tenha interesse em nossos produtos, por favor me diga seu nome e Email que um profissional especializado ira entrar em contato!"
         });
-    })
-    ;
-  // .then(function() {
+      })
+      .then(() => {
+        botui.message
+          .bot({
+            delay: 2000,
+            loading: true,
+            content: "Qual o seu nome, por favor?"
+          })
+          .then(function () {
+            return botui.action.text({
+              delay: 400,
+              action: {
+                size: 18,
+                icon: "user-circle-o",
+                sub_type: "text",
+                placeholder: "nome ?"
+              }
+            });
+          })
+          .then(res => {
+            name = res.value; // save new value
+            return botui.message
+              .bot({
+                delay: 300,
+                loading: true,
+                content: "ok, " + name + "! "
+              })
+              .then(() => {
+                botui.message
+                  .bot({
+                    delay: 700,
+                    loading: true,
+                    content: "E seu Email?"
+                  })
+                  .then(function () {
+                    return botui.action.text({
+                      delay: 400,
+                      action: {
+                        size: 18,
+                        icon: "user-circle-o",
+                        sub_type: "email",
+                        placeholder: "email ?"
+                      }
+                    });
+                  })
+                  .then(res => {
+                    email = res.value; // save new value
+                    return botui.message.bot({
+                      delay: 300,
+                      loading: true,
+                      content:
+                        "ok, Entraremos em contato o mais breve possivel no email " +
+                        email +
+                        "! "
+                    });
+                  })
+                  .then(() => {
+                    return botui.message.bot({
+                      delay: 3000,
+                      type: "text", // this is 'text' by default
+                      content:
+                        "Enqunto isso, você pode ver nosso video institucional, bem abaixo",
+                      loading: true
+                    });
+                  })
+                  .then(() => {
+                    return botui.message.bot({
+                      delay: 5000,
+                      type: "embed", // this is 'text' by default
+                      content: "https://www.youtube.com/embed/k0s3RekDYj0",
+                      loading: true // fake typing
+                    });
+                  })
+                  .then(function () {
+                    return botui.message.add({
+                      delay: 2000,
+                      loading: true,
+                      content:
+                        "Obrigado pelo contato e aguarde nosso retorno!\nAcesse nosso Canal do [youtube](https://www.youtube.com/channel/UCGLEq0fMKqR9MJvt85pzXFg)^ para mais conteudo"
+                    });
+                  })
 
-  //     botui.action.text({
-  //         action: {
-  //           sub_type: "email",
-  //           placeholder: "Por favor, me informe seu Email"
-  //         }
-  //       }) .then(res => {
-  //       botui.message.add({
-  //         delay: 200,
-  //         content: `Seu Email é ${res.text}!`
-  //       });
-  //     });
+              });
+          });
+      })
+      ;
 
-  // })
+  }
 
-  // .then(function() {
-  //   botui.message.add({
-  //     delay: 7000,
-  //     human: true,
-  //     content:
-  //       "Caso Tenha interesse em nossos produtos, por favor me diga seu nome e Email que um profissional especialazo ira entrar em contato!"
-  //       ,loading: true, // fake typing
-  //   });
-  // });
+  function CloseChatBot()
+  {
+    botui.message.removeAll()
+  }
 
-  // botui.action
-  //     .text({
-  //       action: {
-  //         placeholder: "Por favor, me informe seu Nome"
-  //       }
-  //     })
-  //     .then(function(res) {
-  //       botui.message.add({
-  //         human: true,
-  //         content: "Olá " + res.value
-  //       });
-  //     });
+  function openForm() {
+    document.getElementById("btnOpenchat").style.display = "none";
+    document.getElementById("myForm").style.display = "block";
+    chatBot()
+
+  }
+
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+    document.getElementById("btnOpenchat").style.display = "block";
+  }
+
 </script>
+
+<style>
+
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Button used to open the chat form - fixed at the bottom of the page */
+  .open-button {
+    background: rgb(3, 90, 61) url('/chat_icon.png') no-repeat 0px 0px;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    width: 280px;
+  }
+
+  /* The popup chat - hidden by default */
+  .chat-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+  }
+
+  /* Add styles to the form container */
+  .form-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+  }
+
+  /* Full-width textarea */
+  .form-container textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+    resize: none;
+    min-height: 200px;
+  }
+
+  /* When the textarea gets focus, do something */
+  .form-container textarea:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+
+  /* Set a style for the submit/send button */
+  .form-container .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+    opacity: 0.8;
+  }
+
+  /* Add a red background color to the cancel button */
+  .form-container .cancel {
+    background-color: red;
+  }
+
+  /* Add some hover effects to buttons */
+  .form-container .btn:hover,
+  .open-button:hover {
+    opacity: 1;
+  }
+</style>
