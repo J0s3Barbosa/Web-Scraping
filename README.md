@@ -293,3 +293,25 @@ http://localhost:5000/indexRouters/chatbot
 
 
 
+
+### OS  
+```sh
+ * Os field API
+ * to be integrated to android app 
+
+* API Link Prod https://webscrapingnode.herokuapp.com/api/v1/os
+
+* test
+  * npm test .\test\os.spec.js
+
+* api default
+http://localhost:5000/api/v1/os
+http://localhost:5000/api/v1/os/all
+
+
+```
+
+
+
+
+

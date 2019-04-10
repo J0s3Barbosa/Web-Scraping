@@ -18,6 +18,7 @@ var users = require('./routes/users');
 var currencyExchangeRoutes = require('./routes/currencyExchangeRoutes');
 var dhtsensorRoutes = require('./routes/dhtsensorRoutes');
 var indexRouters = require('./routes/indexRouters');
+var osRoutes = require('./routes/osRoutes');
 
 const { fork } = require('child_process');
 
@@ -102,7 +103,8 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use('/currencyExchange', currencyExchangeRoutes )
   .use(API_PATH +'/dhtsensorhouse', dhtsensorRoutes )
  .use('/indexRouters', indexRouters )
-  
+ .use(API_PATH , osRoutes )
+ 
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 
