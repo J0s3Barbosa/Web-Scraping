@@ -8,7 +8,7 @@ router.put('/os/update/:id',  osController.os_update);
 router.delete('/os/del/:id', osController.os_delete);
 router.get('/os/all', osController.getAll );
 router.get('/os', osController.default );
-router.get('/os/getosbuid', osController.getOsById );
+router.get('/os/search', osController.getOsById );
 
 module.exports = router;
 
