@@ -4,15 +4,18 @@ const Schema = mongoose.Schema;
 var OsSchema = new Schema({
   id_OS: {
     type: Number,
+    required : true
   },
   id_equipamento: {
-    type: Number
+    type: Number,
+    required : true
   },
   id_func: {
     type: Number,
   },
   texto_defeito: {
     type: String,
+    required : true
   },
   texto_realizado: {
     type: String,
@@ -27,12 +30,10 @@ var OsSchema = new Schema({
   ,
   dh_inicio: {
     type: Date,
-    default: Date.now
   }
   ,
   dh_fm: {
     type: Date,
-    default: Date.now
   }
   
 });
