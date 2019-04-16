@@ -92,7 +92,7 @@ exports.getOsByStatus = function (req, res) {
           res.send(err);
         }
         if ( os.length == 0) {
-          let message = 'No OS found!'
+          let message = 'Didnt find any status!'
           res.send({message});
       }
       else{
