@@ -17,6 +17,9 @@ var OsSchema = new Schema({
   texto_realizado: {
     type: String,
   },
+  os_status: {
+    type: String,
+  },
   dh_criacao: {
     type: Date,
     default: Date.now

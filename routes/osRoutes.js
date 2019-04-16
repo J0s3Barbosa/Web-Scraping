@@ -9,6 +9,7 @@ router.delete('/os/del/:id', osController.os_delete);
 router.get('/os/all', osController.getAll );
 router.get('/os', osController.default );
 router.get('/os/search', osController.getOsById );
+router.get('/os/searchStatus', osController.getOsByStatus );
 
 module.exports = router;
 

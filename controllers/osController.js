@@ -10,6 +10,7 @@ exports.default = function (req, res) {
     id_func: "1",
     texto_defeito: "texto_defeito",
     texto_realizado: "texto_realizado",
+    os_status: "os_status",
     dh_criacao: "01/01/2001",
     dh_inicio: "01/01/2001",
     dh_fm: "01/01/2001"
@@ -66,6 +67,46 @@ exports.getOsById = function (req, res) {
 
 };
  
+exports.getOsByStatus = function (req, res) {
+
+  var myfind = req.query.os_status;
+
+   if (
+    myfind == null ||
+    myfind == undefined ||
+    myfind.length == 0 
+  ) {
+  
+        let message = 'You need to pass os_status!'
+    res.json({
+      message
+    });
+  }
+ else if (myfind != undefined || myfind != null) {
+
+
+      myfind = { os_status: myfind };
+
+      Os.find(myfind, (err, os ) => {
+        if (err) {
+          res.send(err);
+        }
+        if ( os.length == 0) {
+          let message = 'No OS found!'
+          res.send({message});
+      }
+      else{
+        res.json(os);
+      }
+      }).catch(function (err) {
+        res.send(err);
+      });
+
+  }
+
+
+};
+
 
 exports.os_post = function(req, res) {
   try {
