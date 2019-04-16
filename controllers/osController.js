@@ -5,14 +5,14 @@ const querystring = require("querystring");
 exports.default = function (req, res) {
 
   var osObjectsample = {
-    id_OS: "",
-    id_equipamento: "",
-    id_func: "",
-    texto_defeito: "",
-    texto_realizado: "",
-    dh_criacao: "",
-    dh_inicio: "",
-    dh_fm: ""
+    id_OS: "1",
+    id_equipamento: "1",
+    id_func: "1",
+    texto_defeito: "texto_defeito",
+    texto_realizado: "texto_realizado",
+    dh_criacao: "01/01/2001",
+    dh_inicio: "01/01/2001",
+    dh_fm: "01/01/2001"
   }
   res.json(osObjectsample);
 };
@@ -27,6 +27,45 @@ exports.getAll = function (req, res) {
     return err;
   });
 };
+
+exports.getOsById = function (req, res) {
+
+  var myfind = req.query.id_OS;
+
+   if (
+    myfind == null ||
+    myfind == undefined ||
+    myfind.length == 0 
+  ) {
+  
+        let message = 'You need to pass the OS number!'
+    res.json({
+      message
+    });
+  }
+ else if (myfind != undefined || myfind != null) {
+      myfind = { id_OS: myfind };
+
+      Os.find(myfind, (err, os ) => {
+        if (err) {
+          res.send(err);
+        }
+        if ( os.length == 0) {
+          let message = 'No OS found!'
+          res.send({message});
+      }
+      else{
+        res.json(os);
+      }
+      }).catch(function (err) {
+        res.send(err);
+      });
+
+  }
+
+
+};
+ 
 
 exports.os_post = function(req, res) {
   try {

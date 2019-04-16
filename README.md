@@ -305,10 +305,18 @@ http://localhost:5000/indexRouters/chatbot
   * npm test .\test\os.spec.js
 
 * api default
+GET
 http://localhost:5000/api/v1/os
 http://localhost:5000/api/v1/os/all
-
-
+GET BY ID
+http://localhost:5000/os/?os_id=1
+http://localhost:5000/api/v1/os/search?id_OS=6
+POST
+http://localhost:5000/api/v1/os/new
+UPDATE
+http://localhost:5000/api/v1/os/update/id
+DELETE
+http://localhost:5000/api/v1/os/del/id
 ```
 
 
