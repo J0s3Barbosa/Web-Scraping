@@ -1,64 +1,77 @@
 <title><%- title  =  'File Upload' %></title>
 
-    <h1>File Upload </h1> 
+<% if (typeof message != 'undefined') { %>
+<div class="alert alert-success"><%= message %></div>
+<% } else if(typeof message != 'undefined' ) { %>
+<div class="alert alert-danger"><%= message %></div>
+<% } %>
 
-    <form action="/indexRouters/fileupload" enctype="multipart/form-data" method="POST">
-        <input type="file" name="myFile" id="myFile" required />
-        <input type="submit" value="Upload" />
-    </form>
+<h1>File Upload </h1>
+
+<form action="/indexRouters/fileupload" enctype="multipart/form-data" method="POST">
+  <input type="file" name="myFile" id="myFile" required />
+  <input type="submit" value="Upload" />
+</form>
 
 
-    <script>
-        $(document).ready(function () {
-          loadClashRoyaleStatus();
-        
-          function loadClashRoyaleStatus() {
-            var url = '/indexRouters/listoffiles'
-            $.get(url, function (data, status) {
-              if (status == "success") {
-                var txt = '';
-                txt += "<div class='table-responsive'>"
-                txt += "<table class='table table-hover '>"
-                txt += "<thead>"
-                txt += "<tr>"
-                txt += "<th>Files Downloaded</th>"
-                txt += "</thead>"
-                txt += "</thead>"
-                txt += "<tbody>"
-                for (var i = 0; i < data.lstFiles.length; i++) {
-                  txt += "<tr>"
-            txt += "<td>" + data.lstFiles[i] + "</td>";
+<script>
+  $(document).ready(function () {
+    loadClashRoyaleStatus();
 
-                  txt += "</tr>"
-      
-                }
-                txt += "</tbody>"
-                txt += "</table>"
-                txt += "</div>"
-                document.getElementById("divSatus").innerHTML = txt;
-      
-              }
-      
-              if (status == "error")
-                alert("Error: " + status);
-            });
-      
+    function loadClashRoyaleStatus() {
+      var url = '/indexRouters/listoffiles'
+      $.get(url, function (data, status) {
+        if (status == "success") {
+          var txt = '';
+          txt += "<div class='table-responsive'>"
+          txt += "<table class='table table-hover '>"
+          txt += "<thead>"
+          txt += "<tr>"
+          txt += "<th>Files Downloaded</th>"
+          txt += "</thead>"
+          txt += "</thead>"
+          txt += "<tbody>"
+          for (var i = 0; i < data.lstFiles.length; i++) {
+            txt += "<tr>"
+            txt +=
+            "<td><a  href='" +
+            data.lstFiles[i] +
+            "' target='_blank' >"+
+            data.lstFiles[i] +"</a></td>";
+          txt += "</tr>";
+            txt += "</tr>"
+
           }
-      
-          $("#btnLoadCrStatus").click(function () {
-            loadClashRoyaleStatus();
-          });
-      
-        });
-      
-      </script>
-      
-      
-      <div class="panel panel-default ">
-        <div class="panel-body ">
-          <h2>Files </h2>
-          <div id="divSatus"> </div>
-      
-          <button id="btnLoadCrStatus" class="btn btn-primary">Load Data</button>
-        </div>
-      </div>
+          txt += "</tbody>"
+          txt += "</table>"
+          txt += "</div>"
+          document.getElementById("divSatus").innerHTML = txt;
+
+        }
+
+        if (status == "error")
+          alert("Error: " + status);
+      });
+
+    }
+
+    $("#btnLoadCrStatus").click(function () {
+      loadClashRoyaleStatus();
+    });
+
+   
+
+
+  });
+
+</script>
+
+
+<div class="panel panel-default ">
+  <div class="panel-body ">
+    <h2>Files </h2>
+    <div id="divSatus"> </div>
+
+    <button id="btnLoadCrStatus" class="btn btn-primary">Load Data</button>
+  </div>
+</div>
