@@ -56,6 +56,7 @@ function getData() {
 }
 
 router.post('/fileupload',multerupload.any(),fileController.fileupload);
+router.post('/clearFold', fileController.clearFold);
 
 router.get('/listoffiles', function(req, res) {
     var lstFiles = []

@@ -1,24 +1,33 @@
 <title><%- title  =  'File Upload' %></title>
 
-<% if (typeof message != 'undefined') { %>
-<div class="alert alert-success"><%= message %></div>
-<% } else if(typeof message != 'undefined' ) { %>
-<div class="alert alert-danger"><%= message %></div>
-<% } %>
+<div class="panel panel-default">
+  <div class="panel-body">
 
-<h1>File Upload </h1>
+    <% include ../partials/uploadFileForm.ejs %>
+  </div>
+</div>
 
-<form action="/indexRouters/fileupload" enctype="multipart/form-data" method="POST">
-  <input type="file" name="myFile" id="myFile" required />
-  <input type="submit" value="Upload" />
-</form>
+<div class="panel panel-default ">
+    <div class="panel-body ">
+        <h2>Files </h2> <button id="btnLoadData" class="btn btn-primary">Load Data</button>
+     
+      <div id="divLoadData"> </div>
+  
+    </div>
+  </div>
 
 
 <script>
-  $(document).ready(function () {
-    loadClashRoyaleStatus();
+  window.onload = function () {
+    document.getElementById('formupload').onsubmit = function () {
+      return false
+    }
+  }
 
-    function loadClashRoyaleStatus() {
+  $(document).ready(function () {
+    loadData();
+
+    function loadData() {
       var url = '/indexRouters/listoffiles'
       $.get(url, function (data, status) {
         if (status == "success") {
@@ -28,24 +37,34 @@
           txt += "<thead>"
           txt += "<tr>"
           txt += "<th>Files Downloaded</th>"
+          txt += "<th>Actions</th>"
           txt += "</thead>"
           txt += "</thead>"
           txt += "<tbody>"
           for (var i = 0; i < data.lstFiles.length; i++) {
             txt += "<tr>"
             txt +=
-            "<td><a  href='" +
+              "<td><a  href='" +
+              data.lstFiles[i] +
+              "' target='_blank' >" +
+              data.lstFiles[i] + "</a></td>";
+
+              txt +=
+            "<td><button data.lstFiles[i] "+
+ "type='submit' onclick='deleteCheck(event, this);'  value='" +
             data.lstFiles[i] +
-            "' target='_blank' >"+
-            data.lstFiles[i] +"</a></td>";
-          txt += "</tr>";
+            "' data-id='" +
+            data.lstFiles[i] +
+            "' class='btn btn-danger'  '>Delete</button></td>";
+
+            txt += "</tr>";
             txt += "</tr>"
 
           }
           txt += "</tbody>"
           txt += "</table>"
           txt += "</div>"
-          document.getElementById("divSatus").innerHTML = txt;
+          document.getElementById("divLoadData").innerHTML = txt;
 
         }
 
@@ -55,23 +74,123 @@
 
     }
 
-    $("#btnLoadCrStatus").click(function () {
-      loadClashRoyaleStatus();
+    $("#btnLoadData").click(function () {
+      loadData();
     });
 
-   
+    $('#formupload').submit(function (e) {
+      e.preventDefault();
+      var fd = new FormData($(this)[0]);
+      $.ajax({
+        url: '/indexRouters/fileupload',
+        data: fd,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function (data) {
+          console.log(data);
+          document.getElementById("formupload").reset();
+          $("#btnLoadData").click();
+          var msg = "Data Updated successfully ";
+        var msg_type = "success";
+        ShowMessage(msg, msg_type);
 
+        },
+        error: function (request, status, error) {
+          var msg = request.responseText;
+        }
+
+
+      });
+
+    });
 
   });
+  function ShowMessage(msg, msg_type) {
+    if (msg != "") {
+      var element = $("#successMessage");
+
+      if (msg_type == "success") {
+        element.addClass("alert success");
+      } else if (msg_type == "warning") {
+        element.addClass("alert warning");
+      } else if (msg_type == "error") {
+        element.addClass("alert");
+      } else if (msg_type == "info") {
+        element.addClass("alert info");
+      } else if (msg_type == "default") {
+      }
+      element.text(msg);
+      element.show();
+      $(window).scrollTop(0);
+    }
+
+    HideMessage();
+  }
+  function HideMessage() {
+    var element = $("#successMessage");
+    element.fadeIn("slow");
+    setTimeout(function () {
+      element.fadeOut("slow", function () { });
+      msg = "";
+      element.text(msg);
+      element.removeClass("alert");
+    }, 3000);
+  }
+
+  function deleteCheck(event, e) {
+    var fd = e.value
+          console.log(fd);
+      $.ajax({
+        url: '/indexRouters/clearFold',
+        data: fd,
+        contentType: "application/json",
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function (data) {
+          console.log(data);
+          $("#btnLoadData").click();
+          var msg = "Data Updated successfully ";
+        var msg_type = "success";
+
+        },
+        error: function (request, status, error) {
+          var msg = request.responseText;
+        }
+
+
+      });
+  }
+
+  $('#formupload').submit(function (e) {
+      e.preventDefault();
+      var fd = new FormData($(this)[0]);
+      $.ajax({
+        url: '/indexRouters/fileupload',
+        data: fd,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function (data) {
+          console.log(data);
+          document.getElementById("formupload").reset();
+          $("#btnLoadData").click();
+          var msg = "Data Updated successfully ";
+        var msg_type = "success";
+        ShowMessage(msg, msg_type);
+
+        },
+        error: function (request, status, error) {
+          var msg = request.responseText;
+        }
+
+
+      });
+
+    });
+
 
 </script>
 
 
-<div class="panel panel-default ">
-  <div class="panel-body ">
-    <h2>Files </h2>
-    <div id="divSatus"> </div>
-
-    <button id="btnLoadCrStatus" class="btn btn-primary">Load Data</button>
-  </div>
-</div>

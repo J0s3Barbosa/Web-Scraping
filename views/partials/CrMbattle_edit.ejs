@@ -120,48 +120,6 @@
       }
     });
   }
-
-  function deleteConfirmation(event, e) {
-    if (confirm("Data ill be delete!")) {
-      deleteCheck(event, e);
-    } else {
-      event.preventDefault();
-    }
-  }
-
-  function ShowMessage(msg, msg_type) {
-    if (msg != "") {
-      var element = $("#successMessage");
-
-      if (msg_type == "success") {
-        element.addClass("alert success");
-      } else if (msg_type == "warning") {
-        element.addClass("alert warning");
-      } else if (msg_type == "error") {
-        element.addClass("alert");
-      } else if (msg_type == "info") {
-        element.addClass("alert info");
-      } else if (msg_type == "default") {
-      }
-      element.text(msg);
-      element.show();
-      $(window).scrollTop(0);
-    }
-
-    HideMessage();
-  }
-
-  function HideMessage() {
-    var element = $("#successMessage");
-    element.fadeIn("slow");
-    setTimeout(function() {
-      element.fadeOut("slow", function() {});
-      msg = "";
-      element.text(msg);
-      element.removeClass("alert");
-    }, 3000);
-  }
-
   function updateCheck(event, e) {
     var tok = window.localStorage.getItem("token");
 
@@ -213,7 +171,6 @@
 
     event.preventDefault();
   }
-
   function deleteCheck(event, e) {
     var tok = window.localStorage.getItem("token");
     var data_id = e.value;
@@ -238,6 +195,47 @@
 
     event.preventDefault();
   }
+
+  function deleteConfirmation(event, e) {
+    if (confirm("Data ill be delete!")) {
+      deleteCheck(event, e);
+    } else {
+      event.preventDefault();
+    }
+  }
+  function ShowMessage(msg, msg_type) {
+    if (msg != "") {
+      var element = $("#successMessage");
+
+      if (msg_type == "success") {
+        element.addClass("alert success");
+      } else if (msg_type == "warning") {
+        element.addClass("alert warning");
+      } else if (msg_type == "error") {
+        element.addClass("alert");
+      } else if (msg_type == "info") {
+        element.addClass("alert info");
+      } else if (msg_type == "default") {
+      }
+      element.text(msg);
+      element.show();
+      $(window).scrollTop(0);
+    }
+
+    HideMessage();
+  }
+  function HideMessage() {
+    var element = $("#successMessage");
+    element.fadeIn("slow");
+    setTimeout(function() {
+      element.fadeOut("slow", function() {});
+      msg = "";
+      element.text(msg);
+      element.removeClass("alert");
+    }, 3000);
+  }
+
+
 </script>
 
 <div class="panel panel-default">
