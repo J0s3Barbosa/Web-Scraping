@@ -6,7 +6,14 @@ var request = require('request');
 var cheerio = require('cheerio');
 var sendEmail = require('../modulos/sendEmail');
 // var delivery_bot = require('../controllers/delivery_bot');
- 
+var multer = require('multer');
+var multerupload = multer({ dest: 'fileprint/' })
+var fileController = require('../controllers/fileController');
+const path = require('path');
+const fs = require('fs');
+var fileupload_path = path.join('public/fileupload/');
+const url = require('url');
+
 
 router.get('/chatbot', (req, res) => res.render('pages/chatbot'))
 router.get('/sendEmail', sendEmail.SendEmailDefault);
@@ -48,4 +55,38 @@ function getData() {
     });
 }
 
+router.post('/fileupload',multerupload.any(),fileController.fileupload);
+
+router.get('/listoffiles', function(req, res) {
+    var lstFiles = []
+fs.readdir(fileupload_path, function (err, files) {
+    if (err) {
+        return console.log('Unable to scan directory: ' + err);
+    } 
+    files.forEach(function (file) {
+        console.log('file: ' + file);
+        var filed =  'http://localhost:5000/' + url.resolve('fileupload/', file) 
+        lstFiles.push(filed)
+    });
+   
+
+      
+    res.json({lstFiles : lstFiles});
+});
+
+});
+
+router.get('/download', function(req, res){
+    var file = __dirname + '/upload-folder/dramaticpenguin.MOV';
+    res.download(file); // Set disposition and send it.
+  });
+
+router.get('/uploadfiles', (req, res) => res.render('pages/uploadfiles'
+))
+
+    
 module.exports = router;
+
+
+
+  

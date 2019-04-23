@@ -323,4 +323,32 @@ http://localhost:5000/api/v1/os/del/id
 
 
 
+### File upload  
+```sh
+ * upload files to server
+ * list file and show link for downloading 
+
+* API Link Prod 
+https://webscrapingnode.herokuapp.com/indexRouters/uploadfiles
+https://webscrapingnode.herokuapp.com/indexRouters/listoffiles
+
+* test
+  * npm test .\test\fileupload.spec.js
+
+* api default
+GET
+http://localhost:5000/indexRouters/listoffiles
+POST
+http://localhost:5000/indexRouters/fileupload
+
+Interface
+http://localhost:5000/indexRouters/uploadfiles
+
+```
+
+
+
+
+
+
 

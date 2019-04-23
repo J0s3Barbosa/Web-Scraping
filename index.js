@@ -108,6 +108,23 @@ app.use(express.static(path.join(__dirname, 'public')))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 
+  function availableRoutes() {
+    return app._router.stack
+      .filter(r => r.route)
+      .map(r => {
+        return {
+          method: Object.keys(r.route.methods)[0].toUpperCase(),
+          path: r.route.path
+        };
+      });
+  }
+
+  app.get('/help', function(req, res) {
+          
+        res.json({ EndPoints : availableRoutes() });
+    
+    });
+
 // handle 404 error
 app.use(function (req, res, next) {
   let err = new Error('Not Found');
