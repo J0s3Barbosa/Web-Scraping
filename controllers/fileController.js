@@ -26,6 +26,7 @@ exports.fileupload = function (req, res) {
           }
           else {
             callback(null, 'success');
+ 
           }
         });
       }
@@ -33,6 +34,7 @@ exports.fileupload = function (req, res) {
       // result now equals 'done'
       //pass final callback to async each to move on to next file
       eachcallback();
+   
     });
   }, function (err) {
     if (err) {
@@ -41,11 +43,14 @@ exports.fileupload = function (req, res) {
     else {
       console.log("finished prcessing");
 
+     
       var message = "files uploaded successfully"
       res.render('pages/uploadfiles', {message }
       )
-
+   
     }
+ 
+
   });
 }
 
