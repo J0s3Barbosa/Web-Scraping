@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 var OsSchema = new Schema({
+ 
   id_OS: {
     type: Number,
     required : true

@@ -66,7 +66,6 @@ exports.getOsById = function (req, res) {
 
 
 };
- 
 exports.getOsByStatus = function (req, res) {
 
   var myfind = req.query.os_status;
@@ -106,8 +105,6 @@ exports.getOsByStatus = function (req, res) {
 
 
 };
-
-
 exports.os_post = function(req, res) {
   try {
     let newOs = new Os(req.body);
@@ -128,7 +125,6 @@ exports.os_post = function(req, res) {
     res.json(error);
   }
 };
-
 exports.os_update = function(req, res) {
   try {
     Os.findByIdAndUpdate(
@@ -144,7 +140,6 @@ exports.os_update = function(req, res) {
     res.json(error);
   }
 };
-
 exports.os_delete = function(req, res) {
   try {
     Os.findByIdAndRemove(req.params.id, function(err, os) {
@@ -156,3 +151,12 @@ exports.os_delete = function(req, res) {
   }
 };
 
+exports.osInterface = function(req, res) {
+  try {
+    res.render("pages/index_os", {
+      user: req.user
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
