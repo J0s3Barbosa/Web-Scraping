@@ -314,9 +314,9 @@ http://localhost:5000/api/v1/os/all
 POST
 http://localhost:5000/api/v1/os/new
 UPDATE
-http://localhost:5000/api/v1/os/update/id
+http://localhost:5000/api/v1/os/id
 DELETE
-http://localhost:5000/api/v1/os/del/id
+http://localhost:5000/api/v1/os/id
 
 GET BY id_OS
 http://localhost:5000/api/v1/os/search?id_OS=6
