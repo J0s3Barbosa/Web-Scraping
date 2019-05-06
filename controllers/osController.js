@@ -45,7 +45,6 @@ exports.search = function (req, res) {
       message
     });
   }
-
   else {
     if (id_OS != (null || undefined)) {
       myfind = { id_OS };

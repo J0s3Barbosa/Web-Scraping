@@ -310,8 +310,7 @@ https://webscrapingnode.herokuapp.com/api/v1/os/search?id_OS=6
 GET
 http://localhost:5000/api/v1/os
 http://localhost:5000/api/v1/os/all
-GET BY id_OS
-http://localhost:5000/api/v1/os/search?id_OS=6
+
 POST
 http://localhost:5000/api/v1/os/new
 UPDATE
@@ -319,8 +318,12 @@ http://localhost:5000/api/v1/os/update/id
 DELETE
 http://localhost:5000/api/v1/os/del/id
 
+GET BY id_OS
+http://localhost:5000/api/v1/os/search?id_OS=6
+
 GET BY os_status
 http://localhost:5000/api/v1/os/searchStatus?os_status=aberta
+http://localhost:5000/api/v1/os/search?os_status=aberta
 
 GET BY ID
 http://localhost:5000/api/v1/os/findbyid/5cb549566316cb0004bdd3a8
