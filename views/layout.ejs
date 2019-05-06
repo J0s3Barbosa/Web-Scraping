@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <% include ./partials/header.ejs %>
+    <% include ./partials/layout/header.ejs %>
   
   <title><%- title %></title>
 
@@ -11,13 +11,13 @@
 
 <body>
 
-  <% include ./partials/nav.ejs %>
+  <% include ./partials/layout/nav.ejs %>
   
-  <% include ./partials/messages.ejs %>
+  <% include ./partials/layout/messages.ejs %>
 
   <div class="container-fluid"><%- body %></div>
 
-<!-- <% include ./partials/footer.ejs %> -->
+<!-- <% include ./partials/layout/footer.ejs %> -->
 
 <p></p>
 </body>
