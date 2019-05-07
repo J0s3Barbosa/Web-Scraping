@@ -114,19 +114,27 @@ exports.getOsByStatus = function (req, res) {
 exports.os_post = function (req, res) {
   try {
     let newOs = new Os(req.body);
+    Os.findOne({}, {}, { sort: { 'dh_criacao': -1 } }, function (err, last_os) {
+      if (err) res.send(err);
+      newOs.id_OS = last_os.id_OS + 1 ;
 
-    newOs.save((error, os) => {
-      if (error) {
-        return error;
-      }
-      if (
-        os != "" ||
-        os != undefined ||
-        os != "undefined"
-      ) {
-        res.json(os);
-      }
+        newOs.save((error, os) => {
+          if (error) {
+            return error;
+          }
+          if (
+            os != "" ||
+            os != undefined ||
+            os != "undefined"
+          ) {
+            res.json(os);
+          }
+        });
+
+    }).catch(function (err) {
+      res.send(err);
     });
+
   } catch (error) {
     res.json(error);
   }
@@ -145,6 +153,74 @@ exports.os_update = function (req, res) {
   } catch (error) {
     res.json(error);
   }
+};
+exports.os_update_dt_inicio = function (req, res) {
+  try {
+    let dt_in = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+    var initialDate = Date.parse(dt_in)
+    var id = req.params.id;
+    Os.findById(
+      id
+      , function (err, os) {
+        if (err) res.send(err);
+        if (os.dh_inicio != undefined || os.dh_inicio != null) {
+          res.status(400).json({ error: 'Os Alread started' });
+        }
+        else {
+
+          Os.findByIdAndUpdate(
+            id,
+            { $set: { 'dh_inicio': initialDate } },
+            { new: true },
+            function (err, os) {
+              if (err) res.send(err);
+              res.json(os);
+            }
+          );
+
+        }
+      }
+    );
+
+  } catch (error) {
+    res.json(error);
+
+  }
+
+};
+exports.os_update_dt_fim = function (req, res) {
+  try {
+    let dt_in = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+    var finished_date = Date.parse(dt_in)
+    var id = req.params.id;
+    Os.findById(
+      id
+      , function (err, os) {
+        if (err) res.send(err);
+        if (os.dh_fm != undefined || os.dh_fm != null) {
+          res.status(400).json({ error: 'Os Alread Finished' });
+        }
+        else {
+
+          Os.findByIdAndUpdate(
+            id,
+            { $set: { 'dh_fm': finished_date } },
+            { new: true },
+            function (err, os) {
+              if (err) res.send(err);
+              res.json(os);
+            }
+          );
+
+        }
+      }
+    );
+
+  } catch (error) {
+    res.json(error);
+
+  }
+
 };
 exports.os_delete = function (req, res) {
   try {
@@ -196,3 +272,38 @@ exports.osInterface = function (req, res) {
     console.log(error);
   }
 };
+
+exports.os_orderBy = function (req, res) {
+  var mysort = "";
+  var orderby = req.params.orderby;
+
+  switch (orderby) {
+    case "id_OS":
+      mysort = { id_OS: -1 };
+      break;
+
+    case "os_status":
+      mysort = { os_status: -1 };
+      break;
+
+    default:
+      mysort = { dh_criacao: -1 };
+      break;
+  }
+  var myfind = "";
+  if (req.user == undefined || req.user == null) {
+    myfind = { Owner: "Owner" };
+  } else if (req.user != undefined || req.user != null) {
+    if (req.user.permission) {
+      myfind = {};
+    } else {
+      myfind = { Owner: req.user.email };
+    }
+  }
+  Os.find(myfind, function (err, os) {
+    if (err) res.send(err);
+
+    res.json(os);
+  }).sort(mysort);
+};
+
