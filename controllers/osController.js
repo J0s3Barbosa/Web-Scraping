@@ -116,7 +116,12 @@ exports.os_post = function (req, res) {
     let newOs = new Os(req.body);
     Os.findOne({}, {}, { sort: { 'dh_criacao': -1 } }, function (err, last_os) {
       if (err) res.send(err);
-      newOs.id_OS = last_os.id_OS + 1 ;
+      if(last_os != null){
+        newOs.id_OS = last_os.id_OS + 1 ;
+      }
+      else{
+        newOs.id_OS = 1 ;
+      }
 
         newOs.save((error, os) => {
           if (error) {

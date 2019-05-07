@@ -299,9 +299,6 @@ http://localhost:5000/indexRouters/chatbot
  * Os field API
  * to be integrated to android app 
 
-* API Link Prod 
-https://webscrapingnode.herokuapp.com/api/v1/os/all
-https://webscrapingnode.herokuapp.com/api/v1/os/search?id_OS=6
 
 * test
   * npm test .\test\os.spec.js
