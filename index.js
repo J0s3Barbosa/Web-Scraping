@@ -32,7 +32,8 @@ require('./config/passport')(passport);
 // DB Config
 const db = require('./config/keys').mongoURI;
 // Connect to MongoDB
-mongoose
+try {
+  mongoose
   .connect(
     db,
     { useNewUrlParser: true }
@@ -40,6 +41,9 @@ mongoose
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 mongoose.Promise = global.Promise;
+} catch (error) {
+  console.log(error)
+}
 
 var app = express();
 // bodyparser setup
