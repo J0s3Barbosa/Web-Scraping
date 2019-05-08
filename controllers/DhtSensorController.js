@@ -6,7 +6,7 @@ exports.default = function(req, res) {
   
     var result = { 
       Message: 'Wellcome to Dht sensor API!',
-      Link: 'https://webscrapingnode.herokuapp.com/api/v1/dhtsensorhouse/'
+      Link: 'http://localhost:5000/api/v1/dhtsensorhouse/'
   }
     res.json(result);
 };

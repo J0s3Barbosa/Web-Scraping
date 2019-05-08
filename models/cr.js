@@ -34,5 +34,4 @@ var ClashSchema = new Schema({
     default: Date.now
   }
 });
-// module.exports = ClashSchema;
 module.exports = mongoose.model("clashroyale", ClashSchema);

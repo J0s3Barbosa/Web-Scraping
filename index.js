@@ -21,7 +21,7 @@ var indexRouters = require('./routes/indexRouters');
 var osRoutes = require('./routes/osRoutes');
 var osAppRoutes = require('./routes/osAppRoutes');
 
-const { fork } = require('child_process');
+//const { fork } = require('child_process');
 
 const PORT = process.env.PORT || 5000
 const API_PATH = '/api/v1'
@@ -141,4 +141,4 @@ app.use(function (err, req, res, next) {
 
 })
 
-  fork('./apis.js');
+ // fork('./apis.js');

@@ -30,10 +30,7 @@ Tracking
 ```sh
 Links
 http://localhost:5000/
-http://localhost:5002/
 ```
-check the app on heroku
-https://webscrapingnode.herokuapp.com/
 
 ### APIs ###
 
@@ -42,7 +39,6 @@ http://localhost:5000/api/v1/weather/Itacoatiara48forecast
 ### WebScraping - Node js (javascript)   ###
 ```sh
  
-* Link Prod: https://webscrapingnode.herokuapp.com/ 
 * Repository : https://github.com/appchto/Web-Scraping 
 * kills Used: javascript, mongoDB, Ejs, Express, Jwt, Passport
 
@@ -78,7 +74,6 @@ The panels to insert and update clash royale data can be adjusted in the page, s
 ### API to provide data for 3th parties.  ###
 ```sh
 
-https://webscrapingnode.herokuapp.com/api/v1/clashroyale/clashroyaleapi
 
 Result from this API that brings data from clash royale page.
 
@@ -90,7 +85,6 @@ Result from this API that brings data from clash royale page.
 "statsroyaleprofile": "https://statsroyale.com/profile/9UG2R28R2"},
 ```
 ```sh
-https://webscrapingnode.herokuapp.com/api/v1/clashroyale/clashs
 
 With this api,  the user can get his data to any software and wish.
 
@@ -110,20 +104,18 @@ With this api,  the user can get his data to any software and wish.
 ```sh
 
 This module brings data from weather sites using web scraping.
-The data is transforme in a API that could be used for any software by the link/endpoint https://webscrapingnode.herokuapp.com/api/v1/weather/Itacoatiara48forecast
+The data is transforme in a API that could be used for any software by the link/endpoint http://localhost:5000/api/v1/weather/Itacoatiara48forecast
 
 It brings a Itacoatiara’s 48 hours forecast  of Sea and Weather temperature,  Time and wave’s size.
 If wave’s size is greater than 1,2, it will be highlighted in red “1,2” , so you can spot rightway the better day to go surfing.
 API to provide data for 3th parties.
 
-https://webscrapingnode.herokuapp.com/api/v1/weather/Itacoatiara48forecast
-https://webscrapingnode.herokuapp.com/api/v1/weather/WebScraping
 ```
 
 #### APIs  
 ```sh
 
-Apis are use in port 5002 default link http://localhost:5002/
+Apis are use in port 5000 default link http://localhost:5000/
 
 End-points
  
@@ -131,7 +123,7 @@ End-points
 
 * Webscraping
 
- * http://localhost:5002/api/v1/weather/WebScraping 
+ * http://localhost:5000/api/v1/weather/WebScraping 
  * Return an Object with 4 properties
  * {"temp": "Today's Itacoatiara sea temperature is 28.6 °C.",
     "day": "S&#xE1;bado",
@@ -140,7 +132,7 @@ End-points
 
 * Itacoatiara48forecast
 
- * http://localhost:5002/api/v1/weather/Itacoatiara48forecast  
+ * http://localhost:5000/api/v1/weather/Itacoatiara48forecast  
  *  Return an array with 4 objects
  * "days": ["Sábado 09","Domingo 10","Segunda-feira 11"],
    newtimes": [{"day": "Sábado 09","time": "6AM","wavesize": "0.5SE","weather": "céu limpo"},]
@@ -149,7 +141,7 @@ End-points
 
 * Itacoatiaraseatemp
 
-  * http://localhost:5002/api/v1/weather/Itacoatiaraseatemp  
+  * http://localhost:5000/api/v1/weather/Itacoatiaraseatemp  
   * Return an array with 1 objects
   * [{"temp": "Today's Itacoatiara sea temperature is 28.6 °C."}]
 
@@ -168,7 +160,6 @@ End-points
 the user should be able to insert a currency and expexted currency exchange, then should see the result
 * default link list all available currencies
 
-* Link Prod https://webscrapingnode.herokuapp.com/currencyExchange/Convert/?from=USD&to=BRL
 * test
   * npm test .\test\currencyExchange.spec.js
 
@@ -255,8 +246,6 @@ the user should be able to insert a currency and expexted currency exchange, the
       * data = "temperature=" + temp + "&humidity=" + hum;// data sent must be under this form //name1=value1&name2=value2.
 
 
-* API Link Prod https://webscrapingnode.herokuapp.com/api/v1/dhtsensorhouse/
-
 * test
   * npm test .\test\dhtsensorhouse.spec.js
 
@@ -279,7 +268,6 @@ the user should be able to insert a currency and expexted currency exchange, the
  * testing chatbot 
 https://docs.botui.org/guide.html
 
-* API Link Prod https://webscrapingnode.herokuapp.com/indexRouters/chatbot
 
 * test
   * npm test .\test\chatbot.spec.js
@@ -338,9 +326,6 @@ http://localhost:5000/osInterface
  * upload files to server
  * list file and show link for downloading 
 
-* API Link Prod 
-https://webscrapingnode.herokuapp.com/indexRouters/uploadfiles
-https://webscrapingnode.herokuapp.com/indexRouters/listoffiles
 
 * test
   * npm test .\test\fileupload.spec.js
