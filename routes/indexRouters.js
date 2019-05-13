@@ -14,9 +14,6 @@ const fs = require('fs');
 var fileupload_path = path.join('public/fileupload/');
 const url = require('url');
 
-var File = require("../models/files");
-
-
 router.get('/chatbot', (req, res) => res.render('pages/chatbot'))
 router.get('/sendEmail', sendEmail.SendEmailDefault);
 router.get('/youtubeClickAndGetPrint', youtubeController.youtubeClickAndGetPrint);
@@ -24,7 +21,6 @@ router.get('/ws', ws);
 router.get('/webScrapingTest', (req, res) => {
     getData()
         .then(function (body) {
-            console.log('Got the following body:', body)
             res.send(body)
         })
 
@@ -47,7 +43,6 @@ function getData() {
                 let artistNode = $(t).next();
                 let artist = $(artistNode).text();
                 let title = $(artistNode).next().text();
-                //console.log(channel +'-'+ artist +'-'+ title);
                 channels.push({ channel: channel, artist: artist, title: title });
             }
 
@@ -64,10 +59,9 @@ router.get('/listoffiles', function(req, res) {
     var lstFiles = []
 fs.readdir(fileupload_path, function (err, files) {
     if (err) {
-        return console.log('Unable to scan directory: ' + err);
+        return res.json({ErrorMessage : 'Unable to scan directory: ' + err});
     } 
     files.forEach(function (file) {
-        console.log('file: ' + file);
         var filed = req.protocol+"://"+req.headers.host + url.resolve('/fileupload/', file) 
         lstFiles.push(filed)
     });

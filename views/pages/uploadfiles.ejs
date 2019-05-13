@@ -50,12 +50,13 @@
               data.lstFiles[i] + "</a></td>";
 
               txt +=
-            "<td><button data.lstFiles[i] "+
- "type='submit' onclick='deleteCheck(event, this);'  value='" +
+            "<td><button " +
+ "type='submit' onclick='deleteCheck(this);'  value='" +
             data.lstFiles[i] +
             "' data-id='" +
             data.lstFiles[i] +
             "' class='btn btn-danger'  '>Delete</button></td>";
+ 
 
             txt += "</tr>";
             txt += "</tr>"
@@ -88,7 +89,6 @@
         contentType: false,
         type: 'POST',
         success: function (data) {
-          console.log(data);
           document.getElementById("formupload").reset();
           $("#btnLoadData").click();
           var msg = "Data Updated successfully ";
@@ -138,18 +138,14 @@
     }, 3000);
   }
 
-  function deleteCheck(event, e) {
-    var fd = e.value
-          console.log(fd);
+  function deleteCheck( e) {
+    var file =  { file: e.value} 
+    console.log(file)
       $.ajax({
         url: '/indexRouters/clearFold',
-        data: fd,
-        contentType: "application/json",
-        processData: false,
-        contentType: false,
+        data:file,
         type: 'POST',
         success: function (data) {
-          console.log(data);
           $("#btnLoadData").click();
           var msg = "Data Updated successfully ";
         var msg_type = "success";
@@ -158,37 +154,9 @@
         error: function (request, status, error) {
           var msg = request.responseText;
         }
-
 
       });
   }
-
-  $('#formupload').submit(function (e) {
-      e.preventDefault();
-      var fd = new FormData($(this)[0]);
-      $.ajax({
-        url: '/indexRouters/fileupload',
-        data: fd,
-        processData: false,
-        contentType: false,
-        type: 'POST',
-        success: function (data) {
-          console.log(data);
-          document.getElementById("formupload").reset();
-          $("#btnLoadData").click();
-          var msg = "Data Updated successfully ";
-        var msg_type = "success";
-        ShowMessage(msg, msg_type);
-
-        },
-        error: function (request, status, error) {
-          var msg = request.responseText;
-        }
-
-
-      });
-
-    });
 
 
 </script>

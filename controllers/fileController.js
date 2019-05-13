@@ -2,9 +2,8 @@ var fs = require("fs");
 var path = require('path');
 var writePath = path.join('public/fileupload/');
 var async = require('async');
+const querystring = require("querystring");
 
-var File = require("../models/files");
-const multer = require('multer');
 
 exports.fileupload = function (req, res) {
   var filesArray = req.files;
@@ -59,10 +58,19 @@ exports.fileupload = function (req, res) {
  
 
 exports.clearFold = function (req, res) {
-  var file = req.body;
-  fs.unlink(file, function (err) {
-    if (err) res.json(err);
+  var file = req.body.file;
+  var file_name = writePath+ file.split('/')[4]
+  var path = decodeURIComponent(file_name)
+  
+  fs.unlink(path, function (err) {
+    if (err) 
+    {
+      return res.json('error! '+ err); 
+    }
+    console.log('File deleted!');
     res.json('File deleted!');
-  });
+  
+  }); 
+
 
 }
