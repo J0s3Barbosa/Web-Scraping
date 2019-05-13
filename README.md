@@ -341,6 +341,28 @@ http://localhost:5000/indexRouters/uploadfiles
 
 ```
 
+### App version managemant 
+```sh
+ * insert version
+ * modulo, date deployed
+ * what was done 
+
+
+* test
+  * npm test .\test\appversion.spec.js
+
+* api default
+GET
+http://localhost:5000/indexRouters/appversion
+POST
+http://localhost:5000/indexRouters/appversion
+
+Interface
+http://localhost:5000/indexRouters/appversion
+
+```
+
+
 
 
 
