@@ -1,0 +1,75 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+
+        <h2>Insert new Version</h2>
+
+        <form id="myForm" name="myForm" action="" method="post" onsubmit="return validateForm();">
+
+            <div class="form-group">
+
+                <label for="app_version">Enter Version: </label>
+                <input id="app_version" type="Number" name="app_version" class="form-control">
+            </div>
+            
+            <button id="submit_data" type="submit" class="btn btn-primary">Insert Data</button>
+
+        </form>
+    </div>
+</div>
+
+
+<script>
+
+    function validateForm() {
+        var myForm_app_version = document.forms["myForm"]["app_version"].value;
+        validationList = [ myForm_app_version]
+
+        finalValidation = []
+        validationList.forEach(element => {
+            if (element == "" || element == null) {
+                finalValidation.push(element)
+            }
+        });
+
+        if (finalValidation.length > 0) {
+            alert(finalValidation.length + " Fields are empty! ");
+            return false;
+        }
+
+    }
+
+
+    $('#myForm').submit(function (event) {
+
+        var formData = {
+            'version': $('input[name=app_version]').val(),
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/indexRouters/postnewappversion',
+            data: formData,
+            dataType: 'json',
+            encode: true
+        })
+            // using the done promise callback
+            .done(function (data) {
+                $("#myForm")[0].reset();
+                $("#btnLoadRefreshData").click()
+                var msg = 'Data Inserted '
+                var msg_type = 'success'
+                ShowMessage(msg, msg_type)
+            }).fail(
+                function (jqXHR, textStatus, errorThrown) {
+                    var msg = jqXHR.responseText
+                    var msg_type = 'error'
+                    ShowMessage(msg, msg_type)
+                }
+            );
+
+        event.preventDefault();
+    });
+
+
+
+</script>
