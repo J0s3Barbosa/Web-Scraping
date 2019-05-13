@@ -1,14 +1,14 @@
 var fs = require("fs");
 var path = require('path');
 var writePath = path.join('public/fileupload/');
-var cmd = require('node-cmd');
 var async = require('async');
-var jsonfile = require('jsonfile');
+
+var File = require("../models/files");
+const multer = require('multer');
 
 exports.fileupload = function (req, res) {
   var filesArray = req.files;
-  if(filesArray.length > 0)
-  {
+  if (filesArray.length > 0) {
     async.each(filesArray, function (file, eachcallback) {
       async.waterfall([
         function (callback) {
@@ -28,7 +28,7 @@ exports.fileupload = function (req, res) {
             }
             else {
               callback(null, 'success');
-   
+
             }
           });
         }
@@ -36,7 +36,7 @@ exports.fileupload = function (req, res) {
         // result now equals 'done'
         //pass final callback to async each to move on to next file
         eachcallback();
-     
+
       });
     }, function (err) {
       if (err) {
@@ -44,25 +44,25 @@ exports.fileupload = function (req, res) {
       }
       else {
         console.log("finished prcessing");
-       
+
         var message = "files uploaded successfully"
-            res.json( {message }
+        res.json({ message }
         )
-     
+
       }
-   
-  
+
+
     });
   }
 
 }
+ 
 
 exports.clearFold = function (req, res) {
   var file = req.body;
- fs.unlink(file, function (err) {
+  fs.unlink(file, function (err) {
     if (err) res.json(err);
     res.json('File deleted!');
-}); 
+  });
 
 }
-

@@ -14,6 +14,8 @@ const fs = require('fs');
 var fileupload_path = path.join('public/fileupload/');
 const url = require('url');
 
+var File = require("../models/files");
+
 
 router.get('/chatbot', (req, res) => res.render('pages/chatbot'))
 router.get('/sendEmail', sendEmail.SendEmailDefault);
@@ -66,10 +68,9 @@ fs.readdir(fileupload_path, function (err, files) {
     } 
     files.forEach(function (file) {
         console.log('file: ' + file);
-        var filed =  'http://localhost:5000/' + url.resolve('fileupload/', file) 
+        var filed = req.protocol+"://"+req.headers.host + url.resolve('/fileupload/', file) 
         lstFiles.push(filed)
     });
-   
 
       
     res.json({lstFiles : lstFiles});
@@ -84,6 +85,7 @@ router.get('/download', function(req, res){
 
 router.get('/uploadfiles', (req, res) => res.render('pages/uploadfiles'
 ))
+ 
 
     
 module.exports = router;
