@@ -1,12 +1,13 @@
 var fs = require("fs");
 var path = require('path');
-var writePath = path.join('public/fileupload/');
+var writePath = path.join("public/fileupload/");
 var async = require('async');
+
 
 var multer = require('multer');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/fileupload/')
+    cb(null, writePath)
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -14,9 +15,10 @@ const storage = multer.diskStorage({
 });
 const multerupload = multer({ storage });
 
+exports.fileupload =multerupload.any();
+// exports.fileupload = function (req, res) {
+  
 
-exports.fileupload = function (req, res) {
-  multerupload.any();
   // var filesArray = req.files;
   // if (filesArray.length > 0) {
   //   async.each(filesArray, function (file, eachcallback) {
@@ -65,7 +67,7 @@ exports.fileupload = function (req, res) {
   //   });
   // }
 
-}
+// }
 
 
 exports.clearFold = function (req, res) {

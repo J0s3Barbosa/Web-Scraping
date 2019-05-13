@@ -13,6 +13,7 @@ const fs = require('fs');
 var fileupload_path = path.join('public/fileupload/');
 const url = require('url');
 
+
 router.get('/chatbot', (req, res) => res.render('pages/chatbot'))
 router.get('/sendEmail', sendEmail.SendEmailDefault);
 router.get('/youtubeClickAndGetPrint', youtubeController.youtubeClickAndGetPrint);
@@ -51,7 +52,7 @@ function getData() {
     });
 }
 
-router.post('/fileupload', fileController.fileupload);
+   router.post('/fileupload', fileController.fileupload);
 router.post('/clearFold', fileController.clearFold);
 
 router.get('/listoffiles', function(req, res) {
