@@ -5,9 +5,8 @@ var ws = require('../modulos/ws');
 var request = require('request');
 var cheerio = require('cheerio');
 var sendEmail = require('../modulos/sendEmail');
-// var delivery_bot = require('../controllers/delivery_bot');
-var multer = require('multer');
-var multerupload = multer({ dest: 'fileprint/' })
+
+
 var fileController = require('../controllers/fileController');
 const path = require('path');
 const fs = require('fs');
@@ -52,7 +51,7 @@ function getData() {
     });
 }
 
-router.post('/fileupload',multerupload.any(),fileController.fileupload);
+router.post('/fileupload', fileController.fileupload);
 router.post('/clearFold', fileController.clearFold);
 
 router.get('/listoffiles', function(req, res) {
