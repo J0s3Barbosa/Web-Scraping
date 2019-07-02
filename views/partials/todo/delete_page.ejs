@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Delete Clash Royale Data</h2>
+
+        <form id="myFormdel" name="myFormdel" action="/api/v1/clashRoyale/clash/" method="DELETE">
+            <div class="form-group">
+
+                <label for="iddel">Enter id: </label>
+                <input id="iddel" type="text" name="iddel" class="form-control">
+            </div>
+
+            <button id="deletebtn" type="submit" onclick="DelCheck();" class="btn btn-danger">Delete Data</button>
+
+        </form>
+
+    </div>
+</div>
+
+<script>
+
+    function DelCheck() {
+        var id = document.getElementById("iddel");
+        $("#myFormdel").attr("action", "/api/v1/clashRoyale/clash/" + id.value);
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/v1/clashRoyale/clash/' + id.value,
+            success: function (data) {
+                alert(JSON.stringify(data));
+            }
+        });
+    }
+
+</script>

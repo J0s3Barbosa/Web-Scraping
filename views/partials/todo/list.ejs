@@ -1,0 +1,66 @@
+<script>
+  $(document).ready(function () {
+
+    loadClashRoyaleBattleData();
+    
+    $("#btnCrBattledata").click(function () {
+      loadClashRoyaleBattleData();
+    });
+
+
+  });
+
+  function loadClashRoyaleBattleData() {
+      $.get("/api/v1/clashRoyale/clashs", function (data, status) {
+        if (status == "success") {
+          var txt = '';
+          txt += "<div class='table-responsive'>"
+          txt += "<table class='table table-hover '>"
+          txt += "<thead>"
+          txt += "<tr>"
+          txt += "<th>_id</th>"
+          txt += "<th>Trophies</th>"
+          txt += "<th>Victory</th>"
+          txt += "<th>Defeat</th>"
+          txt += "<th>Played_at</th>"
+          txt += "</thead>"
+          txt += "</thead>"
+          txt += "<tbody>"
+          for (var i = 0; i < data.length; i++) {
+            txt += "<tr>"
+            txt += "<td>" + data[i]._id + "</td>";
+            txt += "<td>" + data[i].Trophies + "</td>";
+            txt += "<td>" + data[i].Victory + "</td>";
+            txt += "<td>" + data[i].Defeat + "</td>";
+            txt += "<td>" + data[i].Played_at + "</td>";
+            txt += "</tr>"
+
+          }
+          txt += "</tbody>"
+          txt += "</table>"
+          txt += "</div>"
+          document.getElementById("divCrBattledata").innerHTML = txt;
+
+        }
+
+        if (status == "error") {
+          alert("Error: " + status);
+        }
+
+      });
+
+    }
+
+
+</script>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <h2>Data from 'Battles' </h2>
+    <div id="divCrBattledata"></div>
+
+    <button id="btnCrBattledata" class="btn btn-primary">Load Data</button>
+
+  </div>
+</div>

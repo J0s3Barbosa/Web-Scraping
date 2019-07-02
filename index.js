@@ -20,6 +20,7 @@ var dhtsensorRoutes = require('./routes/dhtsensorRoutes');
 var indexRouters = require('./routes/indexRouters');
 var osRoutes = require('./routes/osRoutes');
 var osAppRoutes = require('./routes/osAppRoutes');
+var todoRoutes = require('./routes/todoRoutes');
 
 //const { fork } = require('child_process');
 
@@ -110,7 +111,8 @@ app.use(express.static(path.join(__dirname, 'public')))
  .use('/indexRouters', indexRouters )
  .use(API_PATH , osRoutes )
  .use( osAppRoutes )
- 
+  .use('/todo', todoRoutes )
+  
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 

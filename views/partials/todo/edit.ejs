@@ -1,0 +1,299 @@
+<script>
+  $(document).ready(function() {
+    var url = "/api/v1/clashRoyale/clashs/";
+
+    loadEditClashRoyaleBattleData(url);
+
+    $("#btnEditCrBattledata").click(function() {
+      loadEditClashRoyaleBattleData(url);
+    });
+
+    $("#btnSortVictories").click(function() {
+      var url2do = url + "Victory";
+      loadEditClashRoyaleBattleData(url2do);
+    });
+
+    $("#btnSortTrophies").click(function() {
+      var url2do = url + "Trophies";
+      loadEditClashRoyaleBattleData(url2do);
+    });
+  });
+
+  function loadEditClashRoyaleBattleData(url) {
+    $.get(url, function(data, status) {
+      if (status == "success") {
+        var txt = "";
+        txt +=
+          " <form id='myFormEdit2' class='myFormEdit2'  name='myFormEdit2' action='/api/v1/clashRoyale/clash/' method='PUT' >";
+        txt += "<div class='table-responsive'>";
+        txt += "<table class='table table-hover '>";
+        txt += "<thead>";
+        txt += "<tr>";
+        txt += "<th>Name</th>";
+        txt += "<th>Started_Trophies</th>";
+        txt += "<th>Trophies</th>";
+        txt += "<th>Total_Trophies</th>";
+        txt += "<th>Victory</th>";
+        txt += "<th>Defeat</th>";
+        txt += "<th>Played_at</th>";
+        txt += "<th>Actions</th>";
+        txt += "</thead>";
+        txt += "</thead>";
+        txt += "<tbody>";
+        for (var i = 0; i < data.length; i++) {
+          txt += "<tr>";
+          var id2pass = "btnupdate_" + data[i]._id;
+          var msgDelete = "Delete this data?";
+          var date = data[i].Played_at;
+
+          txt +=
+            "<td> <input type='string' class='form-control' id='Name_" +
+            data[i]._id +
+            "' value='" +
+            data[i].Name +
+            "'> </td>";
+
+          txt +=
+            "<td> <input type='number' class='form-control' id='Started_Trophies_" +
+            data[i]._id +
+            "' value='" +
+            data[i].Started_Trophies +
+            "'> </td>";
+
+          txt +=
+            "<td> <input type='number' class='form-control' id='Trophies_" +
+            data[i]._id +
+            "' value='" +
+            data[i].Trophies +
+            "'> </td>";
+
+          txt +=
+            "<td> <input type='number' class='form-control' id='Total_Trophies_" +
+            data[i]._id +
+            "' value='" +
+            data[i].Total_Trophies +
+            "'> </td>";
+
+          txt +=
+            "<td> <input type='number' class='form-control' id='Victory_" +
+            data[i]._id +
+            "' value='" +
+            data[i].Victory +
+            "'> </td>";
+          txt +=
+            "<td> <input type='number' class='form-control' id='Defeat_" +
+            data[i]._id +
+            "' value='" +
+            data[i].Defeat +
+            "'> </td>";
+          txt += "<td>" + date + "</td>";
+
+          txt +=
+            "<td><button id='btnupdate_" +
+            data[i]._id +
+            "' type='submit' onclick='updateCheck(event, this);'  value='" +
+            data[i]._id +
+            "' data-id='" +
+            data[i]._id +
+            "' class='btn btn-primary '  '>Save</button></td>";
+          txt +=
+            "<td><button id='btnDelete_" +
+            data[i]._id +
+            "' type='submit' onclick='deleteConfirmation(event, this);'  value='" +
+            data[i]._id +
+            "' data-id='" +
+            data[i]._id +
+            "' class='btn btn-danger'  '>Delete</button></td>";
+          txt += "</tr>";
+        }
+        txt += "</tbody>";
+        txt += "</table>";
+        txt += "</div>";
+        txt += "</form>";
+        document.getElementById("divEditCrBattledata").innerHTML = txt;
+      }
+
+      if (status == "error") {
+        var msg = status;
+        var msg_type = "error";
+        ShowMessage(msg, msg_type);
+      }
+    });
+  }
+  function updateCheck(event, e) {
+    var tok = window.localStorage.getItem("token");
+
+    var data_id = e.value;
+
+    $("#myFormEdit2").attr("action", "/api/v1/clashRoyale/clash/" + data_id);
+
+    var cr_obj_updated = new Object();
+
+    cr_obj_updated._id = data_id;
+
+    cr_obj_updated.Name = document.getElementById("Name_" + data_id).value;
+
+    cr_obj_updated.Started_Trophies = document.getElementById(
+      "Started_Trophies_" + data_id
+    ).value;
+
+    cr_obj_updated.Trophies = document.getElementById(
+      "Trophies_" + data_id
+    ).value;
+
+    cr_obj_updated.Victory = document.getElementById(
+      "Victory_" + data_id
+    ).value;
+
+    cr_obj_updated.Defeat = document.getElementById("Defeat_" + data_id).value;
+
+    cr_obj_updated.Total_Trophies =
+      cr_obj_updated.Trophies - cr_obj_updated.Started_Trophies;
+
+    $.ajax({
+      headers: { Authorization: tok },
+      type: "PUT",
+      url: "/api/v1/clashRoyale/clash/" + data_id,
+      data: cr_obj_updated,
+      success: function(data) {
+        var msg = "Data Updated successfully ";
+        var msg_type = "success";
+        ShowMessage(msg, msg_type);
+        $("#btnCrBattledata").click();
+        $("#btnEditCrBattledata").click();
+      },
+      error: function(request, status, error) {
+        var msg = request.responseText;
+        var msg_type = "error";
+        ShowMessage(msg, msg_type);
+      }
+    });
+
+    event.preventDefault();
+  }
+  function deleteCheck(event, e) {
+    var tok = window.localStorage.getItem("token");
+    var data_id = e.value;
+    $("#myFormEdit2").attr("action", "/api/v1/clashRoyale/clash/" + data_id);
+    $.ajax({
+      headers: { Authorization: tok },
+      type: "DELETE",
+      url: "/api/v1/clashRoyale/clash/" + data_id,
+      success: function() {
+        var msg = "Data Deleted";
+        var msg_type = "success";
+        ShowMessage(msg, msg_type);
+        $("#btnCrBattledata").click();
+        $("#btnEditCrBattledata").click();
+      },
+      error: function(request, status, error) {
+        var msg = request.responseText;
+        var msg_type = "error";
+        ShowMessage(msg, msg_type);
+      }
+    });
+
+    event.preventDefault();
+  }
+
+  function deleteConfirmation(event, e) {
+    if (confirm("Data ill be delete!")) {
+      deleteCheck(event, e);
+    } else {
+      event.preventDefault();
+    }
+  }
+  function ShowMessage(msg, msg_type) {
+    if (msg != "") {
+      var element = $("#successMessage");
+
+      if (msg_type == "success") {
+        element.addClass("alert success");
+      } else if (msg_type == "warning") {
+        element.addClass("alert warning");
+      } else if (msg_type == "error") {
+        element.addClass("alert");
+      } else if (msg_type == "info") {
+        element.addClass("alert info");
+      } else if (msg_type == "default") {
+      }
+      element.text(msg);
+      element.show();
+      $(window).scrollTop(0);
+    }
+
+    HideMessage();
+  }
+  function HideMessage() {
+    var element = $("#successMessage");
+    element.fadeIn("slow");
+    setTimeout(function() {
+      element.fadeOut("slow", function() {});
+      msg = "";
+      element.text(msg);
+      element.removeClass("alert");
+    }, 3000);
+  }
+
+
+</script>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <h2>Edit Data from 'Battles'</h2>
+
+    <button id="btnSortTrophies" class="btn btn-primary">Sort Trophies</button>
+
+    <button id="btnSortVictories" class="btn btn-primary">
+      Sort Victories
+    </button>
+
+    <button id="btnEditCrBattledata" class="btn btn-primary">
+      Load/Refresh Data
+    </button>
+
+    <div id="divEditCrBattledata"></div>
+  </div>
+</div>
+
+<style>
+  .alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+  }
+
+  .alert.success {
+    background-color: #4caf50;
+  }
+
+  .alert.info {
+    background-color: #2196f3;
+  }
+
+  .alert.warning {
+    background-color: #ff9800;
+  }
+
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .closebtn:hover {
+    color: black;
+  }
+
+  #successMessage {
+    display: none;
+  }
+</style>

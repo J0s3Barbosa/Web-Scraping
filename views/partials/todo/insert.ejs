@@ -1,0 +1,121 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <h2>Insert Clash Royale Data</h2>
+
+    <form id="myForm" name="myForm" action="/api/v1/clashRoyale/clash/createmethod" method="post" onsubmit="return validateForm();">
+     
+      <div class="form-group">
+
+        <label for="Name">Enter Name: </label>
+        <input id="Name" type="String" name="Name" placeholder="Players Name." class="form-control">
+      </div>
+
+      <div class="form-group">
+
+        <label for="Started_Trophies">Enter Started_Trophies: </label>
+        <input id="Started_Trophies" type="Number" name="Started_Trophies" class="form-control">
+      </div>
+
+      <div class="form-group">
+
+        <label for="Trophies">Enter Trophies: </label>
+        <input id="Trophies" type="Number" name="Trophies"  class="form-control">
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="Victory">Enter Victory: </label>
+        <input id="Victory" type="Number" name="Victory" class="form-control">
+      </div>
+
+      <div class="form-group">
+
+        <label for="Defeat">Enter Defeat: </label>
+        <input id="Defeat" type="Number" name="Defeat" class="form-control">
+      </div>
+
+      <button id="submitClashroyaleData" type="submit" class="btn btn-primary">Insert Data</button>
+
+    </form>
+  </div>
+</div>
+
+
+<script>
+  
+  function validateForm() {
+    var myForm_Name = document.forms["myForm"]["Name"].value;
+    var myForm_Started_Trophies = document.forms["myForm"]["Started_Trophies"].value;
+    var myForm_Trophies = document.forms["myForm"]["Trophies"].value;
+    var myForm_Victory = document.forms["myForm"]["Victory"].value;
+    validationList = [myForm_Name, myForm_Started_Trophies,myForm_Trophies,myForm_Victory]
+
+    finalValidation = []
+    validationList.forEach(element => {
+      if (element == ""  || element == null ) {
+        finalValidation.push(element)
+    }
+    });
+
+    if (finalValidation.length > 0) {
+      alert(finalValidation.length+ " Fields are empty! ");
+      return false;
+    }
+   
+  }
+ 
+
+  // process the form
+  $('#myForm').submit(function (event) {
+
+    var formData = {
+      'Name': $('input[name=Name]').val(),
+      'Started_Trophies': $('input[name=Started_Trophies]').val(),
+      'Trophies': $('input[name=Trophies]').val(),
+      'Victory': $('input[name=Victory]').val(),
+      'Defeat': $('input[name=Defeat]').val(),
+      'Total_Trophies': $('input[name=Total_Trophies]').val()
+    };
+
+    var tok = window.localStorage.getItem('token');
+    console.log('window.localStorage.getItem(token- '+ tok)
+    
+    // process the form
+    $.ajax({
+      headers: {'Authorization': tok},
+      type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+      url: '/api/v1/clashRoyale/clash/createmethod', // the url where we want to POST
+      data: formData, // our data object
+      dataType: 'json', // what type of data do we expect back from the server
+      encode: true
+    })
+      // using the done promise callback
+      .done(function (data) {
+        // alert("Inserted ");
+        // log data to the console so we can see
+        $("#btnEditCrBattledata").click()
+        $("#btnCrBattledata").click()
+        $("#myForm")[0].reset();
+        var msg = 'Data Inserted '
+        var msg_type = 'success'
+        ShowMessage(msg, msg_type)
+        $("#btnCrBattledata").click()
+        $("#btnEditCrBattledata").click()
+        // here we will handle errors and validation messages
+      }).fail(
+         function (jqXHR, textStatus, errorThrown) {
+        var msg = jqXHR.responseText
+        var msg_type = 'error'
+        ShowMessage(msg, msg_type)
+      }
+      );
+
+    // stop the form from submitting the normal way and refreshing the page
+    event.preventDefault();
+  });
+
+
+
+</script>

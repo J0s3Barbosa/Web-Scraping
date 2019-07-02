@@ -1,0 +1,64 @@
+<title><%- title  =  'Todo' %></title>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script>
+ 
+    var positions = JSON.parse(localStorage.positions || "{}");
+    var size = JSON.parse(localStorage.size || "{}");
+    $(function () {
+      var d = $("[id=myTextArea]").attr("id", function (i) {
+        return "draggable_" + i
+      })
+      $.each(positions, function (id, pos) {
+        $("#" + id).css(pos)
+      })
+      $.each(size, function (id, siz) {
+        $("#" + id).css(siz)
+      })
+
+      d.draggable({
+        containment: "#container",
+        scroll: false,
+        stop: function (event, ui) {
+          positions[this.id] = ui.position
+          localStorage.positions = JSON.stringify(positions)
+        }
+      });
+      d.resizable({
+        stop: function (event, ui) {
+          size[this.id] = ui.size
+          localStorage.size = JSON.stringify(size)
+        }
+      });
+    });
+
+    function resetlayout  () {
+    var btnRestore = $("[id=resetlayout]")
+      btnRestore.click(function () {
+        localStorage.positions = ''
+        localStorage.size = ''
+        window,location.reload()
+      })
+    }
+  </script>
+
+  <div id="successMessage" style="display:none;">
+  </div>
+
+  <div class="container">
+    <div id="myTextArea" class="draggable ">
+      <% include ../partials/todo/list.ejs %>
+    </div>
+    <div id="myTextArea" class="draggable ">
+      <% include ../partials/todo/insert.ejs %>
+    </div>
+    <div id="myTextArea" class="draggable ">
+      <% include ../partials/todo/edit.ejs %>
+    </div>
+
+
+
+  </div>
+
