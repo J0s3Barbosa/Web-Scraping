@@ -1,30 +1,21 @@
 <script>
   $(document).ready(function() {
-    var url = "/api/v1/clashRoyale/clashs/";
+    var url = "/todo/all";
 
-    loadEditClashRoyaleBattleData(url);
+    loadEditData(url);
 
-    $("#btnEditCrBattledata").click(function() {
-      loadEditClashRoyaleBattleData(url);
+    $("#btnEditdata").click(function() {
+      loadEditData(url);
     });
-
-    $("#btnSortVictories").click(function() {
-      var url2do = url + "Victory";
-      loadEditClashRoyaleBattleData(url2do);
-    });
-
-    $("#btnSortTrophies").click(function() {
-      var url2do = url + "Trophies";
-      loadEditClashRoyaleBattleData(url2do);
-    });
+   
   });
 
-  function loadEditClashRoyaleBattleData(url) {
+  function loadEditData(url) {
     $.get(url, function(data, status) {
       if (status == "success") {
         var txt = "";
         txt +=
-          " <form id='myFormEdit2' class='myFormEdit2'  name='myFormEdit2' action='/api/v1/clashRoyale/clash/' method='PUT' >";
+          " <form id='myFormEdit2' class='myFormEdit2'  name='myFormEdit2' action='' method='PUT' >";
         txt += "<div class='table-responsive'>";
         txt += "<table class='table table-hover '>";
         txt += "<thead>";
@@ -110,7 +101,7 @@
         txt += "</table>";
         txt += "</div>";
         txt += "</form>";
-        document.getElementById("divEditCrBattledata").innerHTML = txt;
+        document.getElementById("divEditdata").innerHTML = txt;
       }
 
       if (status == "error") {
@@ -125,7 +116,7 @@
 
     var data_id = e.value;
 
-    $("#myFormEdit2").attr("action", "/api/v1/clashRoyale/clash/" + data_id);
+    $("#myFormEdit2").attr("action", "/todo/update/" + data_id);
 
     var cr_obj_updated = new Object();
 
@@ -153,14 +144,14 @@
     $.ajax({
       headers: { Authorization: tok },
       type: "PUT",
-      url: "/api/v1/clashRoyale/clash/" + data_id,
+      url: "/todo/update/" + data_id,
       data: cr_obj_updated,
       success: function(data) {
         var msg = "Data Updated successfully ";
         var msg_type = "success";
         ShowMessage(msg, msg_type);
-        $("#btnCrBattledata").click();
-        $("#btnEditCrBattledata").click();
+        $("#btnLoadData").click();
+        $("#btnEditdata").click();
       },
       error: function(request, status, error) {
         var msg = request.responseText;
@@ -174,17 +165,17 @@
   function deleteCheck(event, e) {
     var tok = window.localStorage.getItem("token");
     var data_id = e.value;
-    $("#myFormEdit2").attr("action", "/api/v1/clashRoyale/clash/" + data_id);
+    $("#myFormEdit2").attr("action", "/todo/delete/" + data_id);
     $.ajax({
       headers: { Authorization: tok },
       type: "DELETE",
-      url: "/api/v1/clashRoyale/clash/" + data_id,
+      url: "/todo/delete/" + data_id,
       success: function() {
         var msg = "Data Deleted";
         var msg_type = "success";
         ShowMessage(msg, msg_type);
-        $("#btnCrBattledata").click();
-        $("#btnEditCrBattledata").click();
+        $("#btnLoadData").click();
+        $("#btnEditdata").click();
       },
       error: function(request, status, error) {
         var msg = request.responseText;
@@ -240,19 +231,13 @@
 
 <div class="panel panel-default">
   <div class="panel-body">
-    <h2>Edit Data from 'Battles'</h2>
+    <h2>Edit Data</h2>
 
-    <button id="btnSortTrophies" class="btn btn-primary">Sort Trophies</button>
-
-    <button id="btnSortVictories" class="btn btn-primary">
-      Sort Victories
-    </button>
-
-    <button id="btnEditCrBattledata" class="btn btn-primary">
+    <button id="btnEditdata" class="btn btn-primary">
       Load/Refresh Data
     </button>
 
-    <div id="divEditCrBattledata"></div>
+    <div id="divEditdata"></div>
   </div>
 </div>
 

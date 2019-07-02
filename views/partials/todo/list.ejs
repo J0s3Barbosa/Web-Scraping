@@ -1,17 +1,16 @@
 <script>
   $(document).ready(function () {
 
-    loadClashRoyaleBattleData();
+    loadData();
     
-    $("#btnCrBattledata").click(function () {
-      loadClashRoyaleBattleData();
+    $("#btnloadData").click(function () {
+      loadData();
     });
 
 
   });
-
-  function loadClashRoyaleBattleData() {
-      $.get("/api/v1/clashRoyale/clashs", function (data, status) {
+  function loadData() {
+      $.get("/todo/all", function (data, status) {
         if (status == "success") {
           var txt = '';
           txt += "<div class='table-responsive'>"
@@ -19,27 +18,27 @@
           txt += "<thead>"
           txt += "<tr>"
           txt += "<th>_id</th>"
-          txt += "<th>Trophies</th>"
-          txt += "<th>Victory</th>"
-          txt += "<th>Defeat</th>"
-          txt += "<th>Played_at</th>"
+          txt += "<th>Task</th>"
+          txt += "<th>Completed</th>"
+          txt += "<th>Owner</th>"
+          txt += "<th>Created_At</th>"
           txt += "</thead>"
           txt += "</thead>"
           txt += "<tbody>"
           for (var i = 0; i < data.length; i++) {
             txt += "<tr>"
             txt += "<td>" + data[i]._id + "</td>";
-            txt += "<td>" + data[i].Trophies + "</td>";
-            txt += "<td>" + data[i].Victory + "</td>";
-            txt += "<td>" + data[i].Defeat + "</td>";
-            txt += "<td>" + data[i].Played_at + "</td>";
+            txt += "<td>" + data[i].Task + "</td>";
+            txt += "<td>" + data[i].Completed + "</td>";
+            txt += "<td>" + data[i].Owner + "</td>";
+            txt += "<td>" + data[i].Created_At + "</td>";
             txt += "</tr>"
 
           }
           txt += "</tbody>"
           txt += "</table>"
           txt += "</div>"
-          document.getElementById("divCrBattledata").innerHTML = txt;
+          document.getElementById("divloadData").innerHTML = txt;
 
         }
 
@@ -51,16 +50,15 @@
 
     }
 
-
 </script>
 
 <div class="panel panel-default">
   <div class="panel-body">
 
-    <h2>Data from 'Battles' </h2>
-    <div id="divCrBattledata"></div>
+    <h2>Data</h2>
+    <div id="divloadData"></div>
 
-    <button id="btnCrBattledata" class="btn btn-primary">Load Data</button>
+    <button id="btnloadData" class="btn btn-primary">Load Data</button>
 
   </div>
 </div>
