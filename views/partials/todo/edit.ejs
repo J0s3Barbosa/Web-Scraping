@@ -30,6 +30,7 @@
           txt += "<tr>";
           var id2pass = "btnupdate_" + data[i]._id;
           var msgDelete = "Delete this data?";
+          var completeData = data[i].Completed;
           txt +=
             "<td> <input type='string' class='form-control' id='Task_" +
             data[i]._id +
@@ -37,11 +38,35 @@
             data[i].Task +
             "'> </td>";
 
+            if(completeData == true){
+              completeData = "Done"
+            }
+            else{
+              completeData = "Not Done"
+            }
+            
+            txt +=
+            "<td>" +
+            " <div class='dropdown'> " +
+              " <button class='btn btn-primary dropdown-toggle' type='button' data-toggle='dropdown'> " +
+                completeData +
+                " <span class='caret'></span></button>"+
+                " <ul class='dropdown-menu'>"+
+                  " <li>" +
+                    "<a  > Done </a>" +
+            "</li>"+
+            " <li>" +
+              "<a  >Not Done</a>"+
+            "</li>"+
+                  " </ul>"+
+"</div>"+
+            "</td>";
+
           txt +=
             "<td> <input type='string' class='form-control' id='Completed_" +
             data[i]._id +
             "' value='" +
-            data[i].Completed +
+            completeData +
             "'> </td>";
  
           txt +=
