@@ -20,13 +20,8 @@
         txt += "<table class='table table-hover '>";
         txt += "<thead>";
         txt += "<tr>";
-        txt += "<th>Name</th>";
-        txt += "<th>Started_Trophies</th>";
-        txt += "<th>Trophies</th>";
-        txt += "<th>Total_Trophies</th>";
-        txt += "<th>Victory</th>";
-        txt += "<th>Defeat</th>";
-        txt += "<th>Played_at</th>";
+        txt += "<th>Task</th>"
+          txt += "<th>Completed</th>"
         txt += "<th>Actions</th>";
         txt += "</thead>";
         txt += "</thead>";
@@ -35,50 +30,20 @@
           txt += "<tr>";
           var id2pass = "btnupdate_" + data[i]._id;
           var msgDelete = "Delete this data?";
-          var date = data[i].Played_at;
-
           txt +=
-            "<td> <input type='string' class='form-control' id='Name_" +
+            "<td> <input type='string' class='form-control' id='Task_" +
             data[i]._id +
             "' value='" +
-            data[i].Name +
+            data[i].Task +
             "'> </td>";
 
           txt +=
-            "<td> <input type='number' class='form-control' id='Started_Trophies_" +
+            "<td> <input type='string' class='form-control' id='Completed_" +
             data[i]._id +
             "' value='" +
-            data[i].Started_Trophies +
+            data[i].Completed +
             "'> </td>";
-
-          txt +=
-            "<td> <input type='number' class='form-control' id='Trophies_" +
-            data[i]._id +
-            "' value='" +
-            data[i].Trophies +
-            "'> </td>";
-
-          txt +=
-            "<td> <input type='number' class='form-control' id='Total_Trophies_" +
-            data[i]._id +
-            "' value='" +
-            data[i].Total_Trophies +
-            "'> </td>";
-
-          txt +=
-            "<td> <input type='number' class='form-control' id='Victory_" +
-            data[i]._id +
-            "' value='" +
-            data[i].Victory +
-            "'> </td>";
-          txt +=
-            "<td> <input type='number' class='form-control' id='Defeat_" +
-            data[i]._id +
-            "' value='" +
-            data[i].Defeat +
-            "'> </td>";
-          txt += "<td>" + date + "</td>";
-
+ 
           txt +=
             "<td><button id='btnupdate_" +
             data[i]._id +
@@ -119,27 +84,10 @@
     $("#myFormEdit2").attr("action", "/todo/update/" + data_id);
 
     var cr_obj_updated = new Object();
-
-    cr_obj_updated._id = data_id;
-
-    cr_obj_updated.Name = document.getElementById("Name_" + data_id).value;
-
-    cr_obj_updated.Started_Trophies = document.getElementById(
-      "Started_Trophies_" + data_id
+    cr_obj_updated.Task = document.getElementById("Task_" + data_id).value;
+    cr_obj_updated.Completed = document.getElementById(
+      "Completed_" + data_id
     ).value;
-
-    cr_obj_updated.Trophies = document.getElementById(
-      "Trophies_" + data_id
-    ).value;
-
-    cr_obj_updated.Victory = document.getElementById(
-      "Victory_" + data_id
-    ).value;
-
-    cr_obj_updated.Defeat = document.getElementById("Defeat_" + data_id).value;
-
-    cr_obj_updated.Total_Trophies =
-      cr_obj_updated.Trophies - cr_obj_updated.Started_Trophies;
 
     $.ajax({
       headers: { Authorization: tok },
@@ -150,7 +98,7 @@
         var msg = "Data Updated successfully ";
         var msg_type = "success";
         ShowMessage(msg, msg_type);
-        $("#btnLoadData").click();
+        $("#btnloadData").click();
         $("#btnEditdata").click();
       },
       error: function(request, status, error) {
@@ -174,7 +122,7 @@
         var msg = "Data Deleted";
         var msg_type = "success";
         ShowMessage(msg, msg_type);
-        $("#btnLoadData").click();
+        $("#btnloadData").click();
         $("#btnEditdata").click();
       },
       error: function(request, status, error) {
