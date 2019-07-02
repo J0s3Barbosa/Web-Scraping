@@ -11,10 +11,11 @@
         <input id="Task" type="String" name="Task" placeholder="Task" class="form-control">
       </div>
 
-      <div class="form-group">
+      <div class="form-group ">
 
         <label for="Completed">Completed: </label>
-        <input id="Completed" type="Number" name="Completed" class="form-control">
+        <!-- <input id="Completed" type="Number" name="Completed" class="form-control"> -->
+        <input id="Completed" name="Completed" type="checkbox"  class="form-control " > 
       </div>
 
       <button id="submitData" type="submit" class="btn btn-primary">Insert Data</button>
@@ -27,7 +28,7 @@
   
   function validateForm() {
     var myForm_Task = document.forms["myForm"]["Task"].value;
-    var myForm_Completed = document.forms["myForm"]["Completed"].value;
+    var myForm_Completed = document.forms["myForm"]["Completed"].checked ;
     validationList = [myForm_Task, myForm_Completed,]
 
     finalValidation = []
@@ -45,10 +46,9 @@
   }
 
   $('#myForm').submit(function (event) {
-
     var formData = {
       'Task': $('input[name=Task]').val(),
-      'Completed': $('input[name=Completed]').val(),
+      'Completed':  $( "#Completed input:checked" ).val()
     };
 
     var tok = window.localStorage.getItem('token');
