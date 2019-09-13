@@ -1,0 +1,55 @@
+<script>
+    function updateCheck() {
+        var idupdate = document.getElementById("idup");
+        $("#myFormEdit").attr("action", "/api/v1/clashRoyale/clash/" + idupdate.value);
+        var cr_obj_updated = new Object();
+        cr_obj_updated._id = idupdate.value;
+        cr_obj_updated.Trophies = document.getElementById("update_Trophies").value;
+        cr_obj_updated.Victory = document.getElementById("update_Victory").value;
+        cr_obj_updated.Defeat = document.getElementById("update_Defeat").value;
+
+        $.ajax({
+            type: 'PUT',
+            url: '/api/v1/clashRoyale/clash/' + idupdate.value,
+            data: cr_obj_updated,
+            success: function (data) {
+                alert(JSON.stringify(data));
+            }
+        });
+    }
+</script>
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Update Clash Royale Data</h2>
+
+        <form id="myFormEdit" name="myFormEdit" action="/api/v1/clashRoyale/clash/" method="PUT">
+
+            <div class="form-group">
+                <label for="idup">Enter id: </label>
+                <input id="idup" type="text" name="idup" class="form-control">
+            </div>
+
+            <div class="form-group">
+
+                <label for="update_Trophies">Enter Trophies: </label>
+                <input id="update_Trophies" type="Number" name="update_Trophies" value="Number of Trophies." class="form-control">
+            </div>
+            <div class="form-group">
+
+                <label for="update_Victory">Enter Victory: </label>
+                <input id="update_Victory" type="Number" name="update_Victory" class="form-control">
+            </div>
+
+            <div class="form-group">
+
+                <label for="update_Defeat">Enter Defeat: </label>
+                <input id="update_Defeat" type="Number" name="update_Defeat" class="form-control">
+            </div>
+            <button id="btnupdate" type="submit" onclick="updateCheck();" class="btn btn-primary">Update Data</button>
+
+        </form>
+
+    </div>
+</div>
