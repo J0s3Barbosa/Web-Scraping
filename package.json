@@ -12,7 +12,7 @@
     "dev": "nodemon ./index.js --exec babel-node -e js"
   },
   "dependencies": {
-    "async": "^2.6.2",
+    "async": "^2.6.4",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "botui": "^0.3.8",
